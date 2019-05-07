@@ -1,0 +1,226 @@
+@media (min-width: 992px){
+    .typo-line{
+        padding-left: 140px;
+        margin-bottom: 40px;
+        position: relative;
+    }
+
+    .typo-line .category{
+        transform: translateY(-50%);
+        top: 50%;
+        left: 0px;
+        position: absolute;
+    }
+}
+
+.all-icons [class*="pe-"]{
+    font-size: 40px;
+}
+.all-icons input{
+    border: 0;
+}
+.all-icons .font-icon-detail{
+    text-align: center;
+    padding: 45px 0px 30px;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    margin: 15px 0;
+}
+.all-icons .font-icon-detail input{
+    margin: 25px auto 0;
+    width: 100%;
+    text-align: center;
+    display: block;
+    color: #aaa;
+    font-size: 13px;
+}
+
+#map{
+    position:relative;
+    width:100%;
+    height: calc(100% - 60px);
+}
+
+.places-buttons .btn{
+    margin-bottom: 30px
+}
+.sidebar .nav > li.active-pro{
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+}
+.sidebar .nav > li.active-pro a{
+    background: rgba(255, 255, 255, 0.14);
+    opacity: 1;
+    color: #FFFFFF;
+}
+
+.table-upgrade td:nth-child(2),
+.table-upgrade td:nth-child(3){
+    text-align: center;
+}
+
+.modulos a.btn-primary , .encontros a.btn-primary{
+    display: none;
+}
+
+.btn-custom {
+    border-color: #3472F7;
+    color: #3472F7;
+    border-width: 2px;
+    line-height: 1.5;
+    padding: 10px 25px;
+}
+
+.encontros .acoes .btn-warning, .encontros .acoes .btn-danger{
+    display: none;
+}
+
+.form-horizontal .checkbox, .radio{
+    display: inline;
+}
+
+
+#holder{    
+     height:252px;   
+     width:215px;
+     background-color:#F5F5F5;
+     border:1px solid #A4A4A4;
+     margin-left:10px;  
+    }
+
+#holder2{    
+     height:192px;   
+     width:215px;
+     background-color:#F5F5F5;
+     border:1px solid #A4A4A4;
+     margin-left:10px;  
+    }
+#place, #place2 {
+    position:relative;
+    margin:7px;
+}
+#place a, #place2 a{
+    font-size:0.6em;
+    color:#fff;
+}
+#place li, #place2 li 
+{
+     list-style: none outside none;
+     position: absolute;   
+}    
+#place li:hover, #place2 li:hover
+{
+    background-color:yellow;      
+} 
+#place .seat, #place2 .seat{
+    
+    height:34px;
+    width:35px;
+    display:block;
+    text-align: center;
+}
+
+#place .col-0, #place .col-2, #place .col-4,#place .col-6,
+#place2 .col-0, #place2 .col-2, #place2 .col-4,#place2 .col-6
+{
+    background:url("../img/mesa_on_dir.png") no-repeat scroll 5px 0 transparent;
+    margin:0 -10px;
+    text-align: center;
+}
+
+#place .col-1, #place .col-3, #place .col-5,
+#place2 .col-1, #place2 .col-3, #place2 .col-5
+{
+    background:url("../img/mesa_on_esq.png") no-repeat scroll 0 0 transparent;
+    margin:0 -5px;
+    text-align: center;
+
+}
+
+
+#place .selectedSeat_col-0,#place .selectedSeat_col-2, #place .selectedSeat_col-4,#place .selectedSeat_col-6,
+#place2 .selectedSeat_col-0,#place2 .selectedSeat_col-2,#place2 .selectedSeat_col-4,#place2 .selectedSeat_col-6
+{
+    background:url("../img/mesa_off_dir.png") no-repeat scroll 0 0 transparent;
+     margin:0 -5px;
+    text-align: center;
+}
+
+
+#place .selectedSeat_col-1, #place .selectedSeat_col-3, #place .selectedSeat_col-5,
+#place2 .selectedSeat_col-1, #place2 .selectedSeat_col-3, #place2 .selectedSeat_col-5
+{
+    background:url("../img/mesa_off_esq.png") no-repeat scroll 0 0 transparent;
+    margin:0 -10px;
+    text-align: center;
+}
+
+
+#place .blue_0,#place .blue_2, #place .blue_4,#place .blue_6,
+#place2 .blue_0,#place2 .blue_2,#place2 .blue_4,#place2 .blue_6
+{ 
+   background-image:url("../img/mesa_on_dir_azul.png") !important;        
+}
+
+
+#place .blue_1, #place .blue_3, #place .blue_5,
+#place2 .blue_1, #place2 .blue_3, #place2 .blue_5
+
+{ 
+   background-image:url("../img/mesa_on_esq_azul.png")  !important;      
+}
+
+#place .blue_par,#place2 .blue_par
+{ 
+   background-image:url("../img/mesa_on_dir_azul.png") !important;          
+}
+
+#place .blue_impar,#place2 .blue_impar
+{ 
+   background-image:url("../img/mesa_on_esq_azul.png")  !important;         
+}
+
+
+
+#place .selectingSeat_par,#place2 .selectingSeat_par
+{ 
+   background-image:url("../img/mesa_off_dir.png");        
+}
+
+#place .selectingSeat_impar,#place2 .selectingSeat_impar
+{ 
+   background-image:url("../img/mesa_off_esq.png");        
+}
+
+/*#place2 .row-3, #place2 .row-4{
+    margin-top:-1px;
+}*/
+
+#place .row-3, #place .row-4
+{
+    margin-top:-1px;
+}
+#seatDescription{
+    padding:0px;
+}
+#seatDescription li{
+    verticle-align:middle;      
+    list-style: none outside none;
+    padding-left:35px;
+    height:35px;
+    float:left;
+}
+
+.checkbox label{
+    min-height: 56px;
+    font-weight: bold;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.alunos .acoes .delete,.alunos .acoes .btn-warning{
+    display: none;
+}
