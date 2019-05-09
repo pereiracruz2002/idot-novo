@@ -211,8 +211,18 @@ class Alunos extends BaseCrud {
         ->join('cursos','cursos.cursos_id=agendamento.curso_id');
         $this->db->order_by('agendamento.agenda_id', 'asc'); 
         $turmas = $this->agendamento->get_where(array('agendamento.status'=>'aberto'))->result();
+
+        $this->db->select('alunos.alunos_id');
+        $this->db->order_by('alunos.alunos_id', 'asc'); 
+        $aluno = $this->alunos->get_where(array('alunos.alunos_id > '=>'0'))->row();
+
+        $last_id = str_pad(((int)$aluno->alunos_id +1), 2, '0', STR_PAD_LEFT);
+
+
+        $ano = date('Y');
         
-       
+        $model->fields['matricula']['value'] = "SAO-{$ano}-{$last_id}";
+      
        
         
         foreach($turmas as $turma){

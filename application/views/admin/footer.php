@@ -46,7 +46,7 @@
         // });
 	$(document).ready(function () { 
             var $seuCampoCpf = $(".matricula");
-                $seuCampoCpf.mask('00/00/0000-0000', {reverse: false});
+                $seuCampoCpf.mask('AAA-0000-00', {reverse: false});
 
 	   var $seuCampoCep = $(".cep");
                 $seuCampoCep.mask('00000-000', {reverse: false});
