@@ -13,6 +13,8 @@
 	                    <th>Tipo Aula</th>
 	                    <th>Maca Sala 1</th>
 	                    <th>Maca Sala 2</th>
+	                    <th>Presente</th>
+	                    <th>&nbsp;</th>
 	                    <th>&nbsp;</th>
 	                   
 	                </tr>
@@ -28,6 +30,21 @@
 	                        <td><?= $row->tipo ?></td>
 	                        <td><?= $row->mesa ?></td>
 	                        <td><?= $row->mesa2 ?></td>
+	                        <td><?php if($row->presenca !='confirmado'){
+	                        	echo $row->presenca;
+	                        }?></td>
+	                        <?php if($row->presenca =='sim'){?>
+	                        <td class="acoes_alunos">
+								<a data-presenca="2" class="add_obs btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-eye"></i>Marcar Revisão</a>
+                            </td>
+                            <?php }elseif($row->presenca =='nao'){?>
+								
+								<a data-presenca="2" class="add_obs btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-eye"></i>Marcar Reposição</a>
+
+                            </td>
+                        <?php }else{?>
+							<td class="acoes_alunos"></td>
+                        <?php } ?>
 	                        <td class="acoes_alunos">
                             	<a class="btn btn-xs btn-info btn btn-warning" href="/index.php/admin/alunos/editar/<?= $row->aluno_id ?>" title="Editar este registro"><i class="fa fa-pencil"></i> Editar</a>
                     			<a class="btn btn-xs btn btn-danger delete" href="#" data-remove="/index.php/admin/alunos/deletar/<?= $row->aluno_id ?>" title="Deletar este registro"><i class="fa fa-times-circle"></i> Deletar</a>

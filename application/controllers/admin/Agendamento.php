@@ -442,7 +442,7 @@ class Agendamento extends BaseCrud
 
         $this->db->order_by('agendamento.agenda_id','ASC');
         $this->data['itens'] = $this->agendamento->get_where($where)->result();
-
+        
 
         // $this->db->select('presenca.*');
         // $meu_agendamento = $this->presenca->get_where(array('agenda_id'=>$this->data['itens']->agenda_id))->row();
