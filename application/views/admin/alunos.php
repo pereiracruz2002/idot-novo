@@ -35,11 +35,11 @@
 	                        }?></td>
 	                        <?php if($row->presenca =='sim'){?>
 	                        <td class="acoes_alunos">
-								<a data-presenca="2" class="add_obs btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-eye"></i>Marcar Revisão</a>
+								<a data-presenca="2" class="add_presenca btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModalAgendamento"><i class="fa fa-eye"></i>Marcar Revisão</a>
                             </td>
                             <?php }elseif($row->presenca =='nao'){?>
 								
-								<a data-presenca="2" class="add_obs btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-eye"></i>Marcar Reposição</a>
+								<a data-presenca="2" class="add_presenca btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModalAgendamento"><i class="fa fa-eye"></i>Marcar Reposição</a>
 
                             </td>
                         <?php }else{?>
@@ -76,6 +76,42 @@
 			  <input type="hidden" id="presenca_id" name="presenca_id" value="" />
 			</div>
 			<button id="send_obs" type="button" class="btn btn-primary btn-block">Enviar</button>
+        </form>
+      </div>
+     
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal Revisao ou reposicao -->
+<div id="myModalAgendamento" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Sistema IDOT</h4>
+      </div>
+      <div class="modal-body">
+        <p>Escolha uma turma</p>
+        <form id="form_agendamento" method="" action="<?php echo site_url(); ?>/admin/agendamento/add_novaAula">
+			<div class="form-group">
+			  <?php if(count($agendamentos > 0)):?>
+			  	<select class="form-control" name="turma">
+				<?php foreach($agendamentos as $agendamento):?>
+					<option value="<?php echo $agendamento->turma?>"><?php echo "Turma ". $agendamento->turma. " - " .$agendamento->curso." - ". $agendamento->modulo;?></option>
+				<?php endforeach;?>
+				</select>
+			   
+			  <input type="hidden" id="aluno" name="aluno_id" value="<?php echo $row->aluno_id;?>" />
+			  <input type="hidden" id="agenda_id" name="agenda_id" value="<?php echo $agendamento->agenda_id;?>" />
+			  <input type="hidden" id="curso_id" name="curso_id" value="<?php echo $agendamento->curso_id;?>" />
+			  <input type="hidden" id="modulo_id" name="modulo_id" value="<?php echo $agendamento->modulo_id;?>" />
+			   <?php endif; ?>
+			</div>
+			<button id="send_agendamento" type="button" class="btn btn-primary btn-block">Enviar</button>
         </form>
       </div>
      

@@ -422,4 +422,34 @@ $(function () {
        
        
     });
+
+    $('body').on('click','#send_agendamento',function(e){
+        e.preventDefault();
+       
+       
+        var url =$('#form_agendamento').attr('action');
+
+        var aluno_id = $('#aluno').val();
+        var agenda_id = $('#agenda_id').val();
+
+        $.ajax({
+                 url :url,
+                 type : 'post',
+                 
+                  data : {
+                        aluno_id: aluno_id,
+                        agenda_id: agenda_id,
+
+                  },
+                  
+            })
+             .done(function(msg){
+                alert(msg)
+                 location.reload();
+               
+             })
+             .fail(function(jqXHR, textStatus, msg){
+                  alert(msg);
+             }); 
+    });
 });

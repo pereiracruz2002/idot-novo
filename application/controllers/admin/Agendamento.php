@@ -824,4 +824,17 @@ class Agendamento extends BaseCrud
         echo $days_of_week[$data_semana];
     }
 
+    public function add_novaAula(){
+       $this->load->model('presenca_model','presenca');
+        $post = $this->input->posts();
+        $save_cursos = array('aluno_id' => $posts['aluno_id'], 'turma' => $posts['turmas_id'],'curso_id'=> $posts['curso_id'],'modulo_id'=>$posts['modulos_id'],'tipo'=>'normal','presente'=>'confirmado');
+
+        if($this->presenca->save($save_cursos)){
+
+            $this->output->set_output("Agendamento realizada com sucesso!");
+        }else{
+           $this->output->set_output("erro ao inserir um agendamento"); 
+        } 
+    }
+
 }
