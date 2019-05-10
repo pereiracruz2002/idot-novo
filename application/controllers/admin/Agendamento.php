@@ -826,8 +826,48 @@ class Agendamento extends BaseCrud
 
     public function add_novaAula(){
        $this->load->model('presenca_model','presenca');
+       $this->load->model('alunos_model','alunos');
+       $this->load->model('agendamento_model','agendamento');
+
         $post = $this->input->posts();
-        $save_cursos = array('aluno_id' => $posts['aluno_id'], 'turma' => $posts['turmas_id'],'curso_id'=> $posts['curso_id'],'modulo_id'=>$posts['modulos_id'],'tipo'=>'normal','presente'=>'confirmado');
+
+
+        $this->db->select('mesa, mesa2');
+        $where['alunos_id'] = $post['aluno_id'];
+        $posicao = $this->alunos->get_where($where)->row();
+
+
+        $this->db->select('sala_id');
+        $where_sala['agenda_id'] = $post['agenda_id'];
+        $sala = $this->agendamento->get_where($where_sala)->row();
+
+        $mesa = '';
+
+
+
+        if($sala->sala_id == 1){
+            $mesa = $posicao->mesa;
+        }elseif($sala->sala_id ==2){
+            $mesa = $posicao->mesa2;
+        }
+
+
+        $this->db->select('mesa');
+        $where_ocupado['agenda_id'] = $post['agenda_id'];
+        $where_ocupado['mesa'] = $mesa;
+        $ocupado = $this->presenca->get_where($where_ocupado)->row();
+        if(!is_null($ocupado)){
+            $mesa='';
+        }
+
+        if($post['tipo_aula']==1){
+            $tipo = 'revisao';
+        }else{
+            $tipo = 'reposicao';
+        }
+
+
+        $save_cursos = array('aluno_id' => $post['aluno_id'], 'agenda_id' => $post['agenda_id'],'tipo'=>$tipo,'mesa'=>$mesa, 'presente'=>'confirmado');
 
         if($this->presenca->save($save_cursos)){
 

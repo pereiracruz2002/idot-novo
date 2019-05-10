@@ -1,10 +1,10 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require_once('BaseCrud.php');
-class Alunos extends BaseCrud {
+class Alunos_participacao extends BaseCrud {
 
 
     var $modelname = 'alunos';
-    var $base_url = 'admin/alunos';
+    var $base_url = 'admin/alunos_participacao';
     var $actions = 'CRUD';
     var $titulo = 'Alunos';
     var $tabela = 'turmas_id,curso,professor,data,dias_semana';
@@ -631,7 +631,7 @@ class Alunos extends BaseCrud {
         }
         
 
-        $this->load->view('admin/alunos', $this->data);
+        $this->load->view('admin/participacao', $this->data);
     }
 
 }

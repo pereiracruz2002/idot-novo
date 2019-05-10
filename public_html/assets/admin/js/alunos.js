@@ -1,3 +1,44 @@
+$(document).ready(function () {
+    // $('body').on('submit','#send_agendamento',function(e){
+    //         e.preventDefault();
+    //         var url =$('#send_agendamento').attr('action');
+
+    //         console.log(url);
+
+    //         var aluno_id = $('#aluno').val();
+    //         var agenda_id = $('#agenda_id').val();
+    //         var tipo_aula = $('#tipo_aula').val();
+
+    //         $.ajax({
+    //                  url :url,
+    //                  type : 'post',
+                     
+    //                   data : {
+    //                         aluno_id: aluno_id,
+    //                         agenda_id: agenda_id,
+    //                         tipo_aula:tipo_aula
+
+    //                   },
+                      
+    //             })
+    //              .done(function(msg){
+    //                 alert(msg)
+    //                  location.reload();
+                   
+    //              })
+    //              .fail(function(jqXHR, textStatus, msg){
+    //                   alert(msg);
+    //              }); 
+    // });
+
+
+    // $('body').on('click','.add_presenca',function(e){
+    //     var tipo_aula = $(this).attr('data-presenca');
+    //     $('#tipo_aula').val(tipo_aula);
+    // });
+
+});
+
 
 $(function () {
     var settings = {
@@ -106,7 +147,7 @@ $(function () {
     //Case II: If already booked
 
     //var bookedSeats = [1,2,3,4,5,6,7,8,9];
-    console.log(bookedSeats)
+   
     init(bookedSeats2);
     init2(bookedSeats);
 
@@ -422,4 +463,7 @@ $(function () {
        
        
     });
+
+    
+
 });

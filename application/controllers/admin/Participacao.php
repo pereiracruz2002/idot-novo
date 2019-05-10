@@ -1,35 +1,27 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require_once('BaseCrud.php');
-class Alunos extends BaseCrud {
+class Participacao extends BaseCrud {
 
 
-    var $modelname = 'alunos';
-    var $base_url = 'admin/alunos';
-    var $actions = 'CRUD';
-    var $titulo = 'Alunos';
-    var $tabela = 'turmas_id,curso,professor,data,dias_semana';
-    var $campos_busca = 'turmas_id';
-    var $upload_foto = "";
-    var $group = array('agendamento.turma'=>'agendamento.turma');
-
-    var $joins = array('aluno_cursos' => array('aluno_cursos.aluno_id=alunos.alunos_id','left'),
-         'cursos'=> array('cursos.cursos_id=aluno_cursos.curso_id','left'),
-         'presenca'=> array('presenca.aluno_id=alunos.alunos_id','left'),
-         'agendamento'=> array('agendamento.agenda_id=presenca.agenda_id','left'),
+    var $modelname = 'agendamento';
+    var $base_url = 'admin/participacao';
+    var $actions = 'R';
+    var $titulo = 'Participação dos Alunos';
+     var $tabela = 'turma,curso,professor';
+    var $campos_busca = 'turma';
+    var $order = array('agenda_id'=>"DESC");
+    var $joins = array(
+         'cursos' => 'cursos.cursos_id=agendamento.curso_id',
          'modulos'=> 'modulos.modulos_id=agendamento.modulo_id',
          'professor'=>'professor.id_professor=agendamento.professor_id'
     );
-    var $selects = 'agendamento.*,alunos.nome,alunos.alunos_id,alunos.turmas_id,cursos.titulo as curso, presenca.mesa,professor.nome as professor, CONCAT(modulos.titulo," - ",modulos.descricao) as modulo';
-    //var $acoes_extras = array(array("url" => "admin/aluno_cursos/novo", "title" => "Relacionar com Cursos", "class" => "btn-info"),
-        //array("url" => "admin/aluno_cursos/index", "title" => "Ver Cursos Relacionados", "class" => "btn-info"),
-    //);
-    var $acoes_extras = array(array('url'=>'admin/alunos/ver_alunos','title'=>'Ver Alunos','class'=>'btn btn-xs btn-info btn btn-default'));
+    var $selects = 'agendamento.*,cursos.titulo as curso,professor.nome as professor, CONCAT(modulos.titulo," - ",modulos.descricao) as modulo';
+    var $group = array('agendamento.turma');
+    var $acoes_extras = array(array('url'=>'admin/alunos_participacao/ver_alunos','title'=>'Ver Alunos','class'=>'btn btn-xs btn-info btn btn-default'));
 
     var $turmas_id;
     var $mesa;
-    var $mesa2;
     var $minha_mesa;
-    var $minha_mesa2;
     var $sala;
 
   public function __construct() 
@@ -44,7 +36,7 @@ class Alunos extends BaseCrud {
 
 
 
-         /*if($this->uri->segment(3) == 'editar'){
+         if($this->uri->segment(3) == 'editar'){
             if($this->sala=='2'){
 
                  $html = '<div   id="sala2">
@@ -96,25 +88,9 @@ class Alunos extends BaseCrud {
                             </div></div>';
             }
 
-        }else{*/
-	    $html = "<div class='row'>";
+        }else{
 
-	    $html.= '<div class="row">
-				<div class="col-md-6" id="sala1">
-					<div class="row">
-						<div class="col-md-2" style="text-align:right;"><b>Vagas Sala 1</b></div>
-						<div class="col-md-10" style="margin-bottom:10px;" id="form1" runat="server">
-						   <div id="holder2"> 
-							<ul  id="place2">
-							</ul>    
-						    </div>
-                    					<div style="width:600px;text-align:center;overflow:auto"> 
-
-                    </div></div></div>';
-	   $html.= "</div>";
-
-
-            $html.= '<div class="col-md-6"  id="sala2"><div class="row">
+            $html = '<div style="display:none;" id="sala2">
             <div class="col-md-2" style="text-align:right;">
                 <b>Vagas Sala 2</b></div>
             <div class="col-md-10" style="margin-bottom:10px;" id="form1" runat="server">
@@ -125,17 +101,23 @@ class Alunos extends BaseCrud {
                     <div style="width:600px;text-align:center;overflow:auto"> 
 
                     </div>
-            </div></div></div>';
+            </div></div>';
 
        
       
-             
-        //}
+             $html.= '<div id="sala1"><div class="col-md-2" style="text-align:right;"><b>Vagas Sala 1</b></div><div class="col-md-10" style="margin-bottom:10px;" id="form1" runat="server">
+                   <div id="holder2"> 
+                        <ul  id="place2">
+                        </ul>    
+                    </div>
+                    <div style="width:600px;text-align:center;overflow:auto"> 
+
+                    </div></div>';
+        }
          
                    
            
             $html.='<input type="hidden" id="mesa" name="mesa" value="'.$this->minha_mesa.'"/>
-                </div><input type="hidden" id="mesa2" name="mesa2" value="'.$this->minha_mesa2.'"/>
                 </div>';
         
 
@@ -204,32 +186,13 @@ class Alunos extends BaseCrud {
 
         $this->load->model('presenca_model','presenca');
         $this->load->model('agendamento_model','agendamento');
-        $this->load->model('alunos_model','alunos');
         $model->fields['turmas_id']['values'][0] = "--Selecione--";
 
-        $this->db->select('agendamento.*,cursos.titulo')
-        ->join('cursos','cursos.cursos_id=agendamento.curso_id');
-        $this->db->order_by('agendamento.agenda_id', 'asc'); 
-        $turmas = $this->agendamento->get_where(array('agendamento.status'=>'aberto'))->result();
-
-        $this->db->select('alunos.alunos_id');
-        $this->db->order_by('alunos.alunos_id', 'asc'); 
-        $aluno = $this->alunos->get_where(array('alunos.alunos_id > '=>'0'))->row();
-
-        $last_id = str_pad(((int)$aluno->alunos_id +1), 2, '0', STR_PAD_LEFT);
-
-
-        $ano = date('Y');
         
-        $model->fields['matricula']['value'] = "SAO-{$ano}-{$last_id}";
-      
        
-        
-        foreach($turmas as $turma){
-            $model->fields['turmas_id']['values'][$turma->turma] = $turma->turma." - ". $turma->titulo;
-        }
-
-         
+        // for ($i=1; $i <=50; $i++) {
+        //     $model->fields['turmas_id']['values'][$i] = $i;
+        // }
        
        
 
@@ -250,19 +213,13 @@ class Alunos extends BaseCrud {
 
             if(count($my_agendamento) > 0){
 
-                
-
-                $this->minha_mesa =  $data[0]['values']['mesa'];
-                $this->minha_mesa2 = $data[0]['values']['mesa2'];
+                $this->minha_mesa =  $my_agendamento->mesa;
       
 
-                $this->db->select('alunos.mesa, alunos.mesa2');
+                $this->db->select('presenca.mesa');
 
               
-                //$mesas_ocupadas[$my_agendamento->agenda_id] = $this->presenca->get_where(array('agenda_id'=>$my_agendamento->agenda_id))->result();
-
-                $mesas_ocupadas[$my_agendamento->agenda_id] = $this->alunos->get_where(array('turmas_id'=>$data[0]['values']['turmas_id']))->result();
-
+                $mesas_ocupadas[$my_agendamento->agenda_id] = $this->presenca->get_where(array('agenda_id'=>$my_agendamento->agenda_id))->result();
                 if(isset($data[0]['values']['alunos_id'])){
                     $minha_mesa = $this->presenca->get_where(array('agenda_id'=>$my_agendamento->agenda_id,'aluno_id' => $data[0]['values']['alunos_id']))->row();
                     $minha_turma = $this->agendamento->get_where(array('agenda_id'=>$my_agendamento->agenda_id))->row();
@@ -275,42 +232,30 @@ class Alunos extends BaseCrud {
 
                 if(count($mesas_ocupadas >0)){
                     $mesas = '';
-                    $mesas2 = '';
                     foreach ($mesas_ocupadas as $key => $value) {
                         foreach ($value as $chave => $valor) {
                             if(!is_null($value[$chave]->mesa)){
                                 $mesas.= $value[$chave]->mesa.",";
-                            }
-
-                            if(!is_null($value[$chave]->mesa2)){
-                                $mesas2.= $value[$chave]->mesa2.",";
                             }
                         }
                     }
 
                     echo "<script type='text/javascript'>";
                     echo "var bookedSeats =[". substr($mesas, 0, -1). "];\n";
-                    echo "var bookedSeats2 =[". substr($mesas2, 0, -1). "];\n";
                     echo "</script>";
                 }else{
                     echo "<script type='text/javascript'>";
                     echo "var bookedSeats =[];\n";
-                    echo "var bookedSeats2 =[];\n";
                     echo "</script>";
                 }
             }else{
                 echo "<script type='text/javascript'>";
                 echo "var bookedSeats =[];\n";
-                echo "var bookedSeats2 =[];\n";
                 echo "</script>";
             }
         }else{
-
-            
-            
             echo "<script type='text/javascript'>";
             echo "var bookedSeats =[];\n";
-            echo "var bookedSeats2 =[];\n";
             echo "</script>";
         }
 
@@ -323,17 +268,9 @@ class Alunos extends BaseCrud {
      public function _filter_pre_save(&$data) 
     {
 
-   
 
       $this->turmas_id = $data['turmas_id'];
       $this->mesa = $this->input->post('mesa');
-      $this->mesa2 = $this->input->post('mesa2');
-
-        $data['mesa'] = $this->mesa;
-        $data['mesa2'] = $this->mesa2;
-
-;
-
       $data['turmas_id'];
 
 
@@ -475,12 +412,7 @@ class Alunos extends BaseCrud {
             foreach($resultados_agendamento as $agendamento){
                 $dados['aluno_id'] = $id;
                 $dados['agenda_id'] = $agendamento->agenda_id;
-                 if($agendamento->sala_id ==1){
-                    $dados['mesa'] = $this->mesa;
-                }else{
-                    $dados['mesa'] = $this->mesa2;
-                }
-
+                $dados['mesa'] = $this->mesa;
                 $this->db->insert('presenca',$dados);
             }
             $msg = "Há uma nova aula agendada para você no dia ".formata_data($resultados_agendamento[0]->data);
@@ -492,8 +424,6 @@ class Alunos extends BaseCrud {
             $this->db->select('turma');
             $checa_turma = $this->alunos_cursos->get_where(array('aluno_id'=>$id))->row();
             if($checa_turma->turma != $data['turmas_id'] ){
-
-
                 $this->db->delete('aluno_cursos', array('aluno_id' => $id));
                 $this->db->delete('presenca', array('aluno_id' => $id));
                  $where['agendamento.turma'] = $this->turmas_id;
@@ -516,37 +446,13 @@ class Alunos extends BaseCrud {
                     foreach($resultados_agendamento as $agendamento){
                         $dados['aluno_id'] = $id;
                         $dados['agenda_id'] = $agendamento->agenda_id;
-
-
-
-                        if($agendamento->sala_id ==1){
-                            $dados['mesa'] = $this->mesa;
-                        }else{
-                            $dados['mesa2'] = $this->mesa2;
-                        }
-
-                        
+                        $dados['mesa'] = $this->mesa;
                         $this->db->insert('presenca',$dados);
                     }
             }else{
-                $where['agendamento.turma'] = $this->turmas_id;
-                $resultados_agendamento = $this->agenda->get_where($where)->result();
-
-                foreach($resultados_agendamento as $agendamento){
-                   
-              
-                     if($agendamento->sala_id ==1){
-                         $this->db->where(array('aluno_id' =>$id,'agenda_id'=>$agendamento->agenda_id));
-                         $this->db->set('mesa', $this->mesa);
-                         $this->db->update('presenca');
-
-                    }else{
-                       $this->db->where(array('aluno_id' =>$id,'agenda_id'=>$agendamento->agenda_id));
-                        $this->db->set('mesa', $this->mesa2);
-                        $this->db->update('presenca');
-                    }
-                }
-
+                $this->db->where('aluno_id', $id);
+                $this->db->set('mesa', $this->mesa);
+                $this->db->update('presenca');
             }
            
        
@@ -555,7 +461,8 @@ class Alunos extends BaseCrud {
         }
 
        
-       redirect('admin/aluno_gerenciar');
+
+        redirect('admin/alunos');
 
   }
 
@@ -601,12 +508,12 @@ class Alunos extends BaseCrud {
                 $this->db->insert_batch('aluno_cursos', $save_cursos);
             }
         }
-        redirect('admin/aluno');
+        redirect('admin/alunos');
     }
 
     public function ver_alunos($agenda_id){
         $this->load->model('agendamento_model','agendamento');
-        $this->db->select('agendamento.agenda_id,agendamento.data,agendamento.turma,agendamento.modulo_id,alunos.mesa,alunos.mesa2,cursos.titulo as curso,modulos.titulo as modulo,alunos.nome,alunos.alunos_id as aluno_id,presenca.presente as presenca, presenca.tipo as tipo, presenca.presenca_id')
+        $this->db->select('agendamento.agenda_id,agendamento.data,presenca.mesa,cursos.titulo as curso,modulos.titulo as modulo,alunos.nome,alunos.alunos_id as aluno_id,presenca.presente as presenca, presenca.tipo as tipo, presenca.presenca_id')
         ->join('presenca','presenca.agenda_id=agendamento.agenda_id')
         ->join('alunos','alunos.alunos_id=presenca.aluno_id')
         ->join('cursos','cursos.cursos_id=agendamento.curso_id')
@@ -614,23 +521,6 @@ class Alunos extends BaseCrud {
         ->join('professor','professor.id_professor=agendamento.professor_id');
         $where['agendamento.agenda_id'] = $agenda_id;
         $this->data['itens'] = $this->agendamento->get_where($where)->result();
-
-
-        if(count($this->data['itens'])>0){
-
-            $this->db->select('agendamento.*,cursos.titulo as curso,modulos.titulo as modulo')
-                    ->join('cursos','cursos.cursos_id=agendamento.curso_id')
-                    ->join('modulos','modulos.modulos_id=agendamento.modulo_id');
-            $where_agendamento['agendamento.modulo_id'] = $this->data['itens'][0]->modulo_id;
-            $where_agendamento['agendamento.data !='] ='0000-00-00';
-            $where_agendamento['agendamento.turma !='] = $this->data['itens'][0]->turma;
-            $where_agendamento['agendamento.status'] = 'aberto';
-            $this->data['agendamentos'] = $this->agendamento->get_where($where_agendamento)->result();
-        }else{
-            $this->data['agendamentos'] = array();
-        }
-        
-
         $this->load->view('admin/alunos', $this->data);
     }
 

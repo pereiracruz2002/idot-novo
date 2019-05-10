@@ -92,6 +92,13 @@
                     <p>Cadastrar Alunos</p>
                 </a>
             </li>
+            <li>
+                <a href="<?php echo site_url('admin/participacao') ?>">
+                    <i class="pe-7s-user"></i>
+                    <p>Presenças/Ausências</p>
+                </a>
+            </li>
+
             <!--<li>
                <!--  <a href="<?php echo site_url('admin/cursos') ?>">
                     <i class="pe-7s-note2"></i>
