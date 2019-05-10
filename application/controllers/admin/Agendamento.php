@@ -52,8 +52,8 @@ class Agendamento extends BaseCrud
 
             $this->actions = 'R';
             $this->acoes_extras = array(
-                    array('url'=>'admin/agendamento/ver_inscritos','title'=>'Gerenciar Alunos','class'=>'btn btn-xs btn-info btn btn-warning'),
-                    array('url'=>'admin/agendamento/mudar_status','title'=>'Fechar Aula','class'=>'btn btn-xs btn-info btn btn-warning'));
+                    array('url'=>'admin/agendamento/ver_inscritos','title'=>'Gerenciar Alunos','class'=>'btn btn-xs btn-info btn btn-warning'));
+                    // array('url'=>'admin/agendamento/mudar_status','title'=>'Fechar Aula','class'=>'btn btn-xs btn-info btn btn-warning'));
 
         }elseif($this->session->userdata('admin')->tipo=="aluno"){
             $this->actions = 'R';
@@ -178,7 +178,7 @@ class Agendamento extends BaseCrud
 
 
 
-        $this->db->select('agendamento.agenda_id,agendamento.data,cursos.titulo as curso,modulos.titulo as modulo,alunos.nome,alunos.alunos_id as aluno_id,presenca.presente as presenca, presenca.tipo as tipo, presenca.presenca_id')
+        $this->db->select('agendamento.agenda_id,agendamento.data,cursos.titulo as curso,modulos.titulo as modulo,alunos.nome,alunos.alunos_id as aluno_id,presenca.presente as presenca, presenca.tipo as tipo, presenca.presenca_id, presenca.nota')
         ->join('presenca','presenca.agenda_id=agendamento.agenda_id')
         ->join('alunos','alunos.alunos_id=presenca.aluno_id')
         ->join('cursos','cursos.cursos_id=agendamento.curso_id')
@@ -231,6 +231,25 @@ class Agendamento extends BaseCrud
         }
              
     }
+
+
+    public function add_nota(){
+        $this->load->model('presenca_model','presenca');
+        $post = $this->input->posts();
+        $where['presenca_id'] = $post['presenca_id'];
+
+        $this->db->set('nota', $post['nota']);
+        $this->db->where($where);
+        if($this->db->update('presenca')){
+
+            $this->output->set_output("Nota inserida com sucesso!");
+        }else{
+           $this->output->set_output("erro ao inserir uma nota"); 
+        }
+             
+    }
+
+
 
     public function ver_minha_agenda($agenda_id){
 

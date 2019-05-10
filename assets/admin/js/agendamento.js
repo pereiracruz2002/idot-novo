@@ -1,4 +1,38 @@
+$(document).ready(function () {
+  $('body').on('submit','#form_nota',function(e){
+          e.preventDefault();
+          var url =$('#form_nota').attr('action');
 
+          var nota = $('#nota').val();
+          var presenca_id = $('#presenca_id').val();
+
+          $.ajax({
+                   url :url,
+                   type : 'post',
+                   
+                    data : {
+                          nota: nota,
+                          presenca_id: presenca_id,
+                    },
+                    
+              })
+               .done(function(msg){
+                  alert(msg)
+                   location.reload();
+                 
+               })
+               .fail(function(jqXHR, textStatus, msg){
+                    alert(msg);
+               }); 
+  });
+
+
+  $('body').on('click','.add_nota_aluno',function(e){
+      var presenca_id = $(this).attr('data-presenca');
+      $('#presenca_id').val(presenca_id);
+  });
+
+});
 $(function () {
     var settings = {
         rows: 7,
