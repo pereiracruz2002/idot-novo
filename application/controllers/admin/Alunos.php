@@ -646,10 +646,10 @@ class Alunos extends BaseCrud {
 
 
         if($this->input->posts()){
-
-            if($senha_bd->senha != md5($this->input->post('senha')){
+            $nova_senha = $this->input->post('senha');
+            if($senha_bd->senha != md5($this->input->post('senha'))){
                 $update = array(
-                    'senha' => md5($this->input->post('senha'))
+                    'senha' => md5($nova_senha),
                 );
                 $this->db->where('alunos_id',$this->session->userdata('admin')->alunos_id);
                 $this->db->update('alunos', $update);
