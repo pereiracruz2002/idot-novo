@@ -142,6 +142,12 @@
                     <p>Meus Agendamentos</p>
                 </a>
             </li>
+            <li>
+                <a href="<?php echo site_url('admin/alunos/editar_dados') ?>">
+                    <i class="pe-7s-user"></i>
+                    <p>Editar Dados</p>
+                </a>
+            </li>
             <?php endif;?>
         </ul>
     </div>

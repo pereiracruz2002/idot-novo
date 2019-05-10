@@ -67,6 +67,7 @@ class Alunos_model extends My_Model{
             'label_class' => 'col-md-2',
             'prepend' => '<div class="col-md-3">',
             'append' => '</div>',
+            'value'=>'',
             'extra' => array('required'=>'required')
         ),
 

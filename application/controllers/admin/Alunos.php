@@ -634,4 +634,30 @@ class Alunos extends BaseCrud {
         $this->load->view('admin/alunos', $this->data);
     }
 
+
+    public function editar_dados(){
+        $this->load->model('alunos_model','alunos');
+
+        $this->db->select('alunos.senha');
+        $senha_bd = $this->alunos->get_where(array('alunos_id'=>$this->session->userdata('admin')->alunos_id))->row();
+
+        $this->alunos->fields['senha']['value'] = $senha_bd->senha;
+
+
+
+        if($this->input->posts()){
+
+            if($senha_bd->senha != md5($this->input->post('senha')){
+                $update = array(
+                    'senha' => md5($this->input->post('senha'))
+                );
+                $this->db->where('alunos_id',$this->session->userdata('admin')->alunos_id);
+                $this->db->update('alunos', $update);
+            }
+        }
+
+        $this->data['form'] = $this->alunos->form('senha');
+        $this->load->view('admin/alunos_editar', $this->data);
+    }
+
 }
