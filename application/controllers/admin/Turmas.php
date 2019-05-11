@@ -87,7 +87,7 @@ class Turmas extends BaseCrud
 
         $this->db->select('*')
                  ->join('modulos','modulos.curso_id = cursos.cursos_id');
-        $where['cursos.cursos_id >='] = $data['curso_id'];
+        $where['cursos.cursos_id ='] = $data['curso_id'];
 
         $resultados = $this->cursos->get_where($where)->result();
 

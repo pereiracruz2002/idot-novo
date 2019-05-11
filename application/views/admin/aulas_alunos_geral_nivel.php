@@ -86,7 +86,7 @@
                                                 } */
                                             ?></td>
                                             <td><?= $row->sala_id ?></td>
-                                             <td> <a class="btn btn-xs btn-info btn btn-info" href="<?php echo site_url(); ?>/admin/agendamento/ver_minha_agenda_geral/<?php echo $row->curso_id ?>" title="Visulizar este registro"  class="btn btn-mini btn-primary"><i class="fa fa-eye"></i>Ver Módulos</a></td>
+                                             <td> <a class="btn btn-xs btn-info btn btn-info" href="<?php echo site_url(); ?>/admin/agendamento/ver_minha_agenda_geral/<?php echo $row->curso_id ?>/<?php echo $row->turma ?>" title="Visulizar este registro"  class="btn btn-mini btn-primary"><i class="fa fa-eye"></i>Ver Módulos</a></td>
                                         </tr>
                                     <?php endforeach;?>
                                     <?php endif;?>

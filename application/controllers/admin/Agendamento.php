@@ -379,7 +379,7 @@ class Agendamento extends BaseCrud
             //$where_alunos['presenca.tipo IN'] = array('normal');
             $where_alunos['alunos.alunos_id'] = $this->session->userdata('admin')->alunos_id;
 
-            $this->db->where_in("presenca.tipo", array('normal','confirmar'));
+            $this->db->where_in("presenca.tipo", array('normal','confirmar','reposicao','revisao'));
             $resultados = $this->agendamento->get_where($where_alunos)->row(); 
 
 
@@ -431,7 +431,8 @@ class Agendamento extends BaseCrud
         ->join('cursos','cursos.cursos_id=agendamento.curso_id')
         ->join('modulos','modulos.modulos_id=agendamento.modulo_id');
 
-        $this->db->group_by('agendamento.curso_id');
+         //$this->db->group_by('agendamento.curso_id');
+         $this->db->group_by('agendamento.turma');
          $where['alunos.alunos_id'] = $this->session->userdata('admin')->alunos_id;
          
 
@@ -442,7 +443,7 @@ class Agendamento extends BaseCrud
     }
 
 
-    public function ver_minha_agenda_geral($curso_id){
+    public function ver_minha_agenda_geral($curso_id, $turma){
 
         $this->load->model('agendamento_model','agendamento');
         $this->load->model('presenca_model','presenca');
@@ -457,6 +458,7 @@ class Agendamento extends BaseCrud
 
          $where['alunos.alunos_id'] = $this->session->userdata('admin')->alunos_id;
          $where['agendamento.curso_id'] = $curso_id;
+         $where['agendamento.turma'] = $turma;
          
 
         $this->db->order_by('agendamento.agenda_id','ASC');

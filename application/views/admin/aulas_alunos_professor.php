@@ -28,7 +28,7 @@
 	                        <td><?= $row->tipo ?></td>
 	                        <td><?php 
 
-		                        if(is_null($row->nota)){?>
+		                        if(is_null($row->nota) || empty($row->nota)){?>
 		                             <a  data-presenca="<?php echo $row->presenca_id ?>"  class="add_nota_aluno btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModalNota"><i class="fa fa-eye"></i>Adicionar Nota</a>
 		                        <?php }else{
 		                           echo $row->nota;

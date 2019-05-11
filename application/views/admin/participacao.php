@@ -36,7 +36,7 @@
 								<a data-presenca="1" class="add_presenca btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModalAgendamento"><i class="fa fa-eye"></i>Marcar Revisão</a>
                             </td>
                             <?php }elseif($row->presenca =='nao'){?>
-								
+							 <td class="acoes_alunos">	
 								<a data-presenca="2" class="add_presenca btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModalAgendamento"><i class="fa fa-eye"></i>Marcar Reposição</a>
 
                             </td>
