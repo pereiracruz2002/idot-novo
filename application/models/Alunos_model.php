@@ -40,7 +40,7 @@ class Alunos_model extends My_Model{
 			),
 		   'matricula' => array(
 	            'type' => 'text',
-	            'label' => 'Matrícula <br />(dd/mm/aaaa-0000)',
+	            'label' => 'Matrícula <br />(SAO-dd/mm/aaaa-0000)',
 	            'class' => '',
 	            'rules' => '',
 	            'label_class' => 'col-md-2',

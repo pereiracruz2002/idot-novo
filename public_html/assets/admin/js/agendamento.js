@@ -1,4 +1,46 @@
 $(document).ready(function () {
+
+  $('body').on('submit','#send_agendamento',function(e){
+            e.preventDefault();
+            var url =$('#send_agendamento').attr('action');
+
+            console.log(url);
+
+            var aluno_id = $('#aluno').val();
+            var agenda_id = $('#agenda_id').val();
+            var tipo_aula = $('#tipo_aula').val();
+
+            $.ajax({
+                     url :url,
+                     type : 'post',
+                     
+                      data : {
+                            aluno_id: aluno_id,
+                            agenda_id: agenda_id,
+                            tipo_aula:tipo_aula
+
+                      },
+                      
+                })
+                 .done(function(msg){
+                    alert(msg)
+                    window.location.hef=base_url+'agendamento/ver_minha_presenca_ausencia'
+                     //location.reload();
+                   
+                 })
+                 .fail(function(jqXHR, textStatus, msg){
+                      alert(msg);
+                 }); 
+    });
+
+
+    $('body').on('click','.add_presenca',function(e){
+        var tipo_aula = $(this).attr('data-presenca');
+        $('#tipo_aula').val(tipo_aula);
+    });
+
+
+
   $('body').on('submit','#form_nota',function(e){
       e.preventDefault();
       var url =$('#form_nota').attr('action');

@@ -148,6 +148,12 @@
                     <p>Editar Dados</p>
                 </a>
             </li>
+            <li>
+                <a href="<?php echo site_url('admin/agendamento/ver_minha_presenca_ausencia') ?>">
+                    <i class="pe-7s-user"></i>
+                    <p>Presenças/Ausências</p>
+                </a>
+            </li>
             <?php endif;?>
         </ul>
     </div>

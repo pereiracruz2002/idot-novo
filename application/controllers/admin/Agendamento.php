@@ -419,6 +419,72 @@ class Agendamento extends BaseCrud
         $this->load->view('admin/aulas_alunos', $this->data);
     }
 
+    public function ver_minha_presenca_ausencia(){
+
+        $this->load->model('agendamento_model','agendamento');
+        $this->load->model('presenca_model','presenca');
+        
+
+        $this->db->select('agendamento.agenda_id,agendamento.sala_id,agendamento.turma,agendamento.data,agendamento.data_segunda,agendamento.data_terceira,agendamento.sala_id, agendamento.dias_semana,cursos.titulo as curso,cursos.cursos_id,CONCAT(modulos.titulo," - ",modulos.descricao) as modulo,modulos.modulos_id,alunos.nome,alunos.alunos_id as aluno_id,alunos.status,presenca.presente as presenca, presenca.presenca_id,presenca.tipo, presenca.mesa, agendamento.curso_id')
+        ->join('presenca','presenca.agenda_id=agendamento.agenda_id')
+        ->join('alunos','alunos.alunos_id=presenca.aluno_id')
+        ->join('cursos','cursos.cursos_id=agendamento.curso_id')
+        ->join('modulos','modulos.modulos_id=agendamento.modulo_id');
+
+         //$this->db->group_by('agendamento.curso_id');
+         //$this->db->group_by('agendamento.turma');
+         $where['alunos.alunos_id'] = $this->session->userdata('admin')->alunos_id;
+         
+
+        $this->db->order_by('agendamento.agenda_id','ASC');
+        $this->data['itens'] = $this->agendamento->get_where($where)->result();
+       
+        $this->load->view('admin/aulas_alunos_reposicao_revisao', $this->data);
+    }
+
+    public function ver_minha_agenda_geral_reposicao_revisao($curso_id, $turma, $modulo_id){
+
+        $this->load->model('agendamento_model','agendamento');
+        $this->load->model('presenca_model','presenca');
+        
+
+        $this->db->select('agendamento.agenda_id,agendamento.sala_id,agendamento.turma,agendamento.data,agendamento.data_segunda,agendamento.data_terceira,agendamento.sala_id, agendamento.dias_semana,cursos.titulo as curso,cursos.cursos_id,CONCAT(modulos.titulo," - ",modulos.descricao) as modulo,modulos.modulos_id,alunos.nome,alunos.alunos_id as aluno_id,alunos.status,presenca.presente as presenca, presenca.presenca_id,presenca.tipo, presenca.mesa')
+        ->join('presenca','presenca.agenda_id=agendamento.agenda_id')
+        ->join('alunos','alunos.alunos_id=presenca.aluno_id')
+        ->join('cursos','cursos.cursos_id=agendamento.curso_id')
+        ->join('modulos','modulos.modulos_id=agendamento.modulo_id');
+
+
+         $where['alunos.alunos_id'] = $this->session->userdata('admin')->alunos_id;
+         $where['agendamento.curso_id'] = $curso_id;
+         $where['agendamento.turma'] = $turma;
+         $where['agendamento.modulo_id'] = $modulo_id;
+         
+
+        $this->db->order_by('agendamento.agenda_id','ASC');
+        $this->data['itens'] = $this->agendamento->get_where($where)->result();
+
+
+        if(count($this->data['itens'])>0){
+
+            $this->db->select('agendamento.*,cursos.titulo as curso,modulos.titulo as modulo')
+                    ->join('cursos','cursos.cursos_id=agendamento.curso_id')
+                    ->join('modulos','modulos.modulos_id=agendamento.modulo_id');
+            $where_agendamento['agendamento.modulo_id'] = $this->data['itens'][0]->modulos_id;
+            $where_agendamento['agendamento.data >'] ='0000-00-00';
+            $where_agendamento['agendamento.turma !='] = $this->data['itens'][0]->turma;
+            $where_agendamento['agendamento.status'] = 'aberto';
+            $this->data['agendamentos'] = $this->agendamento->get_where($where_agendamento)->result();
+        }else{
+            $this->data['agendamentos'] = array();
+        }
+    
+        
+       
+        $this->load->view('admin/aulas_alunos_geral_revisao_reposicao', $this->data);
+    }
+
+
     public function ver_minha_agenda_geral_nivel(){
 
         $this->load->model('agendamento_model','agendamento');
@@ -432,7 +498,7 @@ class Agendamento extends BaseCrud
         ->join('modulos','modulos.modulos_id=agendamento.modulo_id');
 
          //$this->db->group_by('agendamento.curso_id');
-         $this->db->group_by('agendamento.turma');
+         //$this->db->group_by('agendamento.turma');
          $where['alunos.alunos_id'] = $this->session->userdata('admin')->alunos_id;
          
 
