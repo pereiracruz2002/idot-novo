@@ -613,6 +613,7 @@ class Alunos_participacao extends BaseCrud {
         ->join('modulos','modulos.modulos_id=agendamento.modulo_id')
         ->join('professor','professor.id_professor=agendamento.professor_id');
         $where['agendamento.agenda_id'] = $agenda_id;
+        $where['presenca.data_dia!='] = '';
         $this->data['itens'] = $this->agendamento->get_where($where)->result();
 
 

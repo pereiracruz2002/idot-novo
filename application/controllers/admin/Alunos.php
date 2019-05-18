@@ -478,16 +478,55 @@ class Alunos extends BaseCrud {
 
             $resultados_agendamento = $this->agenda->get_where($where)->result();
 
-            foreach($resultados_agendamento as $agendamento){
-                $dados['aluno_id'] = $id;
-                $dados['agenda_id'] = $agendamento->agenda_id;
-                 if($agendamento->sala_id ==1){
-                    $dados['mesa'] = $this->mesa;
-                }else{
-                    $dados['mesa'] = $this->mesa2;
-                }
+            // var_dump($resultados_agendamento);
+            // exit();
+            $dias = 0;
+            
 
-                $this->db->insert('presenca',$dados);
+            foreach($resultados_agendamento as $agendamento){
+
+                // if($saber_dias->data != '0000-00-00'){
+                //     $dias++;
+                // }
+
+                // if($saber_dias->data_segunda != '0000-00-00'){
+                //     $dias++;
+                // }
+
+                // if($saber_dias->data_terceira != '0000-00-00'){
+                //     $dias++;
+                // }
+
+                $data_0 = $agendamento->data;
+                $data_1 = $agendamento->data_segunda;
+                $data_2 = $agendamento->data_terceira;
+
+
+
+               for ($i = 0; $i <3; $i++) {
+                    
+
+                    $dados['aluno_id'] = $id;
+                    $dados['agenda_id'] = $agendamento->agenda_id;
+                    if($i ==0){
+                        $dados['data_dia'] = $data_0;
+                        $dados['linha'] = 0;
+                    }elseif ($i==1) {
+                        $dados['data_dia'] = $data_1;
+                        $dados['linha'] = 1;
+                    }else{
+                        $dados['data_dia'] = $data_2;
+                        $dados['linha'] = 2;
+                    }
+                    
+                     if($agendamento->sala_id ==1){
+                        $dados['mesa'] = $this->mesa;
+                    }else{
+                        $dados['mesa'] = $this->mesa2;
+                    }
+
+                    $this->db->insert('presenca',$dados);
+                }
             }
             $msg = "Há uma nova aula agendada para você no dia ".formata_data($resultados_agendamento[0]->data);
             $this->avisos->save_aviso($id,'aluno',$msg,'Novo aviso de aula');
@@ -619,6 +658,7 @@ class Alunos extends BaseCrud {
         ->join('modulos','modulos.modulos_id=agendamento.modulo_id')
         ->join('professor','professor.id_professor=agendamento.professor_id');
         $where['agendamento.agenda_id'] = $agenda_id;
+        $this->db->group_by("alunos.alunos_id");
         $this->data['itens'] = $this->agendamento->get_where($where)->result();
 
 

@@ -145,6 +145,7 @@ class Calendario extends BaseCrud
     public function save_calendario(){
 
         $this->load->model('agendamento_model','agendamento');
+        $this->load->model('presenca_model','presenca');
        
         $post = $this->input->posts();
 
@@ -162,10 +163,34 @@ class Calendario extends BaseCrud
         $data['data'] = $post['data'];
         $data['data_segunda'] = $post['data_segunda'];
         $data['data_terceira'] = $post['data_terceira'];
+
+
+
+
         $data['sala_id'] = $post['sala_id'];
        
         $data['dias_semana'] = serialize($post['dias_semana']);
         $this->agendamento->save($data);
+
+
+        for ($i = 0; $i <3; $i++) {
+            $this->db->where('presenca.agenda_id', $post['agenda_id']);
+            if($i == 0){
+                $this->db->set('data_dia', $data['data'] );
+                $this->db->where('presenca.linha', 0);
+            }elseif($i == 1){
+                $this->db->set('data_dia', $data['data_segunda'] );
+                 $this->db->where('presenca.linha', 1);
+            }else{
+                $this->db->set('data_dia', $data['data_terceira'] );
+                 $this->db->where('presenca.linha', 2);
+            }
+            $this->db->update('presenca');
+
+
+        }
+        
+
 
         redirect('admin/calendario/modulos/'.$resultados->turma.'/'.$post['curso_id']);
 

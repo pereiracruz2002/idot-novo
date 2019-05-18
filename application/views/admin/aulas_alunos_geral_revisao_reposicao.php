@@ -29,11 +29,11 @@
                             }?></td>
                             <?php if($row->presenca =='sim'){?>
                             <td class="acoes_alunos">
-                                <a data-presenca="1" class="add_presenca btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Revisão</a>
+                                <a data-id="<?php echo $row->linha;?>" data-presenca="1" class="add_presenca btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Revisão</a>
                             </td>
                             <?php }elseif($row->presenca =='nao'){?>
                              <td class="acoes_alunos">  
-                                <a data-presenca="2" class="add_presenca btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModalAgendamento"><i class="fa fa-eye"></i>Marcar Reposição</a>
+                                <a data-id="<?php echo $row->linha;?>" data-presenca="2" class="add_presenca btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModalAgendamento"><i class="fa fa-eye"></i>Marcar Reposição</a>
 
                             </td>
                         <?php }else{?>
@@ -101,6 +101,7 @@
               <input type="hidden" id="curso_id" name="curso_id" value="<?php echo $agendamento->curso_id;?>" />
               <input type="hidden" id="modulo_id" name="modulo_id" value="<?php echo $agendamento->modulo_id;?>" />
               <input type="hidden" id="tipo_aula" name="tipo_aula" value="" />
+              <input type="hidden" id="linha" name="linha" value="" />
                <?php endif; ?>
             </div>
             <button id="send_agendamento" type="submit" class="btn btn-primary btn-block">Enviar</button>

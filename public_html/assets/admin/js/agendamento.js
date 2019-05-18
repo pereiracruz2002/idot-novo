@@ -9,6 +9,7 @@ $(document).ready(function () {
             var aluno_id = $('#aluno').val();
             var agenda_id = $('#agenda_id').val();
             var tipo_aula = $('#tipo_aula').val();
+            var linha = $('#linha').val();
 
             $.ajax({
                      url :url,
@@ -17,15 +18,16 @@ $(document).ready(function () {
                       data : {
                             aluno_id: aluno_id,
                             agenda_id: agenda_id,
-                            tipo_aula:tipo_aula
+                            tipo_aula:tipo_aula,
+                            linha:linha
 
                       },
                       
                 })
                  .done(function(msg){
                     alert(msg)
-                    window.location.hef=base_url+'agendamento/ver_minha_presenca_ausencia'
-                     //location.reload();
+                    //window.location.hef=base_url+'agendamento/ver_minha_presenca_ausencia'
+                     location.reload();
                    
                  })
                  .fail(function(jqXHR, textStatus, msg){
@@ -36,6 +38,8 @@ $(document).ready(function () {
 
     $('body').on('click','.add_presenca',function(e){
         var tipo_aula = $(this).attr('data-presenca');
+        var linha = $(this).attr('data-id');
+        $('#linha').val(linha);
         $('#tipo_aula').val(tipo_aula);
     });
 

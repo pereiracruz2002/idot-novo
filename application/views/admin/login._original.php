@@ -71,8 +71,8 @@
 }
 
 .profile-img-card {
-    width: 192px;
-    height: 192px;
+    width: 96px;
+    height: 96px;
     margin: 0 auto 10px;
     display: block;
     -moz-border-radius: 50%;
@@ -169,13 +169,13 @@
 }
     </style>
 
-
+        
     </head>
     <?php /* ?>
     <body class="login-body">
-        <div class="container">
+        <div class="container"> 
             <form class="form-signin" action="/admin/login" method="post">
-                <h2 class="form-signin-heading"><!--<img src="<?php echo base_url() ?>assets/admin/images/logo.png" class="img-responsive" />--></h2>
+                <h2 class="form-signin-heading"><!--<img src="<?php echo base_url() ?>assets/admin/images/logo.png" class="img-responsive" />--></h2> 
                 <div class="login-wrap">
                     <div class="user-login-info">
                         <input type="text" class="form-control" name="login" placeholder="Login" required autofocus="" />
@@ -186,7 +186,7 @@
                     </div>
                     <a id="modalForgot" data-toggle="modal" href="#forgotPassword">Esqueceu a senha?</a>
                     <button class="btn btn-lg btn-login btn-block" type="submit">Entrar</button>
-                </div>
+                </div>  
             </form>
         </div> <!-- /container -->
 
@@ -255,13 +255,13 @@
             </div>
         </div>
         <?php  */ ?>
-
+        
 
 
     <div class="container">
         <div class="card card-container">
             <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
-            <img id="profile-img" class="profile-img-card" src="/assets/admin/img/avatar_2x.png" />
+            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
             <p id="profile-name" class="profile-name-card"></p>
             <?php echo (isset($msg) ? box_alert($msg) : ''); ?>
             <form class="form-signin" method="POST">
@@ -313,7 +313,7 @@
                 <?php if (isset($error_forgot) || isset($success_forgot)): ?>
                     $("#modalForgot").trigger("click");
                 <?php endif; ?>
-
+                    
                 $("form").on("submit", function () {
                     $(this).find("button").each(function () {
                         $(this).attr("disabled", "disabled").html('<i class="fa ico-spinner3 fa-spin"></i>');
@@ -323,3 +323,4 @@
         </script>
     </body>
 </html>
+
