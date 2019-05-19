@@ -258,7 +258,10 @@ $(document).ready(function () {
 
     $('body').on('click', '.add_obs', function (e) {
         $('#presenca_id').val($(this).attr('data-presenca'));
-        console.log($(this).attr('data-presenca'));
+        var linha = $(this).attr('data-linha');
+        $('.observacao_linha').hide()
+        $('.observacao_linha').eq(linha).show()
+        $('#linha').val(linha)
     });
 
 
@@ -267,9 +270,10 @@ $(document).ready(function () {
        
        
         var url =$('#form_observacao').attr('action');
-
+        var linha = $("#linha").val();
         var presenca_id = $('#presenca_id').val();
-        var observacao = $('#observacao').val();
+        var observacao = $(".observacao_linha").eq(linha).val();
+
 
         $.ajax({
                  url :url,

@@ -700,6 +700,8 @@ class Alunos extends BaseCrud {
                 $this->db->where('alunos_id',$this->session->userdata('admin')->alunos_id);
                 $this->db->update('alunos', $update);
             }
+
+            $this->data['show_popup'] = true;
         }
 
         $this->data['form'] = $this->alunos->form('senha');

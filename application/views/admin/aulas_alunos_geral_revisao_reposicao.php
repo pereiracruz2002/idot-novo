@@ -60,8 +60,11 @@
         <h4 class="modal-title">Sistema IDOT</h4>
       </div>
       <div class="modal-body">
-        <div class="alert alert-danger" role="alert">
-            Para fazer uma aula de reposição você deve entrar em contato com o Idot (11) 99784-0978
+        <div class="alert alert-danger text-center" role="alert">
+            Para fazer uma aula de reposição entrar em contato com o idot (11) 99784-0978<br />
+            Sera cobrado uma taxa de R$ 50,00 pago no dia da reposição.<br />
+            Obrigado.<br/>
+            A Gerência.
         </div>
         
       </div>
@@ -89,10 +92,20 @@
             <div class="form-group">
               <?php 
 
-              if(count($agendamentos)> 0):?>
-                <select class="form-control" name="turma">
+              if(count($agendamentos)> 0):
+                $array_data[0] = $agendamentos[0]->data;
+                $array_data[1] = $agendamentos[0]->data_segunda;
+                $array_data[2] = $agendamentos[0]->data_terceira; 
+                
+
+                
+                $consulta = unserialize($agendamentos[0]->dias_semana);
+                ?>
+                <select class="form-control" id="turma" name="turma">
                 <?php foreach($agendamentos as $agendamento):?>
-                    <option value="<?php echo $agendamento->turma?>"><?php echo "Turma ". $agendamento->turma. " - " .$agendamento->curso." - ". $agendamento->modulo;?></option>
+                    <?php foreach($consulta as $k => $c):?>
+                      <option value="<?php echo $agendamento->turma?>"><?php echo "Turma ". $agendamento->turma. " - " .$agendamento->curso." - ". $agendamento->modulo. " - ".ucfirst($c). " - ".formata_data($array_data[$k]);?></option>
+                     <?php endforeach;?>
                 <?php endforeach;?>
                 </select>
                

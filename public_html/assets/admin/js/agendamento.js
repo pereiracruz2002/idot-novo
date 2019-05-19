@@ -39,6 +39,8 @@ $(document).ready(function () {
     $('body').on('click','.add_presenca',function(e){
         var tipo_aula = $(this).attr('data-presenca');
         var linha = $(this).attr('data-id');
+        $("#turma option").hide();
+        $("#turma option").eq(linha).show();
         $('#linha').val(linha);
         $('#tipo_aula').val(tipo_aula);
     });

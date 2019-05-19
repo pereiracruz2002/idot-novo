@@ -13,13 +13,17 @@
 	                    <th>Data</th>
 	                    <th>Tipo Aula</th>
 	                    <th>Nota</th>
+	                    <th>Observação</th>
 	                    <th>&nbsp;</th>
 	                </tr>
 	            </thead>
 	            <tbody>
 	                <?php 
-	                
-	                foreach ($itens as $row): ?>
+	                $array_obs = array();
+	                foreach ($itens as $row):
+	                	$array_obs[] = $row->obs;
+	         			if($row->data !='0000-00-00'):
+	                 ?>
 	                    <tr>
 	                        <td><?= $row->nome ?></td>
 	                        <td><?= $row->curso ?></td>
@@ -34,6 +38,7 @@
 		                           echo $row->nota;
 		                          } ?>
 	                        </td>
+	                        <td><a data-linha="<?php echo $row->linha;?>"  data-presenca="<?php echo $row->presenca_id ?>"  class="add_obs btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-eye"></i>Observação</a></td>
 	                        <td class="acoes">
 	                            <?php 
 
@@ -41,7 +46,7 @@
 		                            <a class="btn btn-xs btn-info btn btn-info confirmar_chamada" href="<?php echo $row->presenca_id ?>" title="Visulizar este registro" data-confirm="<?php echo site_url(); ?>/admin/agendamento/chamada/<?php echo $row->aluno_id ?>/<?php echo $row->presenca_id ?>/1" class="btn btn-mini btn-primary confirmar_presenca"><i class="fa fa-eye"></i>Confirmar Presença</a>
 		                            <a class="btn btn-xs btn-info btn btn-info confirmar_chamada" href="<?php echo $row->presenca_id ?>" title="Visulizar este registro" data-confirm="<?php echo site_url(); ?>/admin/agendamento/chamada/<?php echo $row->aluno_id ?>/<?php echo $row->presenca_id ?>/2" class="btn btn-mini btn-primary confirmar_presenca"><i class="fa fa-eye"></i>Confirmar Ausência</a>
 		                             <!--<a  class="btn btn-xs btn-info btn btn-info" href="<?php echo site_url(); ?>/admin/agendamento/add_obs/<?php echo $row->aluno_id ?>/<?php echo $row->agenda_id ?>" title="Visulizar este registro" data-confirm="" class="btn btn-mini btn-primary confirmar_presenca"><i class="fa fa-eye"></i>Observação</a>-->
-		                             <a  data-presenca="<?php echo $row->presenca_id ?>"  class="add_obs btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-eye"></i>Observação</a>
+		                             
 		                        <?php }else{?>
 		                            <?php if($row->presenca=='sim'):?>
 		                               <p><i class="pe-7s-check">Presente</i></p>
@@ -51,8 +56,11 @@
 		                                 <p><i>Não confirmou</i></p>
 		                            <?php endif;?>
 		                         <?php } ?>
+		                         
 	                        </td>
+
 	                    </tr>
+	                	<?php endif; ?>
 	                <?php endforeach; ?>
 	            </tbody>
 	        </table>
@@ -75,8 +83,12 @@
         <p>Insira uma Observação</p>
         <form id="form_observacao" method="" action="<?php echo site_url(); ?>/admin/agendamento/add_obs">
 			<div class="form-group">
-			  <textarea class="form-control" name="observacao" rows="5" id="observacao"></textarea>
+			<?php $i = 0;?>
+			<?php foreach($array_obs as $obs): ?>
+			  <textarea  data-id="<?php echo $i;?>" class="form-control observacao_linha" name="observacao" rows="5" id="observacao"><?php echo trim($obs);?></textarea>
+			  <?php endforeach;?>	
 			  <input type="hidden" id="presenca_id" name="presenca_id" value="" />
+			   <input type="hidden" id="linha" name="linha" value="" />
 			</div>
 			<button id="send_obs" type="button" class="btn btn-primary btn-block">Enviar</button>
         </form>
@@ -101,7 +113,7 @@
         <p>Insira uma Nota</p>
         <form id="form_nota" method="" action="<?php echo site_url(); ?>/admin/agendamento/add_nota">
 			<div class="form-group">
-			  <input type="text" required="required" class="form-control" id='nota' name="nota">
+			  <input type="text"  required="required" class="form-control" id='nota' name="nota">
 			  <input type="hidden" id="presenca_id" name="presenca_id" value="" />
 			</div>
 			<button id="send_nota" type="submit" class="btn btn-primary btn-block">Enviar</button>

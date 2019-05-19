@@ -40,7 +40,7 @@ class Alunos_model extends My_Model{
 			),
 		   'matricula' => array(
 	            'type' => 'text',
-	            'label' => 'Matrícula <br />(UNI-dd/mm/aaaa-0000)',
+	            'label' => 'Matrícula <br />(UNI-aaaa-00)',
 	            'class' => '',
 	            'rules' => '',
 	            'label_class' => 'col-md-2',
