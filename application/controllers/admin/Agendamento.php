@@ -1013,7 +1013,8 @@ class Agendamento extends BaseCrud
         }
 
 
-        $save_cursos = array('aluno_id' => $post['aluno_id'], 'agenda_id' => $post['agenda_id'],'tipo'=>$tipo,'mesa'=>$mesa, 'presente'=>'confirmado','linha'=>$post['linha'],'data_dia'=>$nova_data);
+
+        $save_cursos = array('aluno_id' => $post['aluno_id'], 'agenda_id' => $post['agenda_id'],'tipo'=>$tipo,'mesa'=>$mesa, 'presente'=>'confirmado','linha'=>$post['linha'],'data_dia'=>$nova_data,'dia_semana'=>$post['periodo']);
 
         if($this->presenca->save($save_cursos)){
 

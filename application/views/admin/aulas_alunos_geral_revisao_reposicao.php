@@ -93,18 +93,38 @@
               <?php 
 
               if(count($agendamentos)> 0):
-                $array_data[0] = $agendamentos[0]->data;
-                $array_data[1] = $agendamentos[0]->data_segunda;
-                $array_data[2] = $agendamentos[0]->data_terceira; 
                 
-
-                
-                $consulta = unserialize($agendamentos[0]->dias_semana);
                 ?>
                 <select class="form-control" id="turma" name="turma">
-                <?php foreach($agendamentos as $agendamento):?>
+                <?php foreach($agendamentos as $agendamento):
+                  $consulta = '';
+                  $array_data[0] = $agendamento->data;
+                  $array_data[1] = $agendamento->data_segunda;
+                  $array_data[2] = $agendamento->data_terceira; 
+                
+                //var_dump($agendamentos);
+                
+                $consulta = unserialize($agendamento->dias_semana);
+
+
+
+                ?>
                     <?php foreach($consulta as $k => $c):?>
-                      <option value="<?php echo $agendamento->turma?>"><?php echo "Turma ". $agendamento->turma. " - " .$agendamento->curso." - ". $agendamento->modulo. " - ".ucfirst($c). " - ".formata_data($array_data[$k]);?></option>
+                    <?php 
+                    if($c == "sexta manhã" || $c == "sexta tarde" || $c=="sexta noite"){
+                      $indice = 0;
+                    }
+
+                    if($c == "sábado manhã" || $c == "sábado tarde"){
+                      $indice = 1;
+                    }
+
+                     if($c == "domingo manhã" || $c == "domingo tarde"){
+                      $indice = 2;
+                    }
+
+                    ?>
+                      <option data-periodo="dia_<?php echo $indice;?>" value="<?php echo $c?>"><?php echo "Turma ". $agendamento->turma. " - " .$agendamento->curso." - ". $agendamento->modulo. " - ".ucfirst($c). " - ".formata_data($array_data[$indice]);?></option>
                      <?php endforeach;?>
                 <?php endforeach;?>
                 </select>

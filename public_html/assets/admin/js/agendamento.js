@@ -10,6 +10,7 @@ $(document).ready(function () {
             var agenda_id = $('#agenda_id').val();
             var tipo_aula = $('#tipo_aula').val();
             var linha = $('#linha').val();
+            var periodo = $('select[name=turma]').val();
 
             $.ajax({
                      url :url,
@@ -19,7 +20,8 @@ $(document).ready(function () {
                             aluno_id: aluno_id,
                             agenda_id: agenda_id,
                             tipo_aula:tipo_aula,
-                            linha:linha
+                            linha:linha,
+                            periodo:periodo
 
                       },
                       
@@ -40,9 +42,10 @@ $(document).ready(function () {
         var tipo_aula = $(this).attr('data-presenca');
         var linha = $(this).attr('data-id');
         $("#turma option").hide();
-        $("#turma option").eq(linha).show();
+        $("#turma option[data-periodo=dia_"+linha+"]").show();
         $('#linha').val(linha);
         $('#tipo_aula').val(tipo_aula);
+        
     });
 
 
@@ -53,6 +56,7 @@ $(document).ready(function () {
 
       var nota = $('#nota').val();
       var presenca_id = $('#presenca_id').val();
+      
 
       $.ajax({
                url :url,
@@ -61,6 +65,7 @@ $(document).ready(function () {
                 data : {
                       nota: nota,
                       presenca_id: presenca_id,
+                      
                 },
                 
           })
