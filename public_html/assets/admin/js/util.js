@@ -73,7 +73,7 @@ $(document).ready(function () {
 
         
 
-        var decisao = confirm("Tem certeza que deseja alterar a maca?");
+        var decisao = confirm("Tem certeza que deseja alterar a assento?");
         if (decisao) {
             //$.get(_self.attr('data-confirm'));
             

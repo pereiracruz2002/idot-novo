@@ -33,7 +33,7 @@
                             </td>
                             <?php }elseif($row->presenca =='nao'){?>
                              <td class="acoes_alunos">  
-                                <a data-id="<?php echo $row->linha;?>" data-presenca="2" class="add_presenca btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModalAgendamento"><i class="fa fa-eye"></i>Marcar Reposição</a>
+                                <a data-id="<?php echo $row->linha;?>" data-presenca="2" class="add_presenca btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Reposição</a>
 
                             </td>
                         <?php }else{?>
@@ -88,12 +88,25 @@
       <div class="modal-body">
 
          <p>Escolha uma turma</p>
-        <form id="send_agendamento" method="" action="<?php echo site_url(); ?>/admin/agendamento/add_novaAula">
+        <form id="send_agendamento" method="post" action="<?php echo site_url(); ?>/admin/agendamento/add_novaAula">
             <div class="form-group">
               <?php 
+             
 
               if(count($agendamentos)> 0):
-                
+                $dias = formata_data($agendamentos->data);
+                if(!empty($agendamentos->data_segunda)){
+                  if($agendamentos->data_segunda != '0000-00-00'){
+                    $dias.= ", ".formata_data($agendamentos->data_segunda);
+                  }
+                }
+                 if(!empty($agendamentos->data_terceira)){
+                    if($agendamentos->data_terceira != '0000-00-00'){
+                      $dias.= ", ".formata_data($agendamentos->data_terceira);
+                    }
+                  
+                }
+                /*
                 ?>
                 <select class="form-control" id="turma" name="turma">
                 <?php foreach($agendamentos as $agendamento):
@@ -128,16 +141,25 @@
                      <?php endforeach;?>
                 <?php endforeach;?>
                 </select>
-               
+                */?>
+              <div class="alert alert-success" role="alert">
+                  Há um agendamento disponível do curso <?php echo $agendamentos->curso;?> para <?php echo $dias;?>.<br />
+                  Deseja realmente marcar esse agendamento?
+              </div>
+              <input type="hidden" id="turma" name="turma" value="<?php echo $row->turma;?>" />
               <input type="hidden" id="aluno" name="aluno_id" value="<?php echo $row->aluno_id;?>" />
-              <input type="hidden" id="agenda_id" name="agenda_id" value="<?php echo $agendamento->agenda_id;?>" />
-              <input type="hidden" id="curso_id" name="curso_id" value="<?php echo $agendamento->curso_id;?>" />
-              <input type="hidden" id="modulo_id" name="modulo_id" value="<?php echo $agendamento->modulo_id;?>" />
+              <input type="hidden" id="agenda_id" name="agenda_id" value="<?php echo $agendamentos->agenda_id;?>" />
+              <input type="hidden" id="curso_id" name="curso_id" value="<?php echo $agendamentos->curso_id;?>" />
+              <input type="hidden" id="modulo_id" name="modulo_id" value="<?php echo $agendamentos->modulo_id;?>" />
               <input type="hidden" id="tipo_aula" name="tipo_aula" value="" />
               <input type="hidden" id="linha" name="linha" value="" />
+              <?php else:?>
+                <div class="alert alert-danger text-center" role="alert">
+                  Não há nenhum agendamento disponível neste momento!<br />
+              </div>
                <?php endif; ?>
             </div>
-            <button id="send_agendamento" type="submit" class="btn btn-primary btn-block">Enviar</button>
+            <button id="send_agendamento" type="submit" class="btn btn-primary btn-block">Agendar</button>
         </form>
       </div>
      

@@ -22,7 +22,7 @@
                                     <th>Data curso - período</th>
                                    
                                     <th>Sala</th>
-                                    <th>Maca</th>                              
+                                    <th>Assento</th>                              
                                 </tr>
                             </thead>
                             <tbody>
@@ -123,15 +123,15 @@
                             <div class="col-sm-12">
                                 <div style="color:red; font-weight:bold;" class="row">
                                     <div class="col-sm-6 col-offset-sm-6">
-                                        <h5 style="font-weight:bold;">Caso queira escolher outra maca:</h5>
+                                        <h5 style="font-weight:bold;">Caso queira escolher outra assento:</h5>
                                         <ul>
-                                            <li>Selecione a maca desejada;</li>
-                                            <li>Clicar em alterar maca no botão abaixo.</li>
+                                            <li>Selecione a assento desejada;</li>
+                                            <li>Clicar em alterar assento no botão abaixo.</li>
                                         </ul>
                                     </div>
                                 </div>
                                 <form id="form1" runat="server">
-                                    <h2 style="font-size:1.2em;"> Selecione a maca:</h2>
+                                    <h2 style="font-size:1.2em;"> Selecione a assento:</h2>
                                     <?php 
                                     
                                     if($row->sala_id ==1):?>
@@ -168,7 +168,7 @@
                             </div>
                             <?php if($this->session->userdata('admin')->tipo=="aluno"){?>
                                 <div style="margin-top:10px;" class="col-sm-12">
-                                     <p> <a  class="btn btn-xs btn-info btn btn-info confirmar_presenca" href="1" title="Alterar Maca" data-confirm="<?php echo site_url(); ?>/admin/agendamento/checar_presenca" class="btn btn-mini btn-warning confirmar_presenca"><i class="fa fa-eye"></i>Alterar maca</a></p>
+                                     <p> <a  class="btn btn-xs btn-info btn btn-info confirmar_presenca" href="1" title="Alterar Assento" data-confirm="<?php echo site_url(); ?>/admin/agendamento/checar_presenca" class="btn btn-mini btn-warning confirmar_presenca"><i class="fa fa-eye"></i>Alterar maca</a></p>
                                     <?php 
                                     if(empty($row->presenca)){?>
                                         <!-- <a class="btn btn-xs btn-info btn btn-info confirmar_presenca" href="1" title="Visulizar este registro" data-confirm="<?php echo site_url(); ?>/admin/agendamento/checar_presenca" class="btn btn-mini btn-warning confirmar_presenca"><i class="fa fa-eye"></i>Confirmar Presença</a>

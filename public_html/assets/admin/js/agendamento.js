@@ -9,8 +9,9 @@ $(document).ready(function () {
             var aluno_id = $('#aluno').val();
             var agenda_id = $('#agenda_id').val();
             var tipo_aula = $('#tipo_aula').val();
-            var linha = $('#linha').val();
-            var periodo = $('select[name=turma]').val();
+            var periodo = $('#turma').val();
+            //var linha = $('#linha').val();
+            //var periodo = $('select[name=turma]').val();
 
             $.ajax({
                      url :url,
@@ -20,16 +21,17 @@ $(document).ready(function () {
                             aluno_id: aluno_id,
                             agenda_id: agenda_id,
                             tipo_aula:tipo_aula,
-                            linha:linha,
+                            //linha:linha,
                             periodo:periodo
 
                       },
                       
                 })
                  .done(function(msg){
-                    alert(msg)
-                    //window.location.hef=base_url+'agendamento/ver_minha_presenca_ausencia'
-                     location.reload();
+                    //alert(msg)
+                    $('#myModalAgendamento2').modal('hide')
+                    window.location.href="/admin/agendamento/ver_minha_agenda/"+agenda_id;
+                     //location.reload();
                    
                  })
                  .fail(function(jqXHR, textStatus, msg){
