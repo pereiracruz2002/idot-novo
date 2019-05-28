@@ -4,6 +4,17 @@
     </div>
     <div class="panel-body">
         <div class="table-responsive">
+        	<table>
+				<tr>
+					<td>
+						<button style="background-color:#d9534f; color:#fff" class="btn btn-danger" type="button">Reposição</button>
+					</td>
+					<td>
+						<button style="background-color:#f0ad4e; color:#fff" class="btn btn-warning" type="button">Revisão</button>
+					</td>
+					<td></td>
+				</tr>
+        	</table>
 	        <table class="table table-striped small">
 	            <thead>
 	                <tr>
@@ -24,7 +35,13 @@
 	                	$array_obs[] = $row->obs;
 	         			if($row->data !='0000-00-00'):
 	                 ?>
-	                    <tr>
+	                 <?php if($row->tipo=='revisao'):?>
+	                    <tr class="danger">
+	                <?php elseif($row->tipo='reposicao'):?>
+	                	<tr class="warning">
+	                <?php else:?>
+						<tr>
+	                <?php endif;?>
 	                        <td><?= $row->nome ?></td>
 	                        <td><?= $row->curso ?></td>
 	                        <td><?= $row->modulo ?></td>
