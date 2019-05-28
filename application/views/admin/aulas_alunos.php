@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="table-responsive">
-                        <?php if($show_msg):?>
+                        <?php if(isset($show_msg)):?>
                         <div class="alert alert-danger text-center" role="alert">
                             Para fazer uma aula de reposição entrar em contato com o idot (11) 99784-0978<br />
                             Sera cobrado uma taxa de R$ 50,00 pago no dia da reposição.<br />

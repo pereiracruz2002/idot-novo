@@ -10,7 +10,7 @@ $(document).ready(function () {
             var agenda_id = $('#agenda_id').val();
             var tipo_aula = $('#tipo_aula').val();
             var periodo = $('#turma').val();
-            //var linha = $('#linha').val();
+            var linha = $('#linha').val();
             //var periodo = $('select[name=turma]').val();
 
             $.ajax({
@@ -21,7 +21,7 @@ $(document).ready(function () {
                             aluno_id: aluno_id,
                             agenda_id: agenda_id,
                             tipo_aula:tipo_aula,
-                            //linha:linha,
+                            linha:linha,
                             periodo:periodo
 
                       },
@@ -29,12 +29,18 @@ $(document).ready(function () {
                 })
                  .done(function(msg){
                     //alert(msg)
-                    $('#myModalAgendamento2').modal('hide')
-                    if(tipo_aula == 1){
-                      window.location.href="/admin/agendamento/ver_minha_agenda/"+agenda_id+"/true";
+                    $('#myModalAgendamento2').modal('hide');
+                    if(msg.status ==1){
+                      if(tipo_aula == 1){
+                        //window.location.href="/admin/agendamento/ver_minha_agenda/"+agenda_id+"/true";
+                      }else{
+                        window.location.href="/admin/agendamento/ver_minha_agenda/"+agenda_id;
+                      }
+                    }else{
+                      alert(msg.msg);
                     }
                     
-                    window.location.href="/admin/agendamento/ver_minha_agenda/"+agenda_id;
+                    
                      //location.reload();
                    
                  })

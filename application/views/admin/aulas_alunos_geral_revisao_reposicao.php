@@ -91,8 +91,9 @@
          <p>Escolha uma turma</p>
         <form id="send_agendamento" method="post" action="<?php echo site_url(); ?>/admin/agendamento/add_novaAula">
             <div class="form-group">
-              <?php 
-
+              
+          
+            <?php 
             if(isset($agendamentos)):
               //if(count($agendamentos)> 0):
                 $dias = formata_data($agendamentos->data);
@@ -107,6 +108,16 @@
                     }
                   
                 }
+
+
+                if(!$prosegue){?>
+
+               <div class="alert alert-danger text-center" role="alert">
+
+                  No momento a sala para o curso <?php echo $agendamentos->curso;?> para <?php echo $dias;?> está completa. Se desejar ficar aguardando a desistência de alguém clique no fila de espera<br />
+              </div>
+              <?php }
+
                 /*
                 ?>
                 <select class="form-control" id="turma" name="turma">
@@ -142,11 +153,13 @@
                      <?php endforeach;?>
                 <?php endforeach;?>
                 </select>
-                */?>
+                <?php */ ?>
+              <?php if($prosegue){?>
               <div class="alert alert-success" role="alert">
                   Há um agendamento disponível do curso <?php echo $agendamentos->curso;?> para <?php echo $dias;?>.<br />
                   Deseja realmente marcar esse agendamento?
               </div>
+            <?php } ?>
               <input type="hidden" id="turma" name="turma" value="<?php echo $row->turma;?>" />
               <input type="hidden" id="aluno" name="aluno_id" value="<?php echo $row->aluno_id;?>" />
               <input type="hidden" id="agenda_id" name="agenda_id" value="<?php echo $agendamentos->agenda_id;?>" />
@@ -154,14 +167,20 @@
               <input type="hidden" id="modulo_id" name="modulo_id" value="<?php echo $agendamentos->modulo_id;?>" />
               <input type="hidden" id="tipo_aula" name="tipo_aula" value="" />
               <input type="hidden" id="linha" name="linha" value="" />
-
+                <?php if(!$prosegue):?>
+                  <input type="hidden" id="espera" name="espera" value="espera" />
+                <?php endif;?>
                <?php else:?>
                 <div class="alert alert-danger text-center" role="alert">
                   Não há nenhum agendamento disponível neste momento!<br />
               </div>
                <?php endif; ?>
             </div>
-            <button id="send_agendamento" type="submit" class="btn btn-primary btn-block">Agendar</button>
+             <?php if(!$prosegue):?>
+              <button id="send_agendamento" type="submit" class="btn btn-primary btn-block">Fila de Espera</button>
+            <?php else:?>
+              <button id="send_agendamento" type="submit" class="btn btn-primary btn-block">Agendar</button>
+            <?php endif;?>
         </form>
       </div>
      

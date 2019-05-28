@@ -503,6 +503,28 @@ class Agendamento extends BaseCrud
             $where_agendamento['agendamento.turma !='] = $this->data['itens'][0]->turma;
             $where_agendamento['agendamento.status'] = 'aberto';
             $this->data['agendamentos'] = $this->agendamento->get_where($where_agendamento)->row();
+
+
+            $where_presenca['agenda_id'] = $this->data['agendamentos']->agenda_id;
+            $this->db->select('presenca.presenca_id');
+            $lugares = $this->presenca->get_where($where_presenca)->result();
+            $qtd_lugares = count($lugares);
+
+            if($this->data['agendamentos']->sala_id == 1){
+                $qtd_geral = 1;
+            }else{
+                $qtd_geral = 40;
+            }
+
+
+            if($qtd_lugares < $qtd_geral){
+                $this->data['prosegue'] =true;
+            }else{
+                $this->data['prosegue'] =false;
+            }
+
+
+
         }else{
             $this->data['agendamentos'] = array();
         }
@@ -975,6 +997,7 @@ class Agendamento extends BaseCrud
 
 
 
+
         if(isset($data_dia->data)){
             $nova_data = $data_dia->data;
         }
@@ -1007,11 +1030,14 @@ class Agendamento extends BaseCrud
         // if(!is_null($ocupado)){
         //     $mesa='';
         // }
-
-        if($post['tipo_aula']==1){
-            $tipo = 'revisao';
+        if(!isset($post['espera'])){
+            if($post['tipo_aula']==1){
+                $tipo = 'revisao';
+            }else{
+                $tipo = 'reposicao';
+            }
         }else{
-            $tipo = 'reposicao';
+             $tipo = 'espera';
         }
 
 
@@ -1019,11 +1045,22 @@ class Agendamento extends BaseCrud
         $save_cursos = array('aluno_id' => $post['aluno_id'], 'agenda_id' => $post['agenda_id'],'tipo'=>$tipo,'mesa'=>$mesa, 'data_dia'=>$nova_data, 'presente'=>'confirmado');
 
         if($this->presenca->save($save_cursos)){
+            if($tipo=="espera"){
 
-            $this->output->set_output("Agendamento realizada com sucesso!");
+                $output = array('status' => 2, 'msg' => 'Você entrou para a fila de espera deste agendamento!');
+
+                 $this->output->set_output(array("status"=>"2","msg"=>""));
+            }else{
+                 $output = array('status' => 1, 'msg' => 'Agendamento realizada com sucesso!');
+
+            }
+            
         }else{
-           $this->output->set_output("erro ao inserir um agendamento"); 
+            $output = array('status' => 0, 'msg' => 'Erro ao inserir um agendamento!');
         } 
+
+         $this->output->set_content_type('application/json')
+                     ->set_output(json_encode($output));
     }
 
 }
