@@ -274,7 +274,7 @@ class Agendamento extends BaseCrud
 
 
 
-    public function ver_minha_agenda($agenda_id){
+    public function ver_minha_agenda($agenda_id, $show_msg = false){
 
         $this->load->model('agendamento_model','agendamento');
         $this->load->model('presenca_model','presenca');
@@ -435,7 +435,9 @@ class Agendamento extends BaseCrud
         $this->data['aulas'] = $aulas;
 
 
-
+        if($show_msg){
+            $this->data['show_msg'] = true;
+        }
     
         
 

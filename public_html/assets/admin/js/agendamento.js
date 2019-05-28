@@ -30,6 +30,10 @@ $(document).ready(function () {
                  .done(function(msg){
                     //alert(msg)
                     $('#myModalAgendamento2').modal('hide')
+                    if(tipo_aula == 1){
+                      window.location.href="/admin/agendamento/ver_minha_agenda/"+agenda_id+"/true";
+                    }
+                    
                     window.location.href="/admin/agendamento/ver_minha_agenda/"+agenda_id;
                      //location.reload();
                    
