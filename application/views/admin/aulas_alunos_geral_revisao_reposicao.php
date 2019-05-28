@@ -16,31 +16,32 @@
                 </thead>
                 <tbody>
                     <?php 
-                    
-                    foreach ($itens as $row): ?>
-                        <tr>
+                    if(isset($itens)):
+                      foreach ($itens as $row): ?>
+                          <tr>
 
-                            <td><?= $row->curso ?></td>
-                            <td><?= abreviaString(strip_tags($row->modulo),100) ?></td>
+                              <td><?= $row->curso ?></td>
+                              <td><?= abreviaString(strip_tags($row->modulo),100) ?></td>
 
 
-                            <td><?php if($row->presenca !='confirmado'){
-                                echo $row->presenca;
-                            }?></td>
-                            <?php if($row->presenca =='sim'){?>
-                            <td class="acoes_alunos">
-                                <a data-id="<?php echo $row->linha;?>" data-presenca="1" class="add_presenca btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Revisão</a>
-                            </td>
-                            <?php }elseif($row->presenca =='nao'){?>
-                             <td class="acoes_alunos">  
-                                <a data-id="<?php echo $row->linha;?>" data-presenca="2" class="add_presenca btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Reposição</a>
+                              <td><?php if($row->presenca !='confirmado'){
+                                  echo $row->presenca;
+                              }?></td>
+                              <?php if($row->presenca =='sim'){?>
+                              <td class="acoes_alunos">
+                                  <a data-id="<?php echo $row->linha;?>" data-presenca="1" class="add_presenca btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Revisão</a>
+                              </td>
+                              <?php }elseif($row->presenca =='nao'){?>
+                               <td class="acoes_alunos">  
+                                  <a data-id="<?php echo $row->linha;?>" data-presenca="2" class="add_presenca btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Reposição</a>
 
-                            </td>
-                        <?php }else{?>
-                            <td class="acoes_alunos"></td>
-                        <?php } ?>
-                        </tr>
-                    <?php endforeach; ?>
+                              </td>
+                          <?php }else{?>
+                              <td class="acoes_alunos"></td>
+                          <?php } ?>
+                          </tr>
+                      <?php endforeach; ?>
+                    <?php endif;?>
                 </tbody>
             </table>
         </div>
@@ -91,9 +92,9 @@
         <form id="send_agendamento" method="post" action="<?php echo site_url(); ?>/admin/agendamento/add_novaAula">
             <div class="form-group">
               <?php 
-             
 
-              if(count($agendamentos)> 0):
+            if(isset($agendamentos)):
+              //if(count($agendamentos)> 0):
                 $dias = formata_data($agendamentos->data);
                 if(!empty($agendamentos->data_segunda)){
                   if($agendamentos->data_segunda != '0000-00-00'){
@@ -153,7 +154,8 @@
               <input type="hidden" id="modulo_id" name="modulo_id" value="<?php echo $agendamentos->modulo_id;?>" />
               <input type="hidden" id="tipo_aula" name="tipo_aula" value="" />
               <input type="hidden" id="linha" name="linha" value="" />
-              <?php else:?>
+
+               <?php else:?>
                 <div class="alert alert-danger text-center" role="alert">
                   Não há nenhum agendamento disponível neste momento!<br />
               </div>

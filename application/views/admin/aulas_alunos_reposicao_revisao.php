@@ -24,7 +24,8 @@
                             </thead>
                             <tbody>
                                 <?php 
-                                if(count($itens)>0):
+                                if(isset($itens)):
+                                    if(count($itens)>0):
                                    
                                     foreach ($itens as $row): ?>
                                         <tr>
@@ -90,6 +91,7 @@
                                         </tr>
                                     <?php endforeach;?>
                                     <?php endif;?>
+                                <?php endif;?>
                             </tbody>
                         </table>
 

@@ -232,7 +232,7 @@ class Agendamento extends BaseCrud
 
          $where['professor_id'] = $this->session->userdata('admin')->id_professor;
          $where['agendamento.agenda_id'] = $agenda_id;
-         $where['presenca.data_dia !='] ='';
+         //$where['presenca.data_dia !='] ='';
          $this->db->where_in("presenca.tipo", array('normal','confirmar','reposicao','revisao'));
 
         $this->data['itens'] = $this->agendamento->get_where($where)->result();
@@ -506,7 +506,7 @@ class Agendamento extends BaseCrud
         }
     
         
-       
+
         $this->load->view('admin/aulas_alunos_geral_revisao_reposicao', $this->data);
     }
 
@@ -959,31 +959,31 @@ class Agendamento extends BaseCrud
 
         $mesa = '';
 
-        // if($post['linha'] ==0){
-        //     $this->db->select('data');
-        // }elseif($post['linha'] ==1){
-        //     $this->db->select('data_segunda');
-        // }else{
-        //     $this->db->select('data_terceira');
-        // }
+        if($post['linha'] ==0){
+            $this->db->select('data');
+        }elseif($post['linha'] ==1){
+            $this->db->select('data_segunda');
+        }else{
+            $this->db->select('data_terceira');
+        }
         
-        // $where_presenca['agenda_id'] = $post['agenda_id'];
+        $where_presenca['agenda_id'] = $post['agenda_id'];
 
-        // $data_dia = $this->agendamento->get_where($where_presenca)->row();
+        $data_dia = $this->agendamento->get_where($where_presenca)->row();
 
 
 
-        // if(isset($data_dia->data)){
-        //     $nova_data = $data_dia->data;
-        // }
+        if(isset($data_dia->data)){
+            $nova_data = $data_dia->data;
+        }
 
-        // if(isset($data_dia->data_segunda)){
-        //     $nova_data = $data_dia->data_segunda;
-        // }
+        if(isset($data_dia->data_segunda)){
+            $nova_data = $data_dia->data_segunda;
+        }
 
-        //  if(isset($data_dia->data_terceira)){
-        //     $nova_data = $data_dia->data_terceira;
-        // }
+         if(isset($data_dia->data_terceira)){
+            $nova_data = $data_dia->data_terceira;
+        }
 
 
 
@@ -1014,7 +1014,7 @@ class Agendamento extends BaseCrud
 
 
 
-        $save_cursos = array('aluno_id' => $post['aluno_id'], 'agenda_id' => $post['agenda_id'],'tipo'=>$tipo,'mesa'=>$mesa, 'presente'=>'confirmado');
+        $save_cursos = array('aluno_id' => $post['aluno_id'], 'agenda_id' => $post['agenda_id'],'tipo'=>$tipo,'mesa'=>$mesa, 'data_dia'=>$nova_data, 'presente'=>'confirmado');
 
         if($this->presenca->save($save_cursos)){
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 07-Maio-2019 às 11:48
+-- Generation Time: 28-Maio-2019 às 06:53
 -- Versão do servidor: 5.6.41-84.1
 -- versão do PHP: 7.2.7
 
@@ -41,7 +41,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`admin_id`, `login`, `senha`, `email`, `last_login`) VALUES
-(12, 'admin', '21232f297a57a5a743894a0e4a801fc3', '', '2019-05-06 14:14:37');
+(12, 'admin', '21232f297a57a5a743894a0e4a801fc3', '', '2019-05-28 06:47:29');
 
 -- --------------------------------------------------------
 
@@ -71,65 +71,38 @@ CREATE TABLE `agendamento` (
 --
 
 INSERT INTO `agendamento` (`agenda_id`, `data`, `vagas`, `professor_id`, `curso_id`, `modulo_id`, `encontro_id`, `sala_id`, `status`, `dias_semana`, `descricao`, `turma`, `data_segunda`, `data_terceira`) VALUES
-(1, '2019-05-03', 0, 12, 12, 1, NULL, 1, 'aberto', 'a:3:{i:0;s:12:\"sexta manhã\";i:1;s:14:\"sábado manhã\";i:2;s:14:\"domingo manhã\";}', NULL, '23', '2019-05-04', '2019-05-05'),
-(2, '2019-05-10', 0, 12, 12, 2, NULL, 2, 'aberto', 'a:5:{i:0;s:11:\"sexta tarde\";i:1;s:11:\"sexta noite\";i:2;s:14:\"sábado manhã\";i:3;s:13:\"sábado tarde\";i:4;s:14:\"domingo manhã\";}', NULL, '23', '2019-05-11', '2019-05-12'),
-(3, '0000-00-00', 0, 12, 12, 3, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(4, '0000-00-00', 0, 12, 12, 4, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(5, '0000-00-00', 0, 12, 12, 5, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(6, '0000-00-00', 0, 12, 12, 6, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(7, '0000-00-00', 0, 12, 12, 7, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(8, '0000-00-00', 0, 12, 12, 8, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(9, '0000-00-00', 0, 12, 12, 9, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(10, '0000-00-00', 0, 12, 12, 10, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(11, '0000-00-00', 0, 12, 12, 11, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(12, '0000-00-00', 0, 12, 12, 12, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(13, '0000-00-00', 0, 12, 12, 13, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(14, '0000-00-00', 0, 12, 12, 14, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(15, '0000-00-00', 0, 12, 12, 15, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(16, '0000-00-00', 0, 12, 13, 16, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(17, '0000-00-00', 0, 12, 13, 17, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(18, '0000-00-00', 0, 12, 13, 18, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(19, '0000-00-00', 0, 12, 14, 19, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(20, '0000-00-00', 0, 12, 14, 20, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(21, '0000-00-00', 0, 12, 14, 21, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(22, '0000-00-00', 0, 12, 14, 22, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(23, '0000-00-00', 0, 12, 14, 23, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(24, '0000-00-00', 0, 12, 14, 25, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(25, '0000-00-00', 0, 12, 14, 26, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(26, '0000-00-00', 0, 12, 15, 27, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(27, '0000-00-00', 0, 12, 15, 28, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(28, '0000-00-00', 0, 12, 15, 29, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(29, '0000-00-00', 0, 12, 15, 30, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(30, '0000-00-00', 0, 12, 15, 31, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(31, '0000-00-00', 0, 12, 15, 32, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(32, '0000-00-00', 0, 12, 16, 33, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(33, '0000-00-00', 0, 12, 16, 34, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(34, '0000-00-00', 0, 12, 16, 35, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(35, '0000-00-00', 0, 12, 16, 36, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(36, '0000-00-00', 0, 12, 16, 37, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
-(37, '0000-00-00', 0, 12, 12, 0, 0, 0, 'aberto', '', '', '23', '0000-00-00', '0000-00-00'),
-(38, '0000-00-00', 0, 12, 13, 16, NULL, 0, 'aberto', NULL, NULL, '15', NULL, NULL),
-(39, '0000-00-00', 0, 12, 13, 17, NULL, 0, 'aberto', NULL, NULL, '15', NULL, NULL),
-(40, '0000-00-00', 0, 12, 13, 18, NULL, 0, 'aberto', NULL, NULL, '15', NULL, NULL),
-(41, '0000-00-00', 0, 12, 14, 19, NULL, 0, 'aberto', NULL, NULL, '15', NULL, NULL),
-(42, '0000-00-00', 0, 12, 14, 20, NULL, 0, 'aberto', NULL, NULL, '15', NULL, NULL),
-(43, '0000-00-00', 0, 12, 14, 21, NULL, 0, 'aberto', NULL, NULL, '15', NULL, NULL),
-(44, '0000-00-00', 0, 12, 14, 22, NULL, 0, 'aberto', NULL, NULL, '15', NULL, NULL),
-(45, '0000-00-00', 0, 12, 14, 23, NULL, 0, 'aberto', NULL, NULL, '15', NULL, NULL),
-(46, '0000-00-00', 0, 12, 14, 25, NULL, 0, 'aberto', NULL, NULL, '15', NULL, NULL),
-(47, '0000-00-00', 0, 12, 14, 26, NULL, 0, 'aberto', NULL, NULL, '15', NULL, NULL),
-(48, '0000-00-00', 0, 12, 15, 27, NULL, 0, 'aberto', NULL, NULL, '15', NULL, NULL),
-(49, '0000-00-00', 0, 12, 15, 28, NULL, 0, 'aberto', NULL, NULL, '15', NULL, NULL),
-(50, '0000-00-00', 0, 12, 15, 29, NULL, 0, 'aberto', NULL, NULL, '15', NULL, NULL),
-(51, '0000-00-00', 0, 12, 15, 30, NULL, 0, 'aberto', NULL, NULL, '15', NULL, NULL),
-(52, '0000-00-00', 0, 12, 15, 31, NULL, 0, 'aberto', NULL, NULL, '15', NULL, NULL),
-(53, '0000-00-00', 0, 12, 15, 32, NULL, 0, 'aberto', NULL, NULL, '15', NULL, NULL),
-(54, '0000-00-00', 0, 12, 16, 33, NULL, 0, 'aberto', NULL, NULL, '15', NULL, NULL),
-(55, '0000-00-00', 0, 12, 16, 34, NULL, 0, 'aberto', NULL, NULL, '15', NULL, NULL),
-(56, '0000-00-00', 0, 12, 16, 35, NULL, 0, 'aberto', NULL, NULL, '15', NULL, NULL),
-(57, '0000-00-00', 0, 12, 16, 36, NULL, 0, 'aberto', NULL, NULL, '15', NULL, NULL),
-(58, '0000-00-00', 0, 12, 16, 37, NULL, 0, 'aberto', NULL, NULL, '15', NULL, NULL),
-(59, '0000-00-00', 0, 12, 13, 0, 0, 0, 'aberto', '', '', '15', '0000-00-00', '0000-00-00');
+(181, '2019-05-24', 0, 16, 12, 1, NULL, 1, 'aberto', 'a:7:{i:0;s:12:\"sexta manhã\";i:1;s:11:\"sexta tarde\";i:2;s:11:\"sexta noite\";i:3;s:14:\"sábado manhã\";i:4;s:13:\"sábado tarde\";i:5;s:14:\"domingo manhã\";i:6;s:13:\"domingo tarde\";}', NULL, '23', '2019-05-25', '2019-05-26'),
+(182, '0000-00-00', 0, 16, 12, 2, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
+(183, '0000-00-00', 0, 16, 12, 3, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
+(184, '0000-00-00', 0, 16, 12, 4, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
+(185, '0000-00-00', 0, 16, 12, 5, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
+(186, '0000-00-00', 0, 16, 12, 6, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
+(187, '0000-00-00', 0, 16, 12, 7, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
+(188, '0000-00-00', 0, 16, 12, 8, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
+(189, '0000-00-00', 0, 16, 12, 9, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
+(190, '0000-00-00', 0, 16, 12, 10, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
+(191, '0000-00-00', 0, 16, 12, 11, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
+(192, '0000-00-00', 0, 16, 12, 12, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
+(193, '0000-00-00', 0, 16, 12, 13, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
+(194, '0000-00-00', 0, 16, 12, 14, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
+(195, '0000-00-00', 0, 16, 12, 15, NULL, 0, 'aberto', NULL, NULL, '23', NULL, NULL),
+(196, '0000-00-00', 0, 16, 12, 0, 0, 0, 'aberto', '', '', '23', '0000-00-00', '0000-00-00'),
+(197, '2019-05-31', 0, 16, 12, 1, NULL, 2, 'aberto', 'a:4:{i:0;s:12:\"sexta manhã\";i:1;s:14:\"sábado manhã\";i:2;s:14:\"domingo manhã\";i:3;s:13:\"domingo tarde\";}', NULL, '2', '2019-06-01', '2019-06-02'),
+(198, '0000-00-00', 0, 16, 12, 2, NULL, 0, 'aberto', NULL, NULL, '2', NULL, NULL),
+(199, '0000-00-00', 0, 16, 12, 3, NULL, 0, 'aberto', NULL, NULL, '2', NULL, NULL),
+(200, '0000-00-00', 0, 16, 12, 4, NULL, 0, 'aberto', NULL, NULL, '2', NULL, NULL),
+(201, '0000-00-00', 0, 16, 12, 5, NULL, 0, 'aberto', NULL, NULL, '2', NULL, NULL),
+(202, '0000-00-00', 0, 16, 12, 6, NULL, 0, 'aberto', NULL, NULL, '2', NULL, NULL),
+(203, '0000-00-00', 0, 16, 12, 7, NULL, 0, 'aberto', NULL, NULL, '2', NULL, NULL),
+(204, '0000-00-00', 0, 16, 12, 8, NULL, 0, 'aberto', NULL, NULL, '2', NULL, NULL),
+(205, '0000-00-00', 0, 16, 12, 9, NULL, 0, 'aberto', NULL, NULL, '2', NULL, NULL),
+(206, '0000-00-00', 0, 16, 12, 10, NULL, 0, 'aberto', NULL, NULL, '2', NULL, NULL),
+(207, '0000-00-00', 0, 16, 12, 11, NULL, 0, 'aberto', NULL, NULL, '2', NULL, NULL),
+(208, '0000-00-00', 0, 16, 12, 12, NULL, 0, 'aberto', NULL, NULL, '2', NULL, NULL),
+(209, '0000-00-00', 0, 16, 12, 13, NULL, 0, 'aberto', NULL, NULL, '2', NULL, NULL),
+(210, '0000-00-00', 0, 16, 12, 14, NULL, 0, 'aberto', NULL, NULL, '2', NULL, NULL),
+(211, '0000-00-00', 0, 16, 12, 15, NULL, 0, 'aberto', NULL, NULL, '2', NULL, NULL),
+(212, '0000-00-00', 0, 16, 12, 0, 0, 0, 'aberto', '', '', '2', '0000-00-00', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -166,7 +139,8 @@ CREATE TABLE `alunos` (
 --
 
 INSERT INTO `alunos` (`alunos_id`, `nome`, `email`, `matricula`, `login`, `senha`, `data_cadastro`, `endereco`, `turmas_id`, `reposicao`, `historico_turma`, `last_login`, `cep`, `complemento`, `bairro`, `telefone`, `status`, `celular`, `situacao`, `mesa`, `mesa2`) VALUES
-(1, 'robson', 'robson@uol.com.br', '', 'robson', '81dc9bdb52d04dc20036dbd8313ed055', NULL, '', 23, 'nao', NULL, '2019-04-29 12:18:08', '', '', '', '', 'ativo', '', 'adimplente', 1, 1);
+(12, 'robson', 'robson@uol.com.br', '', 'robson', '202cb962ac59075b964b07152d234b70', NULL, '', 23, 'nao', NULL, '2019-05-21 09:52:43', '', '', '', '', 'ativo', '', 'adimplente', 1, 1),
+(13, 'Felipe Massa', 'felipe@massa.com.br', 'sao-2019-02', 'massa', '81dc9bdb52d04dc20036dbd8313ed055', NULL, 'Rua Ângelo Perin, 81, Parque Grajau', 2, 'nao', NULL, '2019-05-28 06:49:31', '04843-640', '', '', '(11)5927-6768', 'ativo', '', 'adimplente', 30, 30);
 
 -- --------------------------------------------------------
 
@@ -190,21 +164,36 @@ CREATE TABLE `aluno_cursos` (
 --
 
 INSERT INTO `aluno_cursos` (`aluno_cursos_id`, `aluno_id`, `curso_id`, `modulo_id`, `submodulo_id`, `turma`, `historico`, `sala_id`) VALUES
-(1, 1, 12, 1, NULL, '23', NULL, NULL),
-(2, 1, 12, 2, NULL, '23', NULL, NULL),
-(3, 1, 12, 3, NULL, '23', NULL, NULL),
-(4, 1, 12, 4, NULL, '23', NULL, NULL),
-(5, 1, 12, 5, NULL, '23', NULL, NULL),
-(6, 1, 12, 6, NULL, '23', NULL, NULL),
-(7, 1, 12, 7, NULL, '23', NULL, NULL),
-(8, 1, 12, 8, NULL, '23', NULL, NULL),
-(9, 1, 12, 9, NULL, '23', NULL, NULL),
-(10, 1, 12, 10, NULL, '23', NULL, NULL),
-(11, 1, 12, 11, NULL, '23', NULL, NULL),
-(12, 1, 12, 12, NULL, '23', NULL, NULL),
-(13, 1, 12, 13, NULL, '23', NULL, NULL),
-(14, 1, 12, 14, NULL, '23', NULL, NULL),
-(15, 1, 12, 15, NULL, '23', NULL, NULL);
+(78, 12, 12, 1, NULL, '23', NULL, NULL),
+(79, 12, 12, 2, NULL, '23', NULL, NULL),
+(80, 12, 12, 3, NULL, '23', NULL, NULL),
+(81, 12, 12, 4, NULL, '23', NULL, NULL),
+(82, 12, 12, 5, NULL, '23', NULL, NULL),
+(83, 12, 12, 6, NULL, '23', NULL, NULL),
+(84, 12, 12, 7, NULL, '23', NULL, NULL),
+(85, 12, 12, 8, NULL, '23', NULL, NULL),
+(86, 12, 12, 9, NULL, '23', NULL, NULL),
+(87, 12, 12, 10, NULL, '23', NULL, NULL),
+(88, 12, 12, 11, NULL, '23', NULL, NULL),
+(89, 12, 12, 12, NULL, '23', NULL, NULL),
+(90, 12, 12, 13, NULL, '23', NULL, NULL),
+(91, 12, 12, 14, NULL, '23', NULL, NULL),
+(92, 12, 12, 15, NULL, '23', NULL, NULL),
+(93, 13, 12, 1, NULL, '2', NULL, NULL),
+(94, 13, 12, 2, NULL, '2', NULL, NULL),
+(95, 13, 12, 3, NULL, '2', NULL, NULL),
+(96, 13, 12, 4, NULL, '2', NULL, NULL),
+(97, 13, 12, 5, NULL, '2', NULL, NULL),
+(98, 13, 12, 6, NULL, '2', NULL, NULL),
+(99, 13, 12, 7, NULL, '2', NULL, NULL),
+(100, 13, 12, 8, NULL, '2', NULL, NULL),
+(101, 13, 12, 9, NULL, '2', NULL, NULL),
+(102, 13, 12, 10, NULL, '2', NULL, NULL),
+(103, 13, 12, 11, NULL, '2', NULL, NULL),
+(104, 13, 12, 12, NULL, '2', NULL, NULL),
+(105, 13, 12, 13, NULL, '2', NULL, NULL),
+(106, 13, 12, 14, NULL, '2', NULL, NULL),
+(107, 13, 12, 15, NULL, '2', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -267,7 +256,8 @@ CREATE TABLE `avisos` (
 --
 
 INSERT INTO `avisos` (`avisos_id`, `tipo`, `mensagem`, `visualizado`, `data`, `id`) VALUES
-(1, 'aluno', 'Há uma nova aula agendada para você no dia 03/05/2019', 'nao', '2019-04-29', '1');
+(12, 'aluno', 'Há uma nova aula agendada para você no dia 24/05/2019', 'nao', '2019-05-20', '12'),
+(13, 'aluno', 'Há uma nova aula agendada para você no dia 31/05/2019', 'nao', '2019-05-28', '13');
 
 -- --------------------------------------------------------
 
@@ -1072,51 +1062,114 @@ CREATE TABLE `presenca` (
   `mesa` int(11) DEFAULT NULL,
   `data_dia` varchar(45) DEFAULT NULL,
   `dia_semana` varchar(45) DEFAULT NULL,
-  `obs` text NOT NULL
+  `obs` text NOT NULL,
+  `nota` varchar(12) NOT NULL,
+  `linha` int(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `presenca`
 --
 
-INSERT INTO `presenca` (`presenca_id`, `aluno_id`, `agenda_id`, `presente`, `tipo`, `mesa`, `data_dia`, `dia_semana`, `obs`) VALUES
-(1, 1, '1', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(2, 1, '2', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(3, 1, '3', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(4, 1, '4', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(5, 1, '5', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(6, 1, '6', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(7, 1, '7', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(8, 1, '8', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(9, 1, '9', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(10, 1, '10', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(11, 1, '11', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(12, 1, '12', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(13, 1, '13', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(14, 1, '14', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(15, 1, '15', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(16, 1, '16', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(17, 1, '17', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(18, 1, '18', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(19, 1, '19', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(20, 1, '20', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(21, 1, '21', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(22, 1, '22', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(23, 1, '23', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(24, 1, '24', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(25, 1, '25', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(26, 1, '26', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(27, 1, '27', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(28, 1, '28', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(29, 1, '29', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(30, 1, '30', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(31, 1, '31', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(32, 1, '32', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(33, 1, '33', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(34, 1, '34', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(35, 1, '35', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(36, 1, '36', 'confirmado', 'normal', 2, NULL, NULL, ''),
-(37, 1, '37', 'confirmado', 'normal', 2, NULL, NULL, '');
+INSERT INTO `presenca` (`presenca_id`, `aluno_id`, `agenda_id`, `presente`, `tipo`, `mesa`, `data_dia`, `dia_semana`, `obs`, `nota`, `linha`) VALUES
+(269, 12, '181', 'nao', 'normal', 1, '2019-05-24', NULL, '', '', 0),
+(270, 12, '181', 'sim', 'normal', 1, '2019-05-25', NULL, '', '8', 1),
+(271, 12, '181', 'nao', 'normal', 1, '2019-05-26', NULL, '', '', 2),
+(272, 12, '182', NULL, 'normal', 1, '0000-00-00', NULL, '', '', 0),
+(273, 12, '182', NULL, 'normal', 1, NULL, NULL, '', '', 1),
+(274, 12, '182', NULL, 'normal', 1, NULL, NULL, '', '', 2),
+(275, 12, '183', NULL, 'normal', 1, '0000-00-00', NULL, '', '', 0),
+(276, 12, '183', NULL, 'normal', 1, NULL, NULL, '', '', 1),
+(277, 12, '183', NULL, 'normal', 1, NULL, NULL, '', '', 2),
+(278, 12, '184', NULL, 'normal', 1, '0000-00-00', NULL, '', '', 0),
+(279, 12, '184', NULL, 'normal', 1, NULL, NULL, '', '', 1),
+(280, 12, '184', NULL, 'normal', 1, NULL, NULL, '', '', 2),
+(281, 12, '185', NULL, 'normal', 1, '0000-00-00', NULL, '', '', 0),
+(282, 12, '185', NULL, 'normal', 1, NULL, NULL, '', '', 1),
+(283, 12, '185', NULL, 'normal', 1, NULL, NULL, '', '', 2),
+(284, 12, '186', NULL, 'normal', 1, '0000-00-00', NULL, '', '', 0),
+(285, 12, '186', NULL, 'normal', 1, NULL, NULL, '', '', 1),
+(286, 12, '186', NULL, 'normal', 1, NULL, NULL, '', '', 2),
+(287, 12, '187', NULL, 'normal', 1, '0000-00-00', NULL, '', '', 0),
+(288, 12, '187', NULL, 'normal', 1, NULL, NULL, '', '', 1),
+(289, 12, '187', NULL, 'normal', 1, NULL, NULL, '', '', 2),
+(290, 12, '188', NULL, 'normal', 1, '0000-00-00', NULL, '', '', 0),
+(291, 12, '188', NULL, 'normal', 1, NULL, NULL, '', '', 1),
+(292, 12, '188', NULL, 'normal', 1, NULL, NULL, '', '', 2),
+(293, 12, '189', NULL, 'normal', 1, '0000-00-00', NULL, '', '', 0),
+(294, 12, '189', NULL, 'normal', 1, NULL, NULL, '', '', 1),
+(295, 12, '189', NULL, 'normal', 1, NULL, NULL, '', '', 2),
+(296, 12, '190', NULL, 'normal', 1, '0000-00-00', NULL, '', '', 0),
+(297, 12, '190', NULL, 'normal', 1, NULL, NULL, '', '', 1),
+(298, 12, '190', NULL, 'normal', 1, NULL, NULL, '', '', 2),
+(299, 12, '191', NULL, 'normal', 1, '0000-00-00', NULL, '', '', 0),
+(300, 12, '191', NULL, 'normal', 1, NULL, NULL, '', '', 1),
+(301, 12, '191', NULL, 'normal', 1, NULL, NULL, '', '', 2),
+(302, 12, '192', NULL, 'normal', 1, '0000-00-00', NULL, '', '', 0),
+(303, 12, '192', NULL, 'normal', 1, NULL, NULL, '', '', 1),
+(304, 12, '192', NULL, 'normal', 1, NULL, NULL, '', '', 2),
+(305, 12, '193', NULL, 'normal', 1, '0000-00-00', NULL, '', '', 0),
+(306, 12, '193', NULL, 'normal', 1, NULL, NULL, '', '', 1),
+(307, 12, '193', NULL, 'normal', 1, NULL, NULL, '', '', 2),
+(308, 12, '194', NULL, 'normal', 1, '0000-00-00', NULL, '', '', 0),
+(309, 12, '194', NULL, 'normal', 1, NULL, NULL, '', '', 1),
+(310, 12, '194', NULL, 'normal', 1, NULL, NULL, '', '', 2),
+(311, 12, '195', NULL, 'normal', 1, '0000-00-00', NULL, '', '', 0),
+(312, 12, '195', NULL, 'normal', 1, NULL, NULL, '', '', 1),
+(313, 12, '195', NULL, 'normal', 1, NULL, NULL, '', '', 2),
+(314, 12, '196', NULL, 'normal', 1, '0000-00-00', NULL, '', '', 0),
+(315, 12, '196', NULL, 'normal', 1, '0000-00-00', NULL, '', '', 1),
+(316, 12, '196', NULL, 'normal', 1, '0000-00-00', NULL, '', '', 2),
+(317, 12, '197', 'confirmado', 'reposicao', 1, '2019-05-31', 'sexta manhã', '', '', 0),
+(318, 13, '197', 'confirmado', 'normal', 30, NULL, NULL, '', '', 0),
+(319, 13, '197', 'confirmado', 'normal', 30, NULL, NULL, '', '', 1),
+(320, 13, '197', 'confirmado', 'normal', 30, NULL, NULL, '', '', 2),
+(321, 13, '198', 'confirmado', 'normal', 30, NULL, NULL, '', '', 0),
+(322, 13, '198', 'confirmado', 'normal', 30, NULL, NULL, '', '', 1),
+(323, 13, '198', 'confirmado', 'normal', 30, NULL, NULL, '', '', 2),
+(324, 13, '199', 'confirmado', 'normal', 30, NULL, NULL, '', '', 0),
+(325, 13, '199', 'confirmado', 'normal', 30, NULL, NULL, '', '', 1),
+(326, 13, '199', 'confirmado', 'normal', 30, NULL, NULL, '', '', 2),
+(327, 13, '200', 'confirmado', 'normal', 30, NULL, NULL, '', '', 0),
+(328, 13, '200', 'confirmado', 'normal', 30, NULL, NULL, '', '', 1),
+(329, 13, '200', 'confirmado', 'normal', 30, NULL, NULL, '', '', 2),
+(330, 13, '201', 'confirmado', 'normal', 30, NULL, NULL, '', '', 0),
+(331, 13, '201', 'confirmado', 'normal', 30, NULL, NULL, '', '', 1),
+(332, 13, '201', 'confirmado', 'normal', 30, NULL, NULL, '', '', 2),
+(333, 13, '202', 'confirmado', 'normal', 30, NULL, NULL, '', '', 0),
+(334, 13, '202', 'confirmado', 'normal', 30, NULL, NULL, '', '', 1),
+(335, 13, '202', 'confirmado', 'normal', 30, NULL, NULL, '', '', 2),
+(336, 13, '203', 'confirmado', 'normal', 30, NULL, NULL, '', '', 0),
+(337, 13, '203', 'confirmado', 'normal', 30, NULL, NULL, '', '', 1),
+(338, 13, '203', 'confirmado', 'normal', 30, NULL, NULL, '', '', 2),
+(339, 13, '204', 'confirmado', 'normal', 30, NULL, NULL, '', '', 0),
+(340, 13, '204', 'confirmado', 'normal', 30, NULL, NULL, '', '', 1),
+(341, 13, '204', 'confirmado', 'normal', 30, NULL, NULL, '', '', 2),
+(342, 13, '205', 'confirmado', 'normal', 30, NULL, NULL, '', '', 0),
+(343, 13, '205', 'confirmado', 'normal', 30, NULL, NULL, '', '', 1),
+(344, 13, '205', 'confirmado', 'normal', 30, NULL, NULL, '', '', 2),
+(345, 13, '206', 'confirmado', 'normal', 30, NULL, NULL, '', '', 0),
+(346, 13, '206', 'confirmado', 'normal', 30, NULL, NULL, '', '', 1),
+(347, 13, '206', 'confirmado', 'normal', 30, NULL, NULL, '', '', 2),
+(348, 13, '207', 'confirmado', 'normal', 30, NULL, NULL, '', '', 0),
+(349, 13, '207', 'confirmado', 'normal', 30, NULL, NULL, '', '', 1),
+(350, 13, '207', 'confirmado', 'normal', 30, NULL, NULL, '', '', 2),
+(351, 13, '208', 'confirmado', 'normal', 30, NULL, NULL, '', '', 0),
+(352, 13, '208', 'confirmado', 'normal', 30, NULL, NULL, '', '', 1),
+(353, 13, '208', 'confirmado', 'normal', 30, NULL, NULL, '', '', 2),
+(354, 13, '209', 'confirmado', 'normal', 30, NULL, NULL, '', '', 0),
+(355, 13, '209', 'confirmado', 'normal', 30, NULL, NULL, '', '', 1),
+(356, 13, '209', 'confirmado', 'normal', 30, NULL, NULL, '', '', 2),
+(357, 13, '210', 'confirmado', 'normal', 30, NULL, NULL, '', '', 0),
+(358, 13, '210', 'confirmado', 'normal', 30, NULL, NULL, '', '', 1),
+(359, 13, '210', 'confirmado', 'normal', 30, NULL, NULL, '', '', 2),
+(360, 13, '211', 'confirmado', 'normal', 30, NULL, NULL, '', '', 0),
+(361, 13, '211', 'confirmado', 'normal', 30, NULL, NULL, '', '', 1),
+(362, 13, '211', 'confirmado', 'normal', 30, NULL, NULL, '', '', 2),
+(363, 13, '212', 'confirmado', 'normal', 30, NULL, NULL, '', '', 0),
+(364, 13, '212', 'confirmado', 'normal', 30, NULL, NULL, '', '', 1),
+(365, 13, '212', 'confirmado', 'normal', 30, NULL, NULL, '', '', 2),
+(366, 13, '181', 'confirmado', 'revisao', 30, NULL, NULL, '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -1142,8 +1195,9 @@ CREATE TABLE `professor` (
 --
 
 INSERT INTO `professor` (`id_professor`, `email`, `nome`, `texto`, `foto`, `ativo`, `login`, `senha`, `status`, `last_login`) VALUES
-(12, 'pardal@uol.com.br', 'Pardal', '<p>wwwwwwww</p>', NULL, 1, 'pardal', '81dc9bdb52d04dc20036dbd8313ed055', 'ativo', '2019-04-29 09:29:00'),
-(13, 'patinhas@uol.com.br', 'patinhas', '<p>asdadsdas</p>', NULL, 1, 'patinhas', '81dc9bdb52d04dc20036dbd8313ed055', 'ativo', '2019-02-23 13:43:26');
+(12, 'pardal@uol.com.br', 'Pardal', '<p>wwwwwwww</p>', NULL, 1, 'pardal', '81dc9bdb52d04dc20036dbd8313ed055', 'ativo', '2019-05-20 12:55:18'),
+(13, 'patinhas@uol.com.br', 'patinhas', '<p>asdadsdas</p>', NULL, 1, 'patinhas', '81dc9bdb52d04dc20036dbd8313ed055', 'ativo', '2019-05-18 15:56:41'),
+(16, 'alexandre@uol.com.br', 'Alexandre', '<p>Mini-Curr&iacute;culo\" id=\"textarea5ced1ff66e8be\" &gt;</p>\r\n<p><span style=\"color: #333333; font-family: Roboto, \'Helvetica Neue\', Arial, sans-serif; font-weight: bold; text-align: right; background-color: rgba(203, 203, 210, 0.15);\">Mini-Curr&iacute;culo</span></p>', NULL, 1, 'alexandre', '202cb962ac59075b964b07152d234b70', 'ativo', '2019-05-28 06:50:54');
 
 -- --------------------------------------------------------
 
@@ -1183,9 +1237,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
-('5f3338945e6073b15ef00d22d245dbcbcc287aaf', '51.15.191.81', 1557237759, 0x5f5f63695f6c6173745f726567656e65726174657c693a313535373233373735383b),
-('782edf21a9bdda3702447c1fece673f740af518e', '209.17.97.42', 1557238067, 0x5f5f63695f6c6173745f726567656e65726174657c693a313535373233383036373b),
-('5b7e7666d2326066b5ff0c9a9ecbd3502d8a5771', '209.17.96.218', 1557241986, 0x5f5f63695f6c6173745f726567656e65726174657c693a313535373234313938353b);
+('d541a69801e9372aae6cae48b737c0419184d911', '191.162.224.61', 1559043913, 0x5f5f63695f6c6173745f726567656e65726174657c693a313535393034333930353b61646d696e7c4f3a383a22737464436c617373223a353a7b733a383a2261646d696e5f6964223b733a323a223132223b733a353a226c6f67696e223b733a353a2261646d696e223b733a353a22656d61696c223b733a303a22223b733a31303a226c6173745f6c6f67696e223b733a31393a22323031392d30352d32312030393a35313a3430223b733a343a227469706f223b733a353a2261646d696e223b7d),
+('c72d53d7ec59248147f1e6d6d714b9eced4032e6', '191.162.224.61', 1559044303, 0x5f5f63695f6c6173745f726567656e65726174657c693a313535393034343330333b);
 
 -- --------------------------------------------------------
 
@@ -1393,19 +1446,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `agendamento`
 --
 ALTER TABLE `agendamento`
-  MODIFY `agenda_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `agenda_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=213;
 
 --
 -- AUTO_INCREMENT for table `alunos`
 --
 ALTER TABLE `alunos`
-  MODIFY `alunos_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `alunos_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `aluno_cursos`
 --
 ALTER TABLE `aluno_cursos`
-  MODIFY `aluno_cursos_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `aluno_cursos_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT for table `aulas`
@@ -1423,7 +1476,7 @@ ALTER TABLE `aula_modulos`
 -- AUTO_INCREMENT for table `avisos`
 --
 ALTER TABLE `avisos`
-  MODIFY `avisos_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `avisos_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `cursos`
@@ -1489,13 +1542,13 @@ ALTER TABLE `planos`
 -- AUTO_INCREMENT for table `presenca`
 --
 ALTER TABLE `presenca`
-  MODIFY `presenca_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `presenca_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=367;
 
 --
 -- AUTO_INCREMENT for table `professor`
 --
 ALTER TABLE `professor`
-  MODIFY `id_professor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_professor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `salas`
