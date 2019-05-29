@@ -95,7 +95,8 @@
               
           
             <?php 
-            if(isset($agendamentos)):
+
+            if(isset($agendamentos) and count($agendamentos) > 0):
               //if(count($agendamentos)> 0):
                 $dias = formata_data($agendamentos->data);
                 if(!empty($agendamentos->data_segunda)){

@@ -669,12 +669,12 @@ class Agendamento extends BaseCrud
         if($presente == 1){
              $this->db->set('presente', 'confirmado');
              $this->db->set('mesa',$mesa);
-             $this->db->set('data_dia',$data_dia);
+             //$this->db->set('data_dia',$data_dia);
              $this->db->set('dia_semana',$dia_semana);
         }else{
              $this->db->set('presente', 'nao');
              $this->db->set('mesa',$mesa);
-             $this->db->set('data_dia',$data_dia);
+             //$this->db->set('data_dia',$data_dia);
              $this->db->set('dia_semana',$dia_semana);
         }
 
