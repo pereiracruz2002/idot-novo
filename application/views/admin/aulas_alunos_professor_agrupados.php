@@ -9,6 +9,7 @@
 	                <tr>
 	                    <th>Nome</th>
 	                    <th>Curso</th>
+                      <th>Módulo</th>
 	                    <th>&nbsp;</th>
 	                </tr>
 	            </thead>
@@ -18,6 +19,7 @@
 	                    <tr>
 	                        <td><?= $row->nome ?></td>
 	                        <td><?= $row->curso ?></td>
+                          <td><?= $row->modulo?></td>
 	                        <td><a href="<?php base_url();?>/admin/agendamento/ver_inscritos/<?php echo $row->agenda_id;?>/<?php echo $row->aluno_id;?>" class="btn btn-xs btn btn-xs btn-info btn btn-warning">Ver</td>
 	                    </tr>
 	                <?php endforeach; ?>

@@ -18,6 +18,8 @@
                                     <th>Turma</th>
                                     <th>Nivel</th>
                                     <th>Módulo</th>
+                                    <th>Aula</th>
+                                    <th>Professor</th>
                                     <th>Sala</th>
                                     <th></th>                            
                                 </tr>
@@ -32,8 +34,11 @@
                                             <td><?= $row->turma ?></td>
                                             <td><?= $row->curso ?></td>
                                             <td><?= strip_tags($row->modulo) ?></td>
-                                          
                                             <td><?php 
+                                                if($row->tipo=='revisao'){ echo "Revisão";}elseif($row->tipo=='normal'){echo "Normal";}elseif($row->tipo=="reposicao"){echo "Reposição";}?>
+
+                                                </td>
+                                            <?php 
                                             /*
                                             if($row->data!='0000-00-00'){
                                                 if(!is_null($row->data)){
@@ -84,8 +89,10 @@
                                                         
                                                     }
                                                 } */
-                                            ?></td>
+                                            ?>
+                                            <td><?=$row->professor?></td>
                                             <td><?= $row->sala_id ?></td>
+
                                              <td> <a class="btn btn-xs btn-info btn btn-info" href="<?php echo site_url(); ?>/admin/agendamento/ver_minha_agenda_geral/<?php echo $row->curso_id ?>/<?php echo $row->turma ?>" title="Visulizar este registro"  class="btn btn-mini btn-primary"><i class="fa fa-eye"></i>Ver Módulos</a></td>
                                         </tr>
                                     <?php endforeach;?>

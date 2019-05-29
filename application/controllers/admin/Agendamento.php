@@ -460,7 +460,7 @@ class Agendamento extends BaseCrud
             $this->data['show_msg'] = true;
         }
     
- 
+
 
         $this->load->view('admin/aulas_alunos', $this->data);
     }
@@ -563,9 +563,10 @@ class Agendamento extends BaseCrud
         $this->load->model('presenca_model','presenca');
         
 
-        $this->db->select('agendamento.agenda_id,agendamento.sala_id,agendamento.turma,agendamento.data,agendamento.data_segunda,agendamento.data_terceira,agendamento.sala_id, agendamento.dias_semana,cursos.titulo as curso,cursos.cursos_id,CONCAT(modulos.titulo," - ",modulos.descricao) as modulo,modulos.modulos_id,alunos.nome,alunos.alunos_id as aluno_id,alunos.status,presenca.presente as presenca, presenca.presenca_id,presenca.tipo, presenca.mesa, agendamento.curso_id')
+        $this->db->select('agendamento.agenda_id,agendamento.sala_id,agendamento.turma,agendamento.data,agendamento.data_segunda,agendamento.data_terceira,agendamento.sala_id, agendamento.dias_semana,cursos.titulo as curso,cursos.cursos_id,CONCAT(modulos.titulo," - ",modulos.descricao) as modulo,modulos.modulos_id,alunos.nome,alunos.alunos_id as aluno_id,alunos.status,presenca.presente as presenca, presenca.presenca_id,presenca.tipo, presenca.mesa, agendamento.curso_id, professor.nome as professor')
         ->join('presenca','presenca.agenda_id=agendamento.agenda_id')
         ->join('alunos','alunos.alunos_id=presenca.aluno_id')
+        ->join('professor','professor.id_professor=agendamento.professor_id')
         ->join('cursos','cursos.cursos_id=agendamento.curso_id')
         ->join('modulos','modulos.modulos_id=agendamento.modulo_id');
 
