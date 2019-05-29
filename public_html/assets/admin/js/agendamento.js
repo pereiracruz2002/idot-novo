@@ -32,9 +32,9 @@ $(document).ready(function () {
                     $('#myModalAgendamento2').modal('hide');
                     if(msg.status ==1){
                       if(tipo_aula == 1){
-                        //window.location.href="/admin/agendamento/ver_minha_agenda/"+agenda_id+"/true";
-                      }else{
                         window.location.href="/admin/agendamento/ver_minha_agenda/"+agenda_id;
+                      }else{
+                        window.location.href="/admin/agendamento/ver_minha_agenda/"+agenda_id+"/true";
                       }
                     }else{
                       alert(msg.msg);

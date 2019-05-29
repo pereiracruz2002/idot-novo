@@ -37,7 +37,7 @@
 	                 ?>
 	                 <?php if($row->tipo=='revisao'):?>
 	                    <tr class="danger">
-	                <?php elseif($row->tipo='reposicao'):?>
+	                <?php elseif($row->tipo=='reposicao'):?>
 	                	<tr class="warning">
 	                <?php else:?>
 						<tr>

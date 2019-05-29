@@ -272,7 +272,13 @@ class Agendamento extends BaseCrud
              
     }
 
-
+    public function cancelar_minha_agenda($agenda_id){
+        $this->load->model('presenca_model','presenca');
+        $this->db->where('aluno_id',$this->session->userdata('admin')->alunos_id );
+        $this->db->where('agenda_id', $agenda_id);
+        $this->db->delete('presenca'); 
+        redirect('admin/agendamento/ver_minha_agenda_geral_nivel');
+    }
 
     public function ver_minha_agenda($agenda_id, $show_msg = false){
 
@@ -504,23 +510,24 @@ class Agendamento extends BaseCrud
             $where_agendamento['agendamento.status'] = 'aberto';
             $this->data['agendamentos'] = $this->agendamento->get_where($where_agendamento)->row();
 
+            if(!is_null($this->data['agendamentos'])){
+                $where_presenca['agenda_id'] = $this->data['agendamentos']->agenda_id;
+                $this->db->select('presenca.presenca_id');
+                $lugares = $this->presenca->get_where($where_presenca)->result();
+                $qtd_lugares = count($lugares);
 
-            $where_presenca['agenda_id'] = $this->data['agendamentos']->agenda_id;
-            $this->db->select('presenca.presenca_id');
-            $lugares = $this->presenca->get_where($where_presenca)->result();
-            $qtd_lugares = count($lugares);
-
-            if($this->data['agendamentos']->sala_id == 1){
-                $qtd_geral = 1;
-            }else{
-                $qtd_geral = 40;
-            }
+                if($this->data['agendamentos']->sala_id == 1){
+                    $qtd_geral = 30;
+                }else{
+                    $qtd_geral = 38;
+                }
 
 
-            if($qtd_lugares < $qtd_geral){
-                $this->data['prosegue'] =true;
-            }else{
-                $this->data['prosegue'] =false;
+                if($qtd_lugares < $qtd_geral){
+                    $this->data['prosegue'] =true;
+                }else{
+                    $this->data['prosegue'] =false;
+                }
             }
 
 

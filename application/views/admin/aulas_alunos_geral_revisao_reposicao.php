@@ -27,6 +27,7 @@
                               <td><?php if($row->presenca !='confirmado'){
                                   echo $row->presenca;
                               }?></td>
+                              
                               <?php if($row->presenca =='sim'){?>
                               <td class="acoes_alunos">
                                   <a data-id="<?php echo $row->linha;?>" data-presenca="1" class="add_presenca btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Revisão</a>
@@ -176,9 +177,9 @@
               </div>
                <?php endif; ?>
             </div>
-             <?php if(!$prosegue):?>
+             <?php if(isset($prosegue) and $prosegue==FALSE):?>
               <button id="send_agendamento" type="submit" class="btn btn-primary btn-block">Fila de Espera</button>
-            <?php else:?>
+            <?php elseif(isset($prosegue) and $prosegue==TRUE):?>
               <button id="send_agendamento" type="submit" class="btn btn-primary btn-block">Agendar</button>
             <?php endif;?>
         </form>
