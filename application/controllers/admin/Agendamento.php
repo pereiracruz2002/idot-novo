@@ -460,7 +460,7 @@ class Agendamento extends BaseCrud
             $this->data['show_msg'] = true;
         }
     
-        
+ 
 
         $this->load->view('admin/aulas_alunos', $this->data);
     }

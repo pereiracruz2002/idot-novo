@@ -13,10 +13,9 @@
                     <div class="table-responsive">
                         <?php if(isset($show_msg)):?>
                         <div class="alert alert-danger text-center" role="alert">
-                            Para fazer uma aula de reposição entrar em contato com o idot (11) 99784-0978<br />
-                            Sera cobrado uma taxa de R$ 50,00 pago no dia da reposição.<br />
-                            Obrigado.<br/>
-                            A Gerência.
+                            Será cobrado uma taxa de R$ 50,00 a ser pago no dia da reposição.<br/>
+                            Obrigado!<br />
+                            A Coordenação.
                         </div>
                         <?php endif;?>
                         <table class="table table-striped small">
@@ -176,7 +175,7 @@
                             </div>
                             <?php if($this->session->userdata('admin')->tipo=="aluno"){?>
                                 <div style="margin-top:10px;" class="col-sm-12">
-                                     <p> <a  class="btn btn-xs btn-info btn btn-info confirmar_presenca" href="1" title="Alterar Assento" data-confirm="<?php echo site_url(); ?>/admin/agendamento/checar_presenca" class="btn btn-mini btn-warning confirmar_presenca"><i class="fa fa-eye"></i>Alterar maca</a></p>
+                                     <p> <a  class="btn btn-xs btn-info btn btn-info confirmar_presenca" href="1" title="Alterar Assento" data-confirm="<?php echo site_url(); ?>/admin/agendamento/checar_presenca" class="btn btn-mini btn-warning confirmar_presenca"><i class="fa fa-eye"></i>Alterar assento</a></p>
                                     <?php 
                                     if(empty($row->presenca)){?>
                                         <!-- <a class="btn btn-xs btn-info btn btn-info confirmar_presenca" href="1" title="Visulizar este registro" data-confirm="<?php echo site_url(); ?>/admin/agendamento/checar_presenca" class="btn btn-mini btn-warning confirmar_presenca"><i class="fa fa-eye"></i>Confirmar Presença</a>

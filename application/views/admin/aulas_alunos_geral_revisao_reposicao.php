@@ -25,7 +25,13 @@
 
 
                               <td><?php if($row->presenca !='confirmado'){
-                                  echo $row->presenca;
+
+                                  if($row->presenca == 'sim' ){
+                                    echo "Sim";
+                                  }else{
+                                    echo "Não";
+                                  }
+                                  //echo $row->presenca;
                               }?></td>
                               
                               <?php if($row->presenca =='sim'){?>
@@ -159,7 +165,7 @@
                 <?php */ ?>
               <?php if($prosegue){?>
               <div class="alert alert-success" role="alert">
-                  Há um agendamento disponível do curso <?php echo $agendamentos->curso;?> para <?php echo $dias;?>.<br />
+                  Há um agendamento disponível do curso <?php echo $agendamentos->curso;?> - <?php echo $agendamentos->modulo;?> para <?php echo $dias;?>.<br />
                   Deseja realmente marcar esse agendamento?
               </div>
             <?php } ?>

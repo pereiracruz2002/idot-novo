@@ -5,6 +5,7 @@
             <h2>Meus Agendamentos</h2>
         </div>
        
+       <?php echo 'chegou aki'; exit();?>
 
         <div class="panel-body">
 
@@ -124,10 +125,10 @@
                             <div class="col-sm-12">
                                 <div style="color:red; font-weight:bold;" class="row">
                                     <div class="col-sm-6 col-offset-sm-6">
-                                        <h5 style="font-weight:bold;">Caso queira escolher outra maca:</h5>
+                                        <h5 style="font-weight:bold;">Caso queira escolher outra assento:</h5>
                                         <ul>
-                                            <li>Selecione a maca desejada;</li>
-                                            <li>Clicar em alterar maca no botão abaixo.</li>
+                                            <li>Selecione a assento desejada;</li>
+                                            <li>Clicar em alterar assento no botão abaixo.</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -169,7 +170,7 @@
                             </div>
                             <?php if($this->session->userdata('admin')->tipo=="aluno"){?>
                                 <div style="margin-top:10px;" class="col-sm-12">
-                                     <p> <a  class="btn btn-xs btn-info btn btn-info confirmar_presenca" href="1" title="Alterar Maca" data-confirm="<?php echo site_url(); ?>/admin/agendamento/checar_presenca" class="btn btn-mini btn-warning confirmar_presenca"><i class="fa fa-eye"></i>Alterar maca</a></p>
+                                     <p> <a  class="btn btn-xs btn-info btn btn-info confirmar_presenca" href="1" title="Alterar assento" data-confirm="<?php echo site_url(); ?>/admin/agendamento/checar_presenca" class="btn btn-mini btn-warning confirmar_presenca"><i class="fa fa-eye"></i>Alterar assento</a></p>
                                     <?php 
                                     if(empty($row->presenca)){?>
                                         <!-- <a class="btn btn-xs btn-info btn btn-info confirmar_presenca" href="1" title="Visulizar este registro" data-confirm="<?php echo site_url(); ?>/admin/agendamento/checar_presenca" class="btn btn-mini btn-warning confirmar_presenca"><i class="fa fa-eye"></i>Confirmar Presença</a>
