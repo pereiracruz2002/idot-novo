@@ -11,6 +11,15 @@ $(document).ready(function () {
             var tipo_aula = $('#tipo_aula').val();
             var periodo = $('#turma').val();
             var linha = $('#linha').val();
+            var espera = $('#espera').val();
+            if(typeof espera !='undefined' ){
+              var espera = $('#espera').val();
+            }else{
+              var espera = '';
+            }
+
+
+            
             //var periodo = $('select[name=turma]').val();
 
             $.ajax({
@@ -22,7 +31,8 @@ $(document).ready(function () {
                             agenda_id: agenda_id,
                             tipo_aula:tipo_aula,
                             linha:linha,
-                            periodo:periodo
+                            periodo:periodo,
+                            espera:espera
 
                       },
                       
@@ -30,6 +40,7 @@ $(document).ready(function () {
                  .done(function(msg){
                     //alert(msg)
                     $('#myModalAgendamento2').modal('hide');
+                    console.log(msg.status);
                     if(msg.status ==1){
                       if(tipo_aula == 1){
                         window.location.href="/admin/agendamento/ver_minha_agenda/"+agenda_id;

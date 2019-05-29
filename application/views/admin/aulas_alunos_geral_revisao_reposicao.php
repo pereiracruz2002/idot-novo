@@ -96,7 +96,7 @@
           
             <?php 
 
-            if(isset($agendamentos) and count($agendamentos) > 0):
+            if(isset($agendamentos)):
               //if(count($agendamentos)> 0):
                 $dias = formata_data($agendamentos->data);
                 if(!empty($agendamentos->data_segunda)){
@@ -116,7 +116,8 @@
 
                <div class="alert alert-danger text-center" role="alert">
 
-                  No momento a sala para o curso <?php echo $agendamentos->curso;?> para <?php echo $dias;?> está completa. Se desejar ficar aguardando a desistência de alguém clique no fila de espera<br />
+                  No momento a sala para o curso <?php echo $agendamentos->curso;?> para <?php echo $dias;?> está completa. Se desejar ficar aguardando a desistência de alguém clique no fila de espera.<br />
+                  Caso haja alguma desistênica você será avisado até 2 dias antes da data que ocorrerá a aula.
               </div>
               <?php }
 

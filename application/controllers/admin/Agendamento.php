@@ -277,6 +277,21 @@ class Agendamento extends BaseCrud
         $this->db->where('aluno_id',$this->session->userdata('admin')->alunos_id );
         $this->db->where('agenda_id', $agenda_id);
         $this->db->delete('presenca'); 
+
+        $this->select('alunos.*')
+        ->join('alunos','alunos.alunos_id=presenca.aluno_id');
+        $where['presenca.agenda_id'] = $agenda_id;
+        $where['presenca.presente'] = 'aguardando';
+
+        $resultado = $this->presenca->get_where($where)->row();
+
+        // if($resultado){
+
+        // }
+
+
+
+
         redirect('admin/agendamento/ver_minha_agenda_geral_nivel');
     }
 
@@ -1037,7 +1052,7 @@ class Agendamento extends BaseCrud
         // if(!is_null($ocupado)){
         //     $mesa='';
         // }
-        if(!isset($post['espera'])){
+        if(empty($post['espera'])){
             if($post['tipo_aula']==1){
                 $tipo = 'revisao';
             }else{
@@ -1051,7 +1066,10 @@ class Agendamento extends BaseCrud
 
         $save_cursos = array('aluno_id' => $post['aluno_id'], 'agenda_id' => $post['agenda_id'],'tipo'=>$tipo,'mesa'=>$mesa, 'data_dia'=>$nova_data, 'presente'=>'confirmado');
 
+
+
         if($this->presenca->save($save_cursos)){
+
             if($tipo=="espera"){
 
                 $output = array('status' => 2, 'msg' => 'Você entrou para a fila de espera deste agendamento!');
