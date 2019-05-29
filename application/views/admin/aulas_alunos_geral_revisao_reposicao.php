@@ -122,8 +122,8 @@
 
                <div class="alert alert-danger text-center" role="alert">
 
-                  No momento a sala para o curso <?php echo $agendamentos->curso;?> para <?php echo $dias;?> está completa. Se desejar ficar aguardando a desistência de alguém clique no fila de espera.<br />
-                  Caso haja alguma desistênica você será avisado até 2 dias antes da data que ocorrerá a aula.
+                  No momento a sala para o curso <?php echo $agendamentos->curso;?> -<?php echo $agendamentos->modulo;?> para <?php echo $dias;?> está completa. Se desejar ficar aguardando a desistência de alguém clique no fila de espera.<br />
+                  Caso haja alguma desistênica você será avisado por email em até 2 dias antes da data.
               </div>
               <?php }
 
