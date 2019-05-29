@@ -40,6 +40,7 @@ class Professor_model extends My_Model{
             'label_class' => 'col-md-2',
             'prepend' => '<div class="col-md-3">',
             'append' => '</div>',
+            'extra' => array('required'=>'required')
         ),
         'senha' => array(
             'type' => 'password',
@@ -49,6 +50,7 @@ class Professor_model extends My_Model{
             'label_class' => 'col-md-2',
             'prepend' => '<div class="col-md-3">',
             'append' => '</div>',
+            'extra' => array('required'=>'required')
         ),
         'status' => array(
             'type' => 'select',
