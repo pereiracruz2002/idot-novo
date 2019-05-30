@@ -286,14 +286,16 @@ class Agendamento extends BaseCrud
         $resultado = $this->presenca->get_where($where)->row();
        
 
+
         if($resultado){
             $this->db->set('tipo',$resultado->presente);
             $this->db->set('presente','confirmado');
            
             $this->db->where(array('presenca_id'=>$resultado->presenca_id));
             if($this->db->update('presenca')){
-                //envia email
-
+                $msg = '<p>Seu agendamento foi realizado com sucesso!</p><p>Acesse http://idotsp.com.br e logue no sistema para acompanhar informações da sua próximas aulas.</p>';
+                $this->presenca->enviaEmail($resultado->email,$msg);
+                
             }
         }
 

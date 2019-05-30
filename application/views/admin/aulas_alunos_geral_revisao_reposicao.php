@@ -18,7 +18,13 @@
                     <?php 
                     if(isset($itens)):
                       foreach ($itens as $row): ?>
-                          <tr>
+                           <?php if($row->tipo=='revisao'):?>
+                          <tr style="background-color:#d9534f"; class="danger">
+                          <?php elseif($row->tipo=='reposicao'):?>
+                            <tr style="background-color:#5cb85c"; class="success">
+                          <?php else:?>
+                          <tr style="background-color:#CEECF5"; class="primary">
+                          <?php endif;?>
 
                               <td><?= $row->curso ?></td>
                               <td><?= abreviaString(strip_tags($row->modulo),100) ?></td>
@@ -36,11 +42,11 @@
                               
                               <?php if($row->presenca =='sim'){?>
                               <td class="acoes_alunos">
-                                  <a data-id="<?php echo $row->linha;?>" data-presenca="1" class="add_presenca btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Revisão</a>
+                                  <a data-id="<?php echo $row->linha;?>" data-presenca="1" class="add_presenca btn btn-xs btn-info btn btn-warning" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Revisão</a>
                               </td>
                               <?php }elseif($row->presenca =='nao'){?>
                                <td class="acoes_alunos">  
-                                  <a data-id="<?php echo $row->linha;?>" data-presenca="2" class="add_presenca btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Reposição</a>
+                                  <a data-id="<?php echo $row->linha;?>" data-presenca="2" class="add_presenca btn btn-xs btn-info btn btn-warning" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Reposição</a>
 
                               </td>
                           <?php }else{?>

@@ -36,11 +36,11 @@
 	         			if($row->data !='0000-00-00'):
 	                 ?>
 	                 <?php if($row->tipo=='revisao'):?>
-	                    <tr class="danger">
+	                    <tr style="background-color:#d9534f"; class="danger">
 	                <?php elseif($row->tipo=='reposicao'):?>
-	                	<tr class="success">
+	                	<tr style="background-color:#5cb85c"; class="success">
 	                <?php else:?>
-						<tr class="primary">
+						<tr style="background-color:#CEECF5"; class="primary">
 	                <?php endif;?>
 	                        <td><?= $row->nome ?></td>
 	                        <td><?= $row->curso ?></td>
