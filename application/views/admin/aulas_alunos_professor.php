@@ -4,7 +4,7 @@
     </div>
     <div class="panel-body">
         <div class="table-responsive">
-        	<table>
+        	<!-- <table>
 				<tr>
 					<td>
 						<button style="background-color:#d9534f; color:#fff" class="btn btn-danger" type="button">Reposição</button>
@@ -14,7 +14,7 @@
 					</td>
 					<td></td>
 				</tr>
-        	</table>
+        	</table> -->
 	        <table class="table table-striped small">
 	            <thead>
 	                <tr>
@@ -38,15 +38,15 @@
 	                 <?php if($row->tipo=='revisao'):?>
 	                    <tr class="danger">
 	                <?php elseif($row->tipo=='reposicao'):?>
-	                	<tr class="warning">
+	                	<tr class="success">
 	                <?php else:?>
-						<tr>
+						<tr class="primary">
 	                <?php endif;?>
 	                        <td><?= $row->nome ?></td>
 	                        <td><?= $row->curso ?></td>
 	                        <td><?= $row->modulo ?></td>
 	                        <td><?= formata_data($row->data) ?></td>
-	                        <td><?= $row->tipo ?></td>
+	                        <td><?php if($row->tipo=="revisao"){echo "Revisão";}elseif($row->tipo=="reposicao"){echo "Reposição";}elseif($row->tipo=="normal"){echo "Normal";}elseif($row->tipo=="espera"){echo "Aguardando vagas";} ?></td>
 	                        <td><?php 
 
 		                        if(is_null($row->nota) || empty($row->nota)){?>

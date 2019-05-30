@@ -278,16 +278,25 @@ class Agendamento extends BaseCrud
         $this->db->where('agenda_id', $agenda_id);
         $this->db->delete('presenca'); 
 
-        $this->select('alunos.*')
+        $this->db->select('alunos.*, presenca.*')
         ->join('alunos','alunos.alunos_id=presenca.aluno_id');
         $where['presenca.agenda_id'] = $agenda_id;
-        $where['presenca.presente'] = 'aguardando';
+        $where['presenca.tipo'] = 'espera';
 
         $resultado = $this->presenca->get_where($where)->row();
+       
 
-        // if($resultado){
+        if($resultado){
+            $this->db->set('tipo',$resultado->presente);
+            $this->db->set('presente','confirmado');
+           
+            $this->db->where(array('presenca_id'=>$resultado->presenca_id));
+            if($this->db->update('presenca')){
+                //envia email
 
-        // }
+            }
+        }
+
 
 
 
@@ -1059,13 +1068,21 @@ class Agendamento extends BaseCrud
             }else{
                 $tipo = 'reposicao';
             }
+            $presente = 'confirmado';
         }else{
              $tipo = 'espera';
+              if($post['tipo_aula']==1){
+                    $presente = 'revisao';
+                }else{
+                    $presente = 'reposicao';
+                }
         }
 
 
 
-        $save_cursos = array('aluno_id' => $post['aluno_id'], 'agenda_id' => $post['agenda_id'],'tipo'=>$tipo,'mesa'=>$mesa, 'data_dia'=>$nova_data, 'presente'=>'confirmado');
+
+
+        $save_cursos = array('aluno_id' => $post['aluno_id'], 'agenda_id' => $post['agenda_id'],'tipo'=>$tipo,'mesa'=>$mesa, 'data_dia'=>$nova_data, 'presente'=>$presente,'linha'=>$post['linha']);
 
 
 

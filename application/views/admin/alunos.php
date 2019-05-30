@@ -11,8 +11,8 @@
 	                    <th>Curso</th>
 	                    <th>Módulo</th>
 	                    <th>Tipo Aula</th>
-	                    <th>Maca Sala 1</th>
-	                    <th>Maca Sala 2</th>
+	                    <th>Assento Sala 1</th>
+	                    <th>Assento Sala 2</th>
 	                    <th>&nbsp;</th>
 	                </tr>
 	            </thead>
