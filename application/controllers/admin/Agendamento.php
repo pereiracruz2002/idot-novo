@@ -543,7 +543,7 @@ class Agendamento extends BaseCrud
                 $qtd_lugares = count($lugares);
 
                 if($this->data['agendamentos']->sala_id == 1){
-                    $qtd_geral = 30;
+                    $qtd_geral = 1;
                 }else{
                     $qtd_geral = 38;
                 }
