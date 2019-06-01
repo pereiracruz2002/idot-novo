@@ -34,7 +34,7 @@
 
                                   if($row->presenca == 'sim' ){
                                     echo "Sim";
-                                  }else{
+                                  }elseif($row->presenca == 'nao'){
                                     echo "Não";
                                   }
                                   //echo $row->presenca;

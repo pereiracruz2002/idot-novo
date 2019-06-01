@@ -18,6 +18,7 @@
 	        <table class="table table-striped small">
 	            <thead>
 	                <tr>
+	                	<th>#</th>
 	                    <th>Nome</th>
 	                    <th>Curso</th>
 	                    <th>Módulo</th>
@@ -31,17 +32,19 @@
 	            <tbody>
 	                <?php 
 	                $array_obs = array();
+	                $i = 1;
 	                foreach ($itens as $row):
 	                	$array_obs[] = $row->obs;
 	         			if($row->data !='0000-00-00'):
 	                 ?>
 	                 <?php if($row->tipo=='revisao'):?>
-	                    <tr style="background-color:#d9534f"; class="danger">
+	                    <tr style="background-color:#f2dede";>
 	                <?php elseif($row->tipo=='reposicao'):?>
-	                	<tr style="background-color:#5cb85c"; class="success">
+	                	<tr style="background-color:#F0E68C";>
 	                <?php else:?>
-						<tr style="background-color:#CEECF5"; class="primary">
+						<tr style="background-color:#CEECF5";>
 	                <?php endif;?>
+	                		<td><?= $i; ?></td>
 	                        <td><?= $row->nome ?></td>
 	                        <td><?= $row->curso ?></td>
 	                        <td><?= $row->modulo ?></td>
@@ -78,6 +81,7 @@
 
 	                    </tr>
 	                	<?php endif; ?>
+	                	<?php $i++;?>
 	                <?php endforeach; ?>
 	            </tbody>
 	        </table>

@@ -7,6 +7,7 @@
 	        <table class="table table-striped small">
 	            <thead>
 	                <tr>
+	                	<th>#</th>
 	                    <th>Nome</th>
 	                    <th>Curso</th>
 	                    <th>Módulo</th>
@@ -18,9 +19,10 @@
 	            </thead>
 	            <tbody>
 	                <?php 
-	                
+	                $i = 1;
 	                foreach ($itens as $row): ?>
 	                    <tr>
+							<td><?= $i;?></td>
 	                        <td><?= $row->nome ?></td>
 	                        <td><?= $row->curso ?></td>
 	                        <td><?= $row->modulo ?></td>
@@ -32,6 +34,7 @@
                     			<a class="btn btn-xs btn btn-danger delete" href="#" data-remove="/index.php/admin/alunos/deletar/<?= $row->aluno_id ?>" title="Deletar este registro"><i class="fa fa-times-circle"></i> Deletar</a>
                             </td>
 	                    </tr>
+	                    <?php $i++;?>
 	                <?php endforeach; ?>
 	            </tbody>
 	        </table>

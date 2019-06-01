@@ -274,6 +274,8 @@ class Agendamento extends BaseCrud
 
     public function cancelar_minha_agenda(){
 
+        $this->load->model('avisos_model','avisos');
+
         $agenda_id = $this->input->post('agenda_id');
 
         $this->load->model('presenca_model','presenca');
@@ -297,9 +299,36 @@ class Agendamento extends BaseCrud
            
             $this->db->where(array('presenca_id'=>$resultado->presenca_id));
             if($this->db->update('presenca')){
-                $msg = '<p>Seu agendamento foi realizado com sucesso!</p><p>Acesse http://idotsp.com.br e logue no sistema para acompanhar informações da sua próximas aulas.</p>';
-                $this->presenca->enviaEmail($resultado->email,$msg);
-                $this->output->set_output("ok");
+                //$msg = '<p>Seu agendamento foi realizado com sucesso!</p><p>Acesse http://idotsp.com.br e logue no sistema para marcar seu assento e acompanhar informações da sua próximas aulas.</p>';
+                $msg_painel = 'Seu agendamento saiu da fila de espera! Selecione um assento para assistir a aula';
+                $this->avisos->save_aviso($resultado->alunos_id,'aluno',$msg_painel,"Confirmação  de Agendamento");
+
+                $this->load->library('email');
+                $this->email->set_mailtype("html");     
+
+                $this->email->from(EMAIL_FROM, 'Aviso de Agendamento');
+                $this->email->to((ENVIRONMENT == 'development' ? EMAIL_DEV : $resultado->email));
+                $this->email->subject('Aviso de Agendamento');
+
+                $data = array('aluno'=> $resultado->nome);
+                       
+  
+
+                $this->email->message($this->load->view("emails/aviso_agendamento", $data, TRUE));
+                if ($this->email->send()) {
+                    $this->output->set_output("ok");
+                }else{
+                    $msg = "Erro ao enviar o email: {$this->email->print_debugger()}";
+                    $this->output->set_output($msg);
+                }
+
+
+                // if($this->presenca->enviaEmail($resultado->email,$msg)=='ok'){
+                //      $this->output->set_output("ok");
+                //  }else{
+                //      $this->output->set_output("erro email");
+                // }
+               
                 
             }else{
                  $this->output->set_output("erro ao inserir uma presença"); 

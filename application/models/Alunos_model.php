@@ -180,6 +180,7 @@ class Alunos_model extends My_Model{
 
     public function login($login, $senha) 
     {
+
         $where['login'] = $login;
         $cadastro = $this->get_where($where)->row();
 
@@ -201,7 +202,7 @@ class Alunos_model extends My_Model{
                 return 'Login incorreto';
             }
         }
-        return false;
+        return 'Dados não encontrados';
     }
 
 

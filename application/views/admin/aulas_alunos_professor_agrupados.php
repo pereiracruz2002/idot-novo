@@ -7,6 +7,7 @@
 	        <table class="table table-striped small">
 	            <thead>
 	                <tr>
+                      <th>#</th>
 	                    <th>Nome</th>
 	                    <th>Curso</th>
                       <th>Módulo</th>
@@ -15,13 +16,16 @@
 	            </thead>
 	            <tbody>
 	                <?php 
+                  $i =1;
 	                foreach ($itens as $row):?>
 	                    <tr>
+                          <td><?= $i; ?></td>
 	                        <td><?= $row->nome ?></td>
 	                        <td><?= $row->curso ?></td>
                           <td><?= $row->modulo?></td>
 	                        <td><a href="<?php base_url();?>/admin/agendamento/ver_inscritos/<?php echo $row->agenda_id;?>/<?php echo $row->aluno_id;?>" class="btn btn-xs btn btn-xs btn-info btn btn-warning">Ver</td>
 	                    </tr>
+                      <?php $i++;?>
 	                <?php endforeach; ?>
 	            </tbody>
 	        </table>
