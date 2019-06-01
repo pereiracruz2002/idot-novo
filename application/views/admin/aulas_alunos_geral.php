@@ -39,7 +39,7 @@
                                              <td> <a class="btn btn-xs btn-info btn btn-info" href="<?php echo site_url(); ?>/admin/agendamento/ver_minha_agenda/<?php echo $row->agenda_id ?>" title="Visulizar este registro"  class="btn btn-mini btn-primary"><i class="fa fa-eye"></i>Ver Detalhes</a></td>
                                              <?php if($row->tipo=='reposicao' || $row->tipo=='revisao' ){
                                                 if($row->presenca=='confirmado'){?>
-                                                 <td><a class="btn btn-xs btn-info btn btn-info" href="<?php echo site_url(); ?>/admin/agendamento/cancelar_minha_agenda/<?php echo $row->agenda_id ?>" title="Visulizar este registro"  class="btn btn-mini btn-primary"><i class="fa fa-eye"></i>Cancelar</a></td>
+                                                 <td><a class="cancelar_presenca btn btn-xs btn-info btn btn-info" data-confirm="<?php echo site_url(); ?>/admin/agendamento/cancelar_minha_agenda" href="<?php echo $row->agenda_id ?>" title="Cancelar este registro"  class="btn btn-mini btn-primary"><i class="fa fa-eye"></i>Cancelar</a></td>
                                             <?php
                                                 }
                                              }?>

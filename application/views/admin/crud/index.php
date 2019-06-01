@@ -66,7 +66,12 @@
                         <?php foreach ($itens as $row): ?>
                             <tr>
                                 <?php foreach ($campos as $campo): ?>
-                                    <td class="<?= url_title($campo); ?>"><?= $row->{$campo} ?></td>
+                                    <?php if(url_title($campo)=='dias_semana'):?>
+                                        <td class="dias_semanas"><?= $row->{$campo} ?></td>
+                                    <?php else:?>
+                                        <td class="<?= url_title($campo); ?>"><?= $row->{$campo} ?></td>
+                                    <?php endif;?>
+                                    
                                 <?php endforeach ?>
                                 <td class="acoes">
                                     <?php if (in_array('P', $crud)): ?>

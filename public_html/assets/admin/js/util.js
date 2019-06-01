@@ -58,6 +58,38 @@ $(document).ready(function () {
         }
     });
 
+    $('body').on('click', '.cancelar_presenca', function (e) {
+        e.preventDefault();
+        var _self = $(this);
+        var agenda_id = $(this).attr('href');
+        
+
+        var decisao = confirm("Tem certeza que deseja cancelar esse agendamento?");
+        if (decisao) {
+            //$.get(_self.attr('data-confirm'));
+            
+            $.ajax({
+                 url :_self.attr('data-confirm'),
+                 type : 'post',
+                 
+                  data : {
+                        agenda_id: agenda_id,
+
+                  },
+                  
+            })
+             .done(function(msg){
+                //console.log(msg)
+                  window.location= base_url+'agendamento/ver_minha_agenda_geral_nivel';
+             })
+             .fail(function(jqXHR, textStatus, msg){
+                  alert(msg);
+             }); 
+
+
+        }
+    });
+
 
     $('body').on('click', '.confirmar_presenca', function (e) {
         e.preventDefault();

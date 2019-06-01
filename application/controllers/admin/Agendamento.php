@@ -272,7 +272,10 @@ class Agendamento extends BaseCrud
              
     }
 
-    public function cancelar_minha_agenda($agenda_id){
+    public function cancelar_minha_agenda(){
+
+        $agenda_id = $this->input->post('agenda_id');
+
         $this->load->model('presenca_model','presenca');
         $this->db->where('aluno_id',$this->session->userdata('admin')->alunos_id );
         $this->db->where('agenda_id', $agenda_id);
@@ -282,6 +285,7 @@ class Agendamento extends BaseCrud
         ->join('alunos','alunos.alunos_id=presenca.aluno_id');
         $where['presenca.agenda_id'] = $agenda_id;
         $where['presenca.tipo'] = 'espera';
+        $where['presenca.aluno_id !='] = $this->session->userdata('admin')->alunos_id;
 
         $resultado = $this->presenca->get_where($where)->row();
        
@@ -295,15 +299,12 @@ class Agendamento extends BaseCrud
             if($this->db->update('presenca')){
                 $msg = '<p>Seu agendamento foi realizado com sucesso!</p><p>Acesse http://idotsp.com.br e logue no sistema para acompanhar informações da sua próximas aulas.</p>';
                 $this->presenca->enviaEmail($resultado->email,$msg);
+                $this->output->set_output("ok");
                 
+            }else{
+                 $this->output->set_output("erro ao inserir uma presença"); 
             }
         }
-
-
-
-
-
-        redirect('admin/agendamento/ver_minha_agenda_geral_nivel');
     }
 
     public function ver_minha_agenda($agenda_id, $show_msg = false){
@@ -539,8 +540,11 @@ class Agendamento extends BaseCrud
             if(!is_null($this->data['agendamentos'])){
                 $where_presenca['agenda_id'] = $this->data['agendamentos']->agenda_id;
                 $this->db->select('presenca.presenca_id');
+                $this->db->group_by('presenca.aluno_id');
                 $lugares = $this->presenca->get_where($where_presenca)->result();
+
                 $qtd_lugares = count($lugares);
+
 
                 if($this->data['agendamentos']->sala_id == 1){
                     $qtd_geral = 30;
@@ -687,6 +691,7 @@ class Agendamento extends BaseCrud
         $post = $this->input->posts();
 
         $data['aluno_id'] = $post['aluno_id'];
+        $data['agenda_id'] = $post['agenda_id'];
         //$data['agenda_id'] = $post['agenda_id'];
         $data_dia = $post['data_dia'];
         $dia_semana = $post['dias_semana'];

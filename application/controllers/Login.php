@@ -19,11 +19,11 @@ class Login extends CI_Controller
                 if($this->professor->login($this->input->post('login'), $this->input->post('senha'))) {
                     redirect('painel');
                 }else{
-
-                    if($this->alunos->login($this->input->post('login'), $this->input->post('senha'))) {
+                    $verifica_login  = $this->alunos->login($this->input->post('login'), $this->input->post('senha'));
+                    if($verifica_login=='ok') {
                         redirect('painel');
                     }else{
-                        $this->data['msg'] = 'Login incorreto';
+                        $this->data['msg'] = $verifica_login;
                     }
 
                 }
@@ -37,6 +37,94 @@ class Login extends CI_Controller
     {
         $this->session->sess_destroy();
         redirect('login');
+    }
+
+
+    public function forgotPassword()
+    {
+
+        $this->load->model('alunos_model','user');
+
+        $output = array();
+        $this->load->helper(array('form', 'url'));
+        $validation = array(
+                array('field' => 'email',
+                'label' => 'Email',
+                'rules' => 'trim|required|valid_email',
+                'errors' => array(
+                    'required' => "O campo %s é obrigatório",
+                    'valid_email' => "Email inválido"
+                )
+            )
+        );
+        
+        $this->form_validation->set_rules($validation);
+        if (!$this->form_validation->run()) {
+            if (validation_errors()) {
+                $error = str_replace("<p>", "* ", validation_errors());
+                $error = str_replace("<p/>", "<br/>", $error);
+                $this->data['error_forgot'] = $error;
+                $msg = $error;
+            }
+            $output = array( 'msg' => $msg);
+            $this->output->set_content_type('application/json')
+                     ->set_output(json_encode($output));
+        }
+        
+        $this->load->model('user_model', 'user');
+        $email = $this->input->post('email');
+
+
+        $where['email'] = $email;
+        $return = $this->user->get_where($where)->row();
+        
+        if ($return == NULL) {
+            $this->data['error_forgot'] = "Email não encontrado";
+            $msg = $this->data['error_forgot'];
+            $output = array( 'msg' => $msg);
+            $this->output->set_content_type('application/json')
+                     ->set_output(json_encode($output));
+        }
+
+        $gerar = $this->user->geraSenha(10);
+        $nova_senha = md5($gerar);
+
+
+        
+        $this->load->library('email');
+        $this->email->set_mailtype("html");
+
+        // $config = Array(
+        //     'protocol' => 'smtp',
+        //     'smtp_host' => 'ssl://smtp.googlemail.com',
+        //     'smtp_port' => 465,
+        //     'smtp_user' => 'pereiracruz2002@gmail.com',
+        //     'smtp_pass' => '817924fl',
+        //     'mailtype'  => 'html', 
+        //     'charset'   => 'iso-8859-1'
+        // );
+        // $this->load->library('email', $config);
+
+        $this->email->from(EMAIL_FROM, 'Solicitação de recuperação de senha');
+        $this->email->to((ENVIRONMENT == 'development' ? EMAIL_DEV : $return->email));
+        $this->email->subject('Solicitação de recuperação de senha');
+
+        $data = array('aluno'=> $return->nome,'nova_senha'=>$gerar);
+                 
+
+        $this->email->message($this->load->view("emails/forgotpassword", $data, TRUE));
+        if ($this->email->send()) {
+            
+            $this->user->update(array("senha" => $nova_senha), array("alunos_id" => $return->alunos_id));
+            $msg = "Email enviado com sucesso";
+
+        } else {
+            $msg = "Erro ao enviar o email: {$this->email->print_debugger()}";
+
+        }
+         $output = array( 'msg' => $msg);
+            $this->output->set_content_type('application/json')
+                     ->set_output(json_encode($output));
     }
 
 

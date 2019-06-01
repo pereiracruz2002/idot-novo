@@ -278,7 +278,7 @@
         <div aria-hidden="true" aria-labelledby="forgotPassword" role="dialog" tabindex="-1" id="forgotPassword" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form class="form-forgot" id="forgot" action="/admin/login/forgotPassword" method="post">
+                    <form class="form-forgot" id="forgot" action="<?php echo base_url();?>login/forgotPassword" method="post">
                         <div class="modal-header">
                             <a href="#" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
                             <h4 class="modal-title">Recuperar a senha</h4>
@@ -296,7 +296,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-success" type="submit">Enviar</button>
+                            <button style="background-color:#87CB16;" class="btn btn-success" type="submit">Enviar</button>
                         </div>
                     </form>
                 </div>
@@ -313,6 +313,28 @@
                 <?php if (isset($error_forgot) || isset($success_forgot)): ?>
                     $("#modalForgot").trigger("click");
                 <?php endif; ?>
+
+                $("#forgot").on("submit", function (e) {
+                    e.preventDefault();
+                    console.log('Vai enviar a senha');
+                    $.ajax({
+                         url :$("#forgot").attr('action'),
+                         type : 'post',
+                         
+                          data : {
+                                email:$('input[name=email]').val()
+                          },
+                          
+                    })
+                     .done(function(msg){
+                        //console.log(msg)
+                          alert(msg.msg);
+                     })
+                     .fail(function(jqXHR, textStatus, msg){
+                          alert(msg);
+                     }); 
+                });
+
 
                 $("form").on("submit", function () {
                     $(this).find("button").each(function () {
