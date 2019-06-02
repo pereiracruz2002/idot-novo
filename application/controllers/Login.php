@@ -11,6 +11,7 @@ class Login extends CI_Controller
         $this->load->model('alunos_model','alunos');
 
         if($this->input->posts()){
+
             //$senha = password_hash('senha', PASSWORD_DEFAULT); 
             if($this->admin->login($this->input->post('login'), $this->input->post('senha'))) {
                 redirect('painel');
