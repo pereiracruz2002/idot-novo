@@ -16,7 +16,10 @@
                 </thead>
                 <tbody>
                     <?php 
+
+                    
                     if(isset($itens)):
+                      $i = 0;
                       foreach ($itens as $row): ?>
                            <?php if($row->tipo=='revisao'):?>
                           <tr style="background-color:#d9534f"; class="danger">
@@ -39,20 +42,24 @@
                                   }
                                   //echo $row->presenca;
                               }?></td>
-                              
-                              <?php if($row->presenca =='sim'){?>
-                              <td class="acoes_alunos">
-                                  <a data-id="<?php echo $row->linha;?>" data-presenca="1" class="add_presenca btn btn-xs btn-info btn btn-warning" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Revisão</a>
-                              </td>
-                              <?php }elseif($row->presenca =='nao'){?>
-                               <td class="acoes_alunos">  
-                                  <a data-id="<?php echo $row->linha;?>" data-presenca="2" class="add_presenca btn btn-xs btn-info btn btn-warning" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Reposição</a>
-
-                              </td>
-                          <?php }else{?>
-                              <td class="acoes_alunos"></td>
-                          <?php } ?>
+                                <?php if(array_key_exists($i,$agendamentos_extra )){?>
+                                    <td class="acoes_alunos">Já existe um agendamento para a <?php echo $agendamentos_extra[$i];?></td>
+                                    
+                                  <?php }else{?>
+                                      <?php if($row->presenca =='sim'){?>
+                                        <td class="acoes_alunos">
+                                            <a data-id="<?php echo $row->linha;?>" data-presenca="1" class="add_presenca btn btn-xs btn-info btn btn-warning" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Revisão</a>
+                                        </td>
+                                      <?php }elseif($row->presenca =='nao'){?>
+                                         <td class="acoes_alunos">  
+                                            <a data-id="<?php echo $row->linha;?>" data-presenca="2" class="add_presenca btn btn-xs btn-info btn btn-warning" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Reposição</a>
+                                        </td>
+                                    <?php }else{?>
+                                        <td class="acoes_alunos"></td>
+                                    <?php } ?>
+                                <?php } ?>
                           </tr>
+                          <?php $i++;?>
                       <?php endforeach; ?>
                     <?php endif;?>
                 </tbody>

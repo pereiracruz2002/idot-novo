@@ -29,7 +29,13 @@
                                 if(count($itens)>0):
                                    
                                     foreach ($itens as $row): ?>
-                                        <tr>
+                                    <?php if($row->tipo=='revisao'):?>
+                                        <tr style="background-color:#f2dede";>
+                                    <?php elseif($row->tipo=='reposicao'):?>
+                                        <tr style="background-color:#F0E68C";>
+                                    <?php else:?>
+                                        <tr style="background-color:#FFF";>
+                                    <?php endif;?>
                                             <td><?= $row->status ?></td>
                                             <td><?= $row->turma ?></td>
                                             <td><?= $row->curso ?></td>

@@ -17,8 +17,15 @@
 	            <tbody>
 	                <?php 
                   $i =1;
-	                foreach ($itens as $row):?>
-	                    <tr>
+	                foreach ($itens as $row):
+                    ?>
+	                    <?php if($row->tipo=='revisao'):?>
+                        <tr style="background-color:#f2dede";>
+                      <?php elseif($row->tipo=='reposicao'):?>
+                          <tr style="background-color:#F0E68C";>
+                      <?php else:?>
+                          <tr style="background-color:#FFF";>
+                      <?php endif;?>
                           <td><?= $i; ?></td>
 	                        <td><?= $row->nome ?></td>
 	                        <td><?= $row->curso ?></td>

@@ -554,6 +554,34 @@ class Agendamento extends BaseCrud
         $this->db->order_by('agendamento.agenda_id','ASC');
         $this->data['itens'] = $this->agendamento->get_where($where)->result();
 
+        $where_agendadas['presenca.aluno_id'] = $this->session->userdata('admin')->alunos_id;
+        $where_agendadas['agendamento.modulo_id'] = $modulo_id;
+        $where_agendadas['presenca.tipo !='] = 'normal';
+        $this->db->select('presenca.*')
+                 ->join('agendamento','agendamento.agenda_id=presenca.agenda_id');
+
+        $this->db->group_by('presenca.linha');
+
+        $this->data['ja_agendadas'] = $this->presenca->get_where($where_agendadas)->result();
+        $array_agendadas = array();
+        if(count($this->data['ja_agendadas'])  > 0){
+            $tipo_agendamento = '';
+            foreach($this->data['ja_agendadas'] as $ja){
+                if($ja->tipo=="revisao"){
+                    $tipo_agendamento = 'Revisão';
+                }elseif($ja->tipo=="reposicao"){
+                    $tipo_agendamento = 'Reposição';
+                }else{
+                    $tipo_agendamento = $ja->tipo;
+                }
+                $array_agendadas[$ja->linha] = $tipo_agendamento;
+            }
+
+           
+        }
+        $this->data['agendamentos_extra'] = $array_agendadas;
+
+
 
         if(count($this->data['itens'])>0){
 
@@ -568,11 +596,15 @@ class Agendamento extends BaseCrud
 
             if(!is_null($this->data['agendamentos'])){
                 $where_presenca['agenda_id'] = $this->data['agendamentos']->agenda_id;
+                $where_presenca['aluno_id !='] = $this->session->userdata('admin')->alunos_id;
                 $this->db->select('presenca.presenca_id');
                 $this->db->group_by('presenca.aluno_id');
                 $lugares = $this->presenca->get_where($where_presenca)->result();
 
                 $qtd_lugares = count($lugares);
+
+                // echo $qtd_lugares;
+                // exit();
 
 
                 if($this->data['agendamentos']->sala_id == 1){

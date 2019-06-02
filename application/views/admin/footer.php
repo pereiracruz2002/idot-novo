@@ -3,7 +3,7 @@
     <!--   Core JS Files   -->
     <script src="/assets/admin/js/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="/assets/admin/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+    <!--<script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>-->
 
 
 
@@ -14,8 +14,7 @@
     <!--  Notifications Plugin    -->
     <script src="/assets/admin/js/bootstrap-notify.js"></script>
 
-    <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    
 
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
     <script src="/assets/admin/js/light-bootstrap-dashboard.js"></script>
@@ -25,7 +24,8 @@
 
     <script src="/assets/admin/js/tinymce/tinymce.min.js"></script>
 
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+    <script src="/assets/admin/js/jquery.mask.js"></script>
+
 
     <script src="/assets/admin/js/util.js"></script>
 
@@ -74,6 +74,7 @@ endif;
 <?php if (file_exists(FCPATH . 'assets/admin/js/' . $this->uri->segment(2) . '.js')): ?>
     <script src="<?php echo base_url() ?>assets/admin/js/<?php echo $this->uri->segment(2) ?>.js?c=<?php echo uniqid() ?>"></script>
 <?php endif; ?>
+
 </body>
 </html>
 

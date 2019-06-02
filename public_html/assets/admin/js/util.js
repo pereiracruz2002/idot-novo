@@ -64,7 +64,7 @@ $(document).ready(function () {
         var agenda_id = $(this).attr('href');
         
 
-        var decisao = confirm("Tem certeza que deseja cancelar esse agendamento?");
+        var decisao = confirm("Você está prestes a cancelar o agendamento\n Tem certeza disso?");
         if (decisao) {
             //$.get(_self.attr('data-confirm'));
             
