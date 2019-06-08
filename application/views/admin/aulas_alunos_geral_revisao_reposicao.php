@@ -53,11 +53,11 @@
                                   <?php }else{?>
                                       <?php if($row->presenca =='sim'){?>
                                         <td class="acoes_alunos">
-                                            <a data-id="<?php echo $row->linha;?>" data-presenca="1" class="add_presenca btn btn-xs btn-info btn btn-warning" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Revisão</a>
+                                            <a data-id="<?php echo $row->linha;?>" data-presenca="1" class="add_presenca btn btn-xs btn-info btn btn-warning" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Presença</a>
                                         </td>
                                       <?php }elseif($row->presenca =='nao'){?>
                                          <td class="acoes_alunos">  
-                                            <a data-id="<?php echo $row->linha;?>" data-presenca="2" class="add_presenca btn btn-xs btn-info btn btn-warning" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Reposição</a>
+                                            <a data-id="<?php echo $row->linha;?>" data-presenca="2" class="add_presenca btn btn-xs btn-info btn btn-warning" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Ausência</a>
                                         </td>
                                     <?php }else{?>
                                         <td class="acoes_alunos"></td>
