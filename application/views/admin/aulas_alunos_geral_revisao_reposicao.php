@@ -10,6 +10,7 @@
 
                         <th>Curso</th>
                         <th>Módulo</th>
+                        <th>Dia Presença</th>
                         <th>Presente</th>
                         <th>&nbsp;</th>
                     </tr>
@@ -31,7 +32,11 @@
 
                               <td><?= $row->curso ?></td>
                               <td><?= abreviaString(strip_tags($row->modulo),100) ?></td>
+                              <td><?php 
+                                if($row->presenca == 'sim' ){
+                                  echo formata_data($row->data_dia);}
 
+                              ?>
 
                               <td><?php if($row->presenca !='confirmado'){
 
@@ -135,8 +140,8 @@
 
                <div class="alert alert-danger text-center" role="alert">
 
-                  No momento a sala para o curso <?php echo $agendamentos->curso;?> -<?php echo $agendamentos->modulo;?> para <?php echo $dias;?> está completa. Se desejar ficar aguardando a desistência de alguém clique no fila de espera.<br />
-                  Caso haja alguma desistênica você será avisado por email em até 2 dias antes da data.
+                  No momento a sala para o curso <?php echo $agendamentos->curso;?> -<?php echo $agendamentos->modulo;?> está completa. Se desejar ficar aguardando a desistência de alguém clique no fila de espera.<br />
+                  Caso haja alguma desistênica você será avisado por email.
               </div>
               <?php }
 
@@ -178,7 +183,7 @@
                 <?php */ ?>
               <?php if($prosegue){?>
               <div class="alert alert-success" role="alert">
-                  Há um agendamento disponível do curso <?php echo $agendamentos->curso;?> - <?php echo $agendamentos->modulo;?> para <?php echo $dias;?>.<br />
+                  Há um agendamento disponível do curso <?php echo $agendamentos->curso;?> - <?php echo $agendamentos->modulo;?>.<br />
                   Deseja realmente marcar esse agendamento?
               </div>
             <?php } ?>

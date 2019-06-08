@@ -23,6 +23,7 @@
 	                    <th>Curso</th>
 	                    <th>Módulo</th>
 	                    <th>Data</th>
+	                    <th>Período</th>
 	                    <th>Tipo Aula</th>
 	                    <th>Nota</th>
 	                    <th>Observação</th>
@@ -34,6 +35,15 @@
 	                $array_obs = array();
 	                $i = 1;
 	                foreach ($itens as $row):
+
+	                $array_dias =unserialize($row->dias_semana);
+	            	$dias_semana = '';
+	            	foreach($array_dias as $dias){
+	            		$dias_semana.= $dias.",";
+	            	}
+
+
+
 	                	$array_obs[] = $row->obs;
 	         			if($row->data !='0000-00-00'):
 	                 ?>
@@ -49,6 +59,7 @@
 	                        <td><?= $row->curso ?></td>
 	                        <td><?= $row->modulo ?></td>
 	                        <td><?= formata_data($row->data) ?></td>
+	                        <td><?= substr_replace($dias_semana ,"", -1); ?></td>
 	                        <td><?php if($row->tipo=="revisao"){echo "Revisão";}elseif($row->tipo=="reposicao"){echo "Reposição";}elseif($row->tipo=="normal"){echo "Normal";}elseif($row->tipo=="espera"){echo "Aguardando vagas";} ?></td>
 	                        <td><?php 
 

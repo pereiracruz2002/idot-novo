@@ -178,7 +178,7 @@ class Agendamento extends BaseCrud
 
 
 
-        $this->db->select('agendamento.agenda_id,presenca.data_dia as data,presenca.linha,cursos.titulo as curso,modulos.titulo as modulo,alunos.nome,alunos.alunos_id as aluno_id,presenca.presente as presenca, presenca.tipo as tipo, presenca.presenca_id, presenca.nota, presenca.obs')
+        $this->db->select('agendamento.agenda_id,presenca.data_dia as data,agendamento.dias_semana,presenca.linha,cursos.titulo as curso,modulos.titulo as modulo,alunos.nome,alunos.alunos_id as aluno_id,presenca.presente as presenca, presenca.tipo as tipo, presenca.presenca_id, presenca.nota, presenca.obs')
         ->join('presenca','presenca.agenda_id=agendamento.agenda_id')
         ->join('alunos','alunos.alunos_id=presenca.aluno_id')
         ->join('cursos','cursos.cursos_id=agendamento.curso_id')
@@ -221,7 +221,7 @@ class Agendamento extends BaseCrud
     public function ver_inscritos_agrupados($agenda_id){
         $this->load->model('agendamento_model','agendamento');
 
-        $this->db->select('agendamento.agenda_id,presenca.data_dia as data,presenca.linha,cursos.titulo as curso,modulos.titulo as modulo,alunos.nome,alunos.alunos_id as aluno_id,presenca.presente as presenca, presenca.tipo as tipo, presenca.presenca_id, presenca.nota, presenca.obs')
+        $this->db->select('agendamento.agenda_id,agendamento.dias_semana,presenca.data_dia as data,presenca.linha,cursos.titulo as curso,modulos.titulo as modulo,alunos.nome,alunos.alunos_id as aluno_id,presenca.presente as presenca, presenca.tipo as tipo, presenca.presenca_id, presenca.nota, presenca.obs')
         ->join('presenca','presenca.agenda_id=agendamento.agenda_id')
         ->join('alunos','alunos.alunos_id=presenca.aluno_id')
         ->join('cursos','cursos.cursos_id=agendamento.curso_id')
@@ -536,7 +536,7 @@ class Agendamento extends BaseCrud
         $this->load->model('presenca_model','presenca');
         
 
-        $this->db->select('agendamento.agenda_id,agendamento.sala_id,agendamento.turma,agendamento.data,agendamento.data_segunda,agendamento.data_terceira,agendamento.sala_id, agendamento.dias_semana,cursos.titulo as curso,cursos.cursos_id,CONCAT(modulos.titulo," - ",modulos.descricao) as modulo,modulos.modulos_id,alunos.nome,alunos.alunos_id as aluno_id,alunos.status,presenca.presente as presenca, presenca.presenca_id,presenca.linha,presenca.tipo, presenca.mesa')
+        $this->db->select('agendamento.agenda_id,agendamento.sala_id,agendamento.turma,agendamento.data,agendamento.data_segunda,agendamento.data_terceira,agendamento.sala_id, agendamento.dias_semana,cursos.titulo as curso,cursos.cursos_id,CONCAT(modulos.titulo," - ",modulos.descricao) as modulo,modulos.modulos_id,alunos.nome,alunos.alunos_id as aluno_id,alunos.status,presenca.presente as presenca,presenca.data_dia, presenca.presenca_id,presenca.linha,presenca.tipo, presenca.mesa')
         ->join('presenca','presenca.agenda_id=agendamento.agenda_id')
         ->join('alunos','alunos.alunos_id=presenca.aluno_id')
         ->join('cursos','cursos.cursos_id=agendamento.curso_id')
@@ -1084,11 +1084,11 @@ class Agendamento extends BaseCrud
         $mesa = '';
 
         if($post['linha'] ==0){
-            $this->db->select('data');
+            $this->db->select('data,data_segunda,data_terceira');
         }elseif($post['linha'] ==1){
-            $this->db->select('data_segunda');
+            $this->db->select('data,data_segunda,data_terceira');
         }else{
-            $this->db->select('data_terceira');
+            $this->db->select('data,data_segunda,data_terceira');
         }
         
         $where_presenca['agenda_id'] = $post['agenda_id'];
@@ -1096,24 +1096,29 @@ class Agendamento extends BaseCrud
         $data_dia = $this->agendamento->get_where($where_presenca)->row();
 
 
-
+        $nova_data = array();
 
         if(isset($data_dia->data)){
-            $nova_data = $data_dia->data;
+            if($data_dia->data !='0000-00-00'){
+                
+                $nova_data[] = $data_dia->data;
+            }
+            //$nova_data = $data_dia->data;
         }
 
         if(isset($data_dia->data_segunda)){
-            $nova_data = $data_dia->data_segunda;
+             if($data_dia->data_segunda !='0000-00-00'){
+                $nova_data[] = $data_dia->data_segunda;
+            }
+           // $nova_data = $data_dia->data_segunda;
         }
 
          if(isset($data_dia->data_terceira)){
-            $nova_data = $data_dia->data_terceira;
+            if($data_dia->data_terceira !='0000-00-00'){
+                $nova_data[] = $data_dia->data_terceira;
+            }
+               // $nova_data = $data_dia->data_terceira;
         }
-
-
-
-
-
 
 
         // if($sala->sala_id == 1){
@@ -1146,15 +1151,20 @@ class Agendamento extends BaseCrud
                 }
         }
 
+        $status_insert = 0;
+        foreach($nova_data as $indice_dia => $nova){
+             $save_cursos = array('aluno_id' => $post['aluno_id'], 'agenda_id' => $post['agenda_id'],'tipo'=>$tipo,'mesa'=>$mesa, 'data_dia'=>$nova_data[$indice_dia], 'presente'=>$presente,'linha'=>$indice_dia);
+             if($this->presenca->save($save_cursos)){
+                $status_insert++;
+             }
+        }
+
+
+       
 
 
 
-
-        $save_cursos = array('aluno_id' => $post['aluno_id'], 'agenda_id' => $post['agenda_id'],'tipo'=>$tipo,'mesa'=>$mesa, 'data_dia'=>$nova_data, 'presente'=>$presente,'linha'=>$post['linha']);
-
-
-
-        if($this->presenca->save($save_cursos)){
+        if( $status_insert >0){
 
             if($tipo=="espera"){
 

@@ -144,12 +144,19 @@ class Calendario extends BaseCrud
 
     public function save_calendario(){
 
+
+
         $this->load->model('agendamento_model','agendamento');
         $this->load->model('presenca_model','presenca');
+        $this->load->model('avisos_model','avisos');
        
         $post = $this->input->posts();
 
         $where['agendamento.agenda_id'] = $post['agenda_id'];
+
+        $this->db->select('agendamento.*, cursos.titulo as curso, modulos.titulo as modulos')
+                 ->join('modulos','modulos.modulos_id=agendamento.modulo_id')
+                 ->join('cursos','cursos.cursos_id=agendamento.curso_id');
         $resultados = $this->agendamento->get_where($where)->row();
 
 
@@ -189,7 +196,46 @@ class Calendario extends BaseCrud
 
 
         }
-        
+
+        $where_aluno['alunos.status'] ='ativo';
+        $where_aluno['alunos.situacao'] = 'adimplente';
+        $where_aluno['agendamento.curso_id'] = $resultados->curso_id;
+        $where_aluno['agendamento.modulo_id'] = $resultados->modulo_id;
+        //$where_aluno['presenca.tipo !='] ='normal';
+
+        $this->db->select('alunos.*')
+                 ->join('alunos','alunos.alunos_id=presenca.aluno_id')
+                 ->join('agendamento','agendamento.agenda_id=presenca.agenda_id');
+        $this->db->group_by('alunos.alunos_id');
+        $all_alunos = $this->presenca->get_where($where_aluno)->result();
+
+        if(count($all_alunos) > 0){
+            $msg_painel = 'Há uma nova turma para o curso' . $resultados->curso. " - " . $resultados->modulos;
+
+            foreach($all_alunos as $aluno){
+
+
+                $this->avisos->save_aviso($aluno->alunos_id,'aluno',$msg_painel,"Aviso de Nova Turma aberta");
+
+                $this->load->library('email');
+                $this->email->set_mailtype("html");     
+
+                $this->email->from(EMAIL_FROM, 'Aviso de Nova Turma aberta');
+                $this->email->to((ENVIRONMENT == 'development' ? EMAIL_DEV : $aluno->email));
+                $this->email->subject('Aviso de Nova Turma aberta');
+
+                $data = array('aluno'=> $aluno->nome, 'msg'=>$msg_painel);
+                       
+                $this->email->message($this->load->view("emails/aviso_nova_turma", $data, true));
+                $this->email->send();
+                // if ($this->email->send()) {
+                //     echo 'email enviado com sucesso!';
+                //      var_dump($this->email->print_debugger());
+                // }else{
+                //     var_dump($this->email->print_debugger());
+                // }
+            }
+        }
 
 
         redirect('admin/calendario/modulos/'.$resultados->turma.'/'.$post['curso_id']);
