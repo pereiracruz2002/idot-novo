@@ -10,8 +10,8 @@
 
                         <th>Curso</th>
                         <th>Módulo</th>
-                        <th>Dia Presença</th>
-                        <th>Presente</th>
+                       <!--  <th>Dia Presença</th>
+                        <th>Presente</th> -->
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
@@ -21,7 +21,23 @@
                     
                     if(isset($itens)):
                       $i = 0;
-                      foreach ($itens as $row): ?>
+                      $j = 0;
+                      $agendamentos_array = array();
+                      foreach ($itens as $row){
+                        if(!is_null($row->dia_semana)){
+                          $agendamentos_array[$j] = $row;
+                        }
+                        $j++;
+                      }
+
+                      if(count($agendamentos_array) == 0){
+                        $agendamentos_array = $itens;
+                      }
+
+                      $x =0;
+                      foreach ($agendamentos_array as $row):
+                        if($x==0):
+                       ?>
                            <?php if($row->tipo=='revisao'):?>
                           <tr style="background-color:#d9534f"; class="danger">
                           <?php elseif($row->tipo=='reposicao'):?>
@@ -32,7 +48,7 @@
 
                               <td><?= $row->curso ?></td>
                               <td><?= abreviaString(strip_tags($row->modulo),100) ?></td>
-                              <td><?php 
+                              <?php /*?><td><?php 
                                 if($row->presenca == 'sim' ){
                                   echo formata_data($row->data_dia);}
 
@@ -47,17 +63,18 @@
                                   }
                                   //echo $row->presenca;
                               }?></td>
+                              <?php */?>
                                 <?php if(array_key_exists($i,$agendamentos_extra )){?>
                                     <td class="acoes_alunos">Já existe um agendamento para a <?php echo $agendamentos_extra[$i];?></td>
                                     
                                   <?php }else{?>
                                       <?php if($row->presenca =='sim'){?>
                                         <td class="acoes_alunos">
-                                            <a data-id="<?php echo $row->linha;?>" data-presenca="1" class="add_presenca btn btn-xs btn-info btn btn-warning" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Presença</a>
+                                            <a data-id="<?php echo $row->linha;?>" data-presenca="1" class="add_presenca btn btn-xs btn-info btn btn-warning" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Revisão</a>
                                         </td>
                                       <?php }elseif($row->presenca =='nao'){?>
                                          <td class="acoes_alunos">  
-                                            <a data-id="<?php echo $row->linha;?>" data-presenca="2" class="add_presenca btn btn-xs btn-info btn btn-warning" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Ausência</a>
+                                            <a data-id="<?php echo $row->linha;?>" data-presenca="2" class="add_presenca btn btn-xs btn-info btn btn-warning" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Reposição</a>
                                         </td>
                                     <?php }else{?>
                                         <td class="acoes_alunos"></td>
@@ -65,6 +82,8 @@
                                 <?php } ?>
                           </tr>
                           <?php $i++;?>
+                          <?php $x++;?>
+                           <?php endif;?>
                       <?php endforeach; ?>
                     <?php endif;?>
                 </tbody>

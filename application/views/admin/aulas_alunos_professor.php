@@ -18,12 +18,12 @@
 	        <table class="table table-striped small">
 	            <thead>
 	                <tr>
-	                	<th>#</th>
+	                	
 	                    <th>Nome</th>
 	                    <th>Curso</th>
 	                    <th>Módulo</th>
 	                    <th>Data</th>
-	                    <th>Período</th>
+	                    <th >Período</th>
 	                    <th>Tipo Aula</th>
 	                    <th>Nota</th>
 	                    <th>Observação</th>
@@ -37,9 +37,10 @@
 	                foreach ($itens as $row):
 
 	                $array_dias =unserialize($row->dias_semana);
+
 	            	$dias_semana = '';
 	            	foreach($array_dias as $dias){
-	            		$dias_semana.= $dias.",";
+	            		$dias_semana.= "<p style='width:110px;font-size:12px;'>".$dias." <input type='radio' class='dias_semana' name='dia_semana' value='".$dias."' /></p>";
 	            	}
 
 
@@ -54,17 +55,20 @@
 	                <?php else:?>
 						<tr style="background-color:#CEECF5";>
 	                <?php endif;?>
-	                		<td><?= $i; ?></td>
+	                		
 	                        <td><?= $row->nome ?></td>
 	                        <td><?= $row->curso ?></td>
 	                        <td><?= $row->modulo ?></td>
 	                        <td><?= formata_data($row->data) ?></td>
-	                        <td><?= substr_replace($dias_semana ,"", -1); ?></td>
+	                        <td><?php if($row->presenca=='sim' || $row->presenca=='nao'){
+	                        		echo $row->semana;}else{
+	                        			echo $dias_semana;
+	                        		} ?></td>
 	                        <td><?php if($row->tipo=="revisao"){echo "Revisão";}elseif($row->tipo=="reposicao"){echo "Reposição";}elseif($row->tipo=="normal"){echo "Normal";}elseif($row->tipo=="espera"){echo "Aguardando vagas";} ?></td>
 	                        <td><?php 
 
 		                        if(is_null($row->nota) || empty($row->nota)){?>
-		                             <a  data-presenca="<?php echo $row->presenca_id ?>"  class="add_nota_aluno btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModalNota"><i class="fa fa-eye"></i>Adicionar Nota</a>
+		                             <a   data-presenca="<?php echo $row->presenca_id ?>"  class="add_nota_aluno btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModalNota"><i class="fa fa-eye"></i>Adicionar Nota</a>
 		                        <?php }else{
 		                           echo $row->nota;
 		                          } ?>
@@ -74,15 +78,15 @@
 	                            <?php 
 
 		                        if($row->presenca=='confirmado' || is_null($row->presenca)){?>
-		                            <a class="btn btn-xs btn-info btn btn-info confirmar_chamada" href="<?php echo $row->presenca_id ?>" title="Visulizar este registro" data-confirm="<?php echo site_url(); ?>/admin/agendamento/chamada/<?php echo $row->aluno_id ?>/<?php echo $row->presenca_id ?>/1" class="btn btn-mini btn-primary confirmar_presenca"><i class="fa fa-eye"></i>Confirmar Presença</a>
-		                            <a class="btn btn-xs btn-info btn btn-info confirmar_chamada" href="<?php echo $row->presenca_id ?>" title="Visulizar este registro" data-confirm="<?php echo site_url(); ?>/admin/agendamento/chamada/<?php echo $row->aluno_id ?>/<?php echo $row->presenca_id ?>/2" class="btn btn-mini btn-primary confirmar_presenca"><i class="fa fa-eye"></i>Confirmar Ausência</a>
+		                            <a  class="btn btn-xs btn-info btn btn-info confirmar_chamada" href="<?php echo $row->presenca_id ?>" title="Visulizar este registro" data-confirm="<?php echo site_url(); ?>/admin/agendamento/chamada/<?php echo $row->aluno_id ?>/<?php echo $row->presenca_id ?>/1" class="btn btn-mini btn-primary confirmar_presenca"><i class="fa fa-eye"></i>Confirmar Presença</a>
+		                            <a  class="btn btn-xs btn-info btn btn-info confirmar_chamada" href="<?php echo $row->presenca_id ?>" title="Visulizar este registro" data-confirm="<?php echo site_url(); ?>/admin/agendamento/chamada/<?php echo $row->aluno_id ?>/<?php echo $row->presenca_id ?>/2" class="btn btn-mini btn-primary confirmar_presenca"><i class="fa fa-eye"></i>Confirmar Ausência</a>
 		                             <!--<a  class="btn btn-xs btn-info btn btn-info" href="<?php echo site_url(); ?>/admin/agendamento/add_obs/<?php echo $row->aluno_id ?>/<?php echo $row->agenda_id ?>" title="Visulizar este registro" data-confirm="" class="btn btn-mini btn-primary confirmar_presenca"><i class="fa fa-eye"></i>Observação</a>-->
 		                             
 		                        <?php }else{?>
 		                            <?php if($row->presenca=='sim'):?>
-		                               <p><i class="pe-7s-check">Presente</i></p>
+		                               <p>Presente</p>
 		                            <?php elseif($row->presenca=='nao'):?>
-		                               <p><i class="pe-7s-check">Ausente</i></p>
+		                               <p>Ausente</p>
 		                            <?php else:?>
 		                                 <p><i>Não confirmou</i></p>
 		                            <?php endif;?>

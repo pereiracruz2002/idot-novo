@@ -178,7 +178,7 @@ class Agendamento extends BaseCrud
 
 
 
-        $this->db->select('agendamento.agenda_id,presenca.data_dia as data,agendamento.dias_semana,presenca.linha,cursos.titulo as curso,modulos.titulo as modulo,alunos.nome,alunos.alunos_id as aluno_id,presenca.presente as presenca, presenca.tipo as tipo, presenca.presenca_id, presenca.nota, presenca.obs')
+        $this->db->select('agendamento.agenda_id,presenca.data_dia as data,presenca.dia_semana as semana,agendamento.dias_semana,presenca.linha,cursos.titulo as curso,modulos.titulo as modulo,alunos.nome,alunos.alunos_id as aluno_id,presenca.presente as presenca, presenca.tipo as tipo, presenca.presenca_id, presenca.nota, presenca.obs')
         ->join('presenca','presenca.agenda_id=agendamento.agenda_id')
         ->join('alunos','alunos.alunos_id=presenca.aluno_id')
         ->join('cursos','cursos.cursos_id=agendamento.curso_id')
@@ -536,7 +536,7 @@ class Agendamento extends BaseCrud
         $this->load->model('presenca_model','presenca');
         
 
-        $this->db->select('agendamento.agenda_id,agendamento.sala_id,agendamento.turma,agendamento.data,agendamento.data_segunda,agendamento.data_terceira,agendamento.sala_id, agendamento.dias_semana,cursos.titulo as curso,cursos.cursos_id,CONCAT(modulos.titulo," - ",modulos.descricao) as modulo,modulos.modulos_id,alunos.nome,alunos.alunos_id as aluno_id,alunos.status,presenca.presente as presenca,presenca.data_dia, presenca.presenca_id,presenca.linha,presenca.tipo, presenca.mesa')
+        $this->db->select('agendamento.agenda_id,agendamento.sala_id,agendamento.turma,agendamento.data,agendamento.data_segunda,agendamento.data_terceira,agendamento.sala_id, agendamento.dias_semana,cursos.titulo as curso,cursos.cursos_id,CONCAT(modulos.titulo," - ",modulos.descricao) as modulo,modulos.modulos_id,alunos.nome,alunos.alunos_id as aluno_id,alunos.status,presenca.presente as presenca,presenca.data_dia, presenca.dia_semana, presenca.presenca_id,presenca.linha,presenca.tipo, presenca.mesa')
         ->join('presenca','presenca.agenda_id=agendamento.agenda_id')
         ->join('alunos','alunos.alunos_id=presenca.aluno_id')
         ->join('cursos','cursos.cursos_id=agendamento.curso_id')
@@ -783,14 +783,22 @@ class Agendamento extends BaseCrud
 
 
     public function chamada($aluno_id,$presenca_id,$presente){
+
+       
+
+        $dia_semana = $this->input->post('dia_semana');
+
         if($presente == 1){
              $this->db->set('presente', 'sim');
         }else{
              $this->db->set('presente', 'nao');
         }
 
+        $this->db->set('dia_semana', $dia_semana);
+
         $this->db->where('presenca_id', $presenca_id);
         $this->db->where('aluno_id', $aluno_id);
+
         if($this->db->update('presenca')){
 
             $this->output->set_output("ok");

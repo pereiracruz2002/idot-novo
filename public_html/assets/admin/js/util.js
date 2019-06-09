@@ -7,7 +7,7 @@ $(document).ready(function () {
         powerpaste_html_import: 'prompt',
      });
     
-    $('.dias_semana ').eq(5).hide();
+    //$('.dias_semana ').eq(5).hide();
 
     // tinymce.init({
     //   selector: '.mytextarea',
@@ -41,20 +41,44 @@ $(document).ready(function () {
 
     $('body').on('click', '.confirmar_chamada', function (e) {
         e.preventDefault();
-        var _self = $(this);
-        var decisao = confirm("Tem certeza que deseja confirmar essa ação?");
-        if (decisao) {
+        var dia_semana = $('.dias_semana:checked').val();
+        if(dia_semana != undefined){
+            console.log(dia_semana);
+        
+        
+            var _self = $(this);
+            var decisao = confirm("Tem certeza que deseja confirmar essa ação?");
+            if (decisao) {
 
-            $.get(_self.attr('data-confirm'), function( data ) {
-             if(data == 'ok'){
-               location.reload();
-             }else{
-                alert(data)
-             }
+                // $.get(_self.attr('data-confirm'), function( data ) {
+                //  if(data == 'ok'){
+                //    location.reload();
+                //  }else{
+                //     alert(data)
+                //  }
 
-            });
+                // });
+                $.ajax({
+                     url :_self.attr('data-confirm'),
+                     type : 'post',
+                     
+                      data : {
+                            dia_semana: dia_semana,
 
-            
+                      },
+                      
+                })
+                 .done(function(msg){
+                     location.reload();
+                 })
+                 .fail(function(jqXHR, textStatus, msg){
+                      alert(msg);
+                 }); 
+
+                
+            }
+        }else{
+            alert('Escolha um periodo')
         }
     });
 
