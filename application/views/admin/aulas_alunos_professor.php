@@ -27,21 +27,76 @@
 	                    <th>Tipo Aula</th>
 	                    <th>Nota</th>
 	                    <th>Observação</th>
-	                    <th>&nbsp;</th>
+	                    <!-- <th>&nbsp;</th> -->
 	                </tr>
 	            </thead>
 	            <tbody>
 	                <?php 
 	                $array_obs = array();
 	                $i = 1;
+	                $array_periodos = array();
+	                 $diasemana = array('domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado');
 	                foreach ($itens as $row):
 
 	                $array_dias =unserialize($row->dias_semana);
+	            	$aulas_assistidas = explode(',', $row->semana);
 
-	            	$dias_semana = '';
-	            	foreach($array_dias as $dias){
-	            		$dias_semana.= "<p style='width:110px;font-size:12px;'>".$dias." <input type='radio' class='dias_semana' name='dia_semana' value='".$dias."' /></p>";
+	            	$aulas_assistidas_formatada = array();
+	            	$dia_marcado = array();
+	            	$qtd_assistidas = 0;
+	            	foreach($aulas_assistidas as $assistidas){
+	            		if(!empty($assistidas)){
+	            			$aulas_assistidas_formatada[] = substr($assistidas, 0, -2);
+	            			$dia_marcado[substr($assistidas, 0, -2)] = substr($assistidas,-1,1);
+	            			$qtd_assistidas++;
+	            		}
 	            	}
+
+	            	
+
+	            	// echo $qtd_assistidas;
+	            	// echo "<br />";
+	            	// exit();
+	            	$dias_semana = '';
+	            	foreach($array_dias as $i => $dias){
+
+	            		
+		                $indice_semana = explode(' ', $dias);
+		                $array_periodos[$indice_semana[0]][$i] = $dias;
+
+
+	            		//$dias_semana.= "<p style='width:110px;font-size:12px;'>".$dias." <input type='radio' class='dias_semana' name='dia_semana' value='".$dias."' /></p>";
+	            	}
+	            	$diasemana_numero = date('w', strtotime($row->data));
+
+	            		foreach($array_periodos as $chave => $periodos){
+		                    if($chave == $diasemana[$diasemana_numero]){
+		                    	$total = 0;
+		                    	$tipo_marcacao = '';
+		                        foreach($periodos as $periodo){
+		                        	$total++;
+		                        	if(!in_array($periodo,$aulas_assistidas_formatada)){
+		                        		$dias_semana.= '<p style="width:110px;font-size:12px;">'. $periodo.'<a  class="btn btn-xs btn-info  btn-info confirmar_chamada" href="'. $row->presenca_id.'" title="Visulizar este registro" data-confirm="'.site_url().'/admin/agendamento/chamada/'.$row->aluno_id.'/'.$row->presenca_id.'/1/'.$periodo.'" class="btn btn-mini btn-primary confirmar_presenca">Presença</a>
+										<a  class="btn btn-xs btn-info  btn-info confirmar_chamada" href="'. $row->presenca_id.'" title="Visulizar este registro" data-confirm="'.site_url().'/admin/agendamento/chamada/'.$row->aluno_id.'/'.$row->presenca_id.'/2/'.$periodo.'" class="btn btn-mini btn-primary confirmar_presenca">Ausência</a>
+		                        		</p>';
+		                        	}else{
+		                        		if($dia_marcado[$periodo] == 1){
+		                        			$tipo_marcacao = 'Presença';
+		                        		}else{
+		                        			$tipo_marcacao = 'Ausência';
+		                        		}
+		                        		$dias_semana.= '<p style="width:110px;font-size:12px;">'. $periodo.' - '.$tipo_marcacao.'</p>';
+		                        	}
+		                        	
+
+		                        }
+		                       
+		                    }
+		                    
+		                }
+		                //echo $total;
+
+	            	//var_dump($array_periodos);
 
 
 
@@ -60,8 +115,11 @@
 	                        <td><?= $row->curso ?></td>
 	                        <td><?= $row->modulo ?></td>
 	                        <td><?= formata_data($row->data) ?></td>
-	                        <td><?php if($row->presenca=='sim' || $row->presenca=='nao'){
-	                        		echo $row->semana;}else{
+	                        <td><?php //if($row->presenca=='sim' || $row->presenca=='nao'){
+	                        	if($qtd_assistidas == $total){
+	                        	//echo $dias_semana;
+	                        		echo $dias_semana;
+	                        	}else{
 	                        			echo $dias_semana;
 	                        		} ?></td>
 	                        <td><?php if($row->tipo=="revisao"){echo "Revisão";}elseif($row->tipo=="reposicao"){echo "Reposição";}elseif($row->tipo=="normal"){echo "Normal";}elseif($row->tipo=="espera"){echo "Aguardando vagas";} ?></td>
@@ -74,9 +132,9 @@
 		                          } ?>
 	                        </td>
 	                        <td><a data-linha="<?php echo $row->linha;?>"  data-presenca="<?php echo $row->presenca_id ?>"  class="add_obs btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-eye"></i>Observação</a></td>
-	                        <td class="acoes">
+	                        <!-- <td class="acoes"> -->
 	                            <?php 
-
+	                            	/*
 		                        if($row->presenca=='confirmado' || is_null($row->presenca)){?>
 		                            <a  class="btn btn-xs btn-info btn btn-info confirmar_chamada" href="<?php echo $row->presenca_id ?>" title="Visulizar este registro" data-confirm="<?php echo site_url(); ?>/admin/agendamento/chamada/<?php echo $row->aluno_id ?>/<?php echo $row->presenca_id ?>/1" class="btn btn-mini btn-primary confirmar_presenca"><i class="fa fa-eye"></i>Confirmar Presença</a>
 		                            <a  class="btn btn-xs btn-info btn btn-info confirmar_chamada" href="<?php echo $row->presenca_id ?>" title="Visulizar este registro" data-confirm="<?php echo site_url(); ?>/admin/agendamento/chamada/<?php echo $row->aluno_id ?>/<?php echo $row->presenca_id ?>/2" class="btn btn-mini btn-primary confirmar_presenca"><i class="fa fa-eye"></i>Confirmar Ausência</a>
@@ -90,9 +148,9 @@
 		                            <?php else:?>
 		                                 <p><i>Não confirmou</i></p>
 		                            <?php endif;?>
-		                         <?php } ?>
+		                         <?php } */?>
 		                         
-	                        </td>
+	                        <!-- </td> -->
 
 	                    </tr>
 	                	<?php endif; ?>

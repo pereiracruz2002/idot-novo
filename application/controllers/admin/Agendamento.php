@@ -782,11 +782,50 @@ class Agendamento extends BaseCrud
     }
 
 
-    public function chamada($aluno_id,$presenca_id,$presente){
+    public function chamada($aluno_id,$presenca_id,$presente,$dia_presenca){
 
-       
 
-        $dia_semana = $this->input->post('dia_semana');
+
+        $this->load->model('presenca_model','presenca');
+
+        $this->db->select('presenca.dia_semana, presenca.agenda_id');
+        $where['aluno_id'] = $aluno_id;
+        $where['presenca_id'] = $presenca_id;
+        $result = $this->presenca->get_where($where)->row();
+
+        $all_dias = '';
+        $total_provisorio = 0;
+        if(!is_null($result->dia_semana)){
+            $explode = explode(',', $result->dia_semana);
+
+            foreach($explode as $e){
+                $all_dias.=$e.",";
+                $total_provisorio++;
+            }
+        }
+        $total_provisorio = $total_provisorio+1;
+        $all_dias.=rawurldecode($dia_presenca)."-".$presente;
+
+
+
+
+        $this->db->select('count(*) as total');
+        $where_total['aluno_id'] = $aluno_id;
+        $where_total['agenda_id'] = $result->agenda_id;
+        $result_total = $this->presenca->get_where($where_total)->row();
+
+
+        
+
+        $dia_semana = $all_dias;
+
+        if($result_total->total == $total_provisorio){
+            $presente =1;
+        }else{
+            $presente =2;
+        }
+
+
 
         if($presente == 1){
              $this->db->set('presente', 'sim');
@@ -794,7 +833,7 @@ class Agendamento extends BaseCrud
              $this->db->set('presente', 'nao');
         }
 
-        $this->db->set('dia_semana', $dia_semana);
+        $this->db->set('dia_semana', $all_dias);
 
         $this->db->where('presenca_id', $presenca_id);
         $this->db->where('aluno_id', $aluno_id);
