@@ -52,7 +52,7 @@ $(document).ready(function () {
 
                 $.get(_self.attr('data-confirm'), function( data ) {
                      if(data == 'ok'){
-                       //location.reload();
+                       location.reload();
                      }else{
                         alert(data)
                      }

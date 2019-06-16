@@ -25,7 +25,7 @@
 	                    <th>Data</th>
 	                    <th >Período</th>
 	                    <th>Tipo Aula</th>
-	                    <th>Nota</th>
+	                    <!-- <th>Nota</th> -->
 	                    <th>Observação</th>
 	                    <!-- <th>&nbsp;</th> -->
 	                </tr>
@@ -40,9 +40,13 @@
 
 	                $array_dias =unserialize($row->dias_semana);
 	            	$aulas_assistidas = explode(',', $row->semana);
+	            	$notas_aulas = explode(',',$row->nota);
+	            	//var_dump($notas_aulas);
 
 	            	$aulas_assistidas_formatada = array();
+	            	$notas_formatada = array();
 	            	$dia_marcado = array();
+	            	$nota_dia_marcado = array();
 	            	$qtd_assistidas = 0;
 	            	foreach($aulas_assistidas as $assistidas){
 	            		if(!empty($assistidas)){
@@ -51,6 +55,17 @@
 	            			$qtd_assistidas++;
 	            		}
 	            	}
+
+	            	foreach($notas_aulas as $notas_dadas){
+	            		//echo $notas_dadas;
+	            		if(!empty($notas_dadas)){
+
+	            			$nota_dia_marcado[] = substr($notas_dadas, 0, -2);
+	            			$notas_formatada[substr($notas_dadas, 0, -2)] = substr($notas_dadas,-2);
+	            		}
+	            	}
+
+	          
 
 	            	
 
@@ -76,8 +91,9 @@
 		                        foreach($periodos as $periodo){
 		                        	$total++;
 		                        	if(!in_array($periodo,$aulas_assistidas_formatada)){
-		                        		$dias_semana.= '<p style="width:110px;font-size:12px;">'. $periodo.'<a  class="btn btn-xs btn-info  btn-info confirmar_chamada" href="'. $row->presenca_id.'" title="Visulizar este registro" data-confirm="'.site_url().'/admin/agendamento/chamada/'.$row->aluno_id.'/'.$row->presenca_id.'/1/'.$periodo.'" class="btn btn-mini btn-primary confirmar_presenca">Presença</a>
+		                        		$dias_semana.= '<p style="font-size:12px;">'. $periodo.' <a  class="btn btn-xs btn-info  btn-info confirmar_chamada" href="'. $row->presenca_id.'" title="Visulizar este registro" data-confirm="'.site_url().'/admin/agendamento/chamada/'.$row->aluno_id.'/'.$row->presenca_id.'/1/'.$periodo.'" class="btn btn-mini btn-primary confirmar_presenca">Presença</a>
 										<a  class="btn btn-xs btn-info  btn-info confirmar_chamada" href="'. $row->presenca_id.'" title="Visulizar este registro" data-confirm="'.site_url().'/admin/agendamento/chamada/'.$row->aluno_id.'/'.$row->presenca_id.'/2/'.$periodo.'" class="btn btn-mini btn-primary confirmar_presenca">Ausência</a>
+										
 		                        		</p>';
 		                        	}else{
 		                        		if($dia_marcado[$periodo] == 1){
@@ -85,7 +101,14 @@
 		                        		}else{
 		                        			$tipo_marcacao = 'Ausência';
 		                        		}
-		                        		$dias_semana.= '<p style="width:110px;font-size:12px;">'. $periodo.' - '.$tipo_marcacao.'</p>';
+		                        		$dias_semana.= '<p style="font-size:12px;">'. $periodo.' - '.$tipo_marcacao.'</p>';
+		                        	}
+
+
+		                        	if(!array_key_exists($periodo, $notas_formatada)){
+		                        		$dias_semana.= '<p><a href="#" data-nota="'.$periodo.'"  data-presenca="'.$row->presenca_id.'"  class="add_nota_aluno btn btn-xs btn-info btn btn-warning btn-block" data-toggle="modal" data-target="#myModalNota">Adicionar Nota</a>';
+		                        	}else{
+		                        		$dias_semana.= "<p class='badge badge-success' style='display:block; background-color:orange;'>Nota".str_replace("-",": ",$notas_formatada[$periodo])."</p>";
 		                        	}
 		                        	
 
@@ -94,7 +117,7 @@
 		                    }
 		                    
 		                }
-		                //echo $total;
+		              
 
 	            	//var_dump($array_periodos);
 
@@ -123,14 +146,19 @@
 	                        			echo $dias_semana;
 	                        		} ?></td>
 	                        <td><?php if($row->tipo=="revisao"){echo "Revisão";}elseif($row->tipo=="reposicao"){echo "Reposição";}elseif($row->tipo=="normal"){echo "Normal";}elseif($row->tipo=="espera"){echo "Aguardando vagas";} ?></td>
-	                        <td><?php 
+	                        <!-- <td> -->
+	                        	<?php 
+	                        	/*
+		                        if(is_null($row->nota) || empty($row->nota)){
+		                        	
+		                        	
+		                        	?>
 
-		                        if(is_null($row->nota) || empty($row->nota)){?>
 		                             <a   data-presenca="<?php echo $row->presenca_id ?>"  class="add_nota_aluno btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModalNota"><i class="fa fa-eye"></i>Adicionar Nota</a>
 		                        <?php }else{
 		                           echo $row->nota;
-		                          } ?>
-	                        </td>
+		                          } */?>
+	                        <!-- </td> -->
 	                        <td><a data-linha="<?php echo $row->linha;?>"  data-presenca="<?php echo $row->presenca_id ?>"  class="add_obs btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-eye"></i>Observação</a></td>
 	                        <!-- <td class="acoes"> -->
 	                            <?php 
@@ -209,6 +237,7 @@
 			<div class="form-group">
 			  <input type="text"  required="required" class="form-control" id='nota' name="nota">
 			  <input type="hidden" id="presenca_id" name="presenca_id" value="" />
+			 <input type="hidden" id="periodo" name="periodo" value="" />
 			</div>
 			<button id="send_nota" type="submit" class="btn btn-primary btn-block">Enviar</button>
         </form>

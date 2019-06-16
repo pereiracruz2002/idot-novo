@@ -79,6 +79,7 @@ $(document).ready(function () {
 
       var nota = $('#nota').val();
       var presenca_id = $('#presenca_id').val();
+      var periodo = $('#periodo').val();
       
 
       $.ajax({
@@ -88,7 +89,7 @@ $(document).ready(function () {
                 data : {
                       nota: nota,
                       presenca_id: presenca_id,
-                      
+                      periodo:periodo
                 },
                 
           })
@@ -105,7 +106,10 @@ $(document).ready(function () {
 
   $('body').on('click','.add_nota_aluno',function(e){
       var presenca_id = $(this).attr('data-presenca');
+      var periodo = $(this).attr('data-nota');
+      console.log(periodo)
       $('#presenca_id').val(presenca_id);
+      $('#periodo').val(periodo);
   });
 
 });
