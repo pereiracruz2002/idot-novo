@@ -91,8 +91,8 @@
 		                        foreach($periodos as $periodo){
 		                        	$total++;
 		                        	if(!in_array($periodo,$aulas_assistidas_formatada)){
-		                        		$dias_semana.= '<p style="font-size:12px;">'. $periodo.' <a  class="btn btn-xs btn-info  btn-info confirmar_chamada" href="'. $row->presenca_id.'" title="Visulizar este registro" data-confirm="'.site_url().'/admin/agendamento/chamada/'.$row->aluno_id.'/'.$row->presenca_id.'/1/'.$periodo.'" class="btn btn-mini btn-primary confirmar_presenca">Presença</a>
-										<a  class="btn btn-xs btn-info  btn-info confirmar_chamada" href="'. $row->presenca_id.'" title="Visulizar este registro" data-confirm="'.site_url().'/admin/agendamento/chamada/'.$row->aluno_id.'/'.$row->presenca_id.'/2/'.$periodo.'" class="btn btn-mini btn-primary confirmar_presenca">Ausência</a>
+		                        		$dias_semana.= '<p style="font-size:12px;">'. $periodo.' <a  class="btn btn-xs btn-success  confirmar_chamada" href="'. $row->presenca_id.'" title="Visulizar este registro" data-confirm="'.site_url().'/admin/agendamento/chamada/'.$row->aluno_id.'/'.$row->presenca_id.'/1/'.$periodo.'" class="btn btn-mini btn-primary confirmar_presenca">Presença</a>
+										<a  class="btn btn-xs btn-danger  btn-info confirmar_chamada" href="'. $row->presenca_id.'" title="Visulizar este registro" data-confirm="'.site_url().'/admin/agendamento/chamada/'.$row->aluno_id.'/'.$row->presenca_id.'/2/'.$periodo.'" class="btn btn-mini btn-primary confirmar_presenca">Ausência</a>
 										
 		                        		</p>';
 		                        	}else{
