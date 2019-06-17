@@ -26,7 +26,7 @@
 	                    <th >Período</th>
 	                    <th>Tipo Aula</th>
 	                    <!-- <th>Nota</th> -->
-	                    <th>Observação</th>
+	                    <!-- <th>Observação</th> -->
 	                    <!-- <th>&nbsp;</th> -->
 	                </tr>
 	            </thead>
@@ -41,12 +41,15 @@
 	                $array_dias =unserialize($row->dias_semana);
 	            	$aulas_assistidas = explode(',', $row->semana);
 	            	$notas_aulas = explode(',',$row->nota);
-	            	//var_dump($notas_aulas);
+	            	$obs_aulas = explode(',',$row->obs);
+	            	
 
 	            	$aulas_assistidas_formatada = array();
 	            	$notas_formatada = array();
+	            	$obs_formatada = array();
 	            	$dia_marcado = array();
 	            	$nota_dia_marcado = array();
+	            	$obs_dia_marcado = array();
 	            	$qtd_assistidas = 0;
 	            	foreach($aulas_assistidas as $assistidas){
 	            		if(!empty($assistidas)){
@@ -57,11 +60,21 @@
 	            	}
 
 	            	foreach($notas_aulas as $notas_dadas){
-	            		//echo $notas_dadas;
+
 	            		if(!empty($notas_dadas)){
 
 	            			$nota_dia_marcado[] = substr($notas_dadas, 0, -2);
 	            			$notas_formatada[substr($notas_dadas, 0, -2)] = substr($notas_dadas,-2);
+	            		}
+	            	}
+
+	            	foreach($obs_aulas as $obs_dadas){
+
+	            		if(!empty($obs_dadas)){
+	
+	            			$array_obs = explode('-',$obs_dadas);
+	            			$obs_dia_marcado[] = $array_obs[0];
+	            			$obs_formatada[$array_obs[0]] = $array_obs[1];
 	            		}
 	            	}
 
@@ -109,6 +122,13 @@
 		                        		$dias_semana.= '<p><a href="#" data-nota="'.$periodo.'"  data-presenca="'.$row->presenca_id.'"  class="add_nota_aluno btn btn-xs btn-info btn btn-warning btn-block" data-toggle="modal" data-target="#myModalNota">Adicionar Nota</a>';
 		                        	}else{
 		                        		$dias_semana.= "<p class='badge badge-success' style='display:block; background-color:orange;'>Nota".str_replace("-",": ",$notas_formatada[$periodo])."</p>";
+		                        	}
+
+		                        	if(!array_key_exists($periodo, $obs_formatada)){
+
+		                        		$dias_semana.= '<p><a data-linha="'.$row->linha.'"data-presenca="'.$row->presenca_id.'"  data-obs="'.$periodo.'"class="add_obs btn btn-xs btn-info btn btn-info btn-block" data-toggle="modal" data-target="#myModal">Observação</a> ';
+		                        	}else{
+		                        		$dias_semana.= '<p><span class="badge" style="display:block; background-color:green;" data-toggle="tooltip" title="'.$obs_formatada[$periodo].'">'.abreviaString($obs_formatada[$periodo],30).'</span></p>';
 		                        	}
 		                        	
 
@@ -159,7 +179,7 @@
 		                           echo $row->nota;
 		                          } */?>
 	                        <!-- </td> -->
-	                        <td><a data-linha="<?php echo $row->linha;?>"  data-presenca="<?php echo $row->presenca_id ?>"  class="add_obs btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-eye"></i>Observação</a></td>
+	                        <!-- <td><a data-linha="<?php echo $row->linha;?>"  data-presenca="<?php echo $row->presenca_id ?>"  class="add_obs btn btn-xs btn-info btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-eye"></i>Observação</a></td> -->
 	                        <!-- <td class="acoes"> -->
 	                            <?php 
 	                            	/*
@@ -207,10 +227,11 @@
 			<div class="form-group">
 			<?php $i = 0;?>
 			<?php foreach($array_obs as $obs): ?>
-			  <textarea  data-id="<?php echo $i;?>" class="form-control observacao_linha" name="observacao" rows="5" id="observacao"><?php echo trim($obs);?></textarea>
+			  <textarea  data-id="<?php echo $i;?>" class="form-control observacao_linha" name="observacao" rows="5" id="observacao"><?php //echo trim($obs);?></textarea>
 			  <?php endforeach;?>	
 			  <input type="hidden" id="presenca_id" name="presenca_id" value="" />
 			   <input type="hidden" id="linha" name="linha" value="" />
+			   <input type="hidden" id="periodo_obs" name="periodo_obs" value="" />
 			</div>
 			<button id="send_obs" type="button" class="btn btn-primary btn-block">Enviar</button>
         </form>

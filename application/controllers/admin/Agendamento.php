@@ -244,7 +244,24 @@ class Agendamento extends BaseCrud
         $post = $this->input->posts();
         $where['presenca_id'] = $post['presenca_id'];
 
-        $this->db->set('obs', $post['observacao']);
+
+        $this->db->select('presenca.obs');
+        $result = $this->presenca->get_where($where)->row();
+
+
+        $all_obs = '';
+        
+        if(!empty($result->obs)){
+            $explode = explode(',', $result->obs);
+
+            foreach($explode as $e){
+                $all_obs.=$e.",";
+            }
+        }
+        
+        $all_obs.=$post['periodo']."-".$post['observacao'];
+
+        $this->db->set('obs', $all_obs);
         $this->db->where($where);
         if($this->db->update('presenca')){
 

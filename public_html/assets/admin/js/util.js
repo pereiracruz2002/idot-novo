@@ -315,9 +315,12 @@ $(document).ready(function () {
     $('body').on('click', '.add_obs', function (e) {
         $('#presenca_id').val($(this).attr('data-presenca'));
         var linha = $(this).attr('data-linha');
+        var periodo = $(this).attr('data-obs');
+
         $('.observacao_linha').hide()
         $('.observacao_linha').eq(linha).show()
         $('#linha').val(linha)
+        $('#periodo_obs').val(periodo);
     });
 
 
@@ -326,6 +329,7 @@ $(document).ready(function () {
        
        
         var url =$('#form_observacao').attr('action');
+        var periodo = $("#periodo_obs").val();
         var linha = $("#linha").val();
         var presenca_id = $('#presenca_id').val();
         var observacao = $(".observacao_linha").eq(linha).val();
@@ -338,6 +342,7 @@ $(document).ready(function () {
                   data : {
                         presenca_id: presenca_id,
                         observacao: observacao,
+                        periodo:periodo
 
                   },
                   
