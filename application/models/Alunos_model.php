@@ -180,6 +180,7 @@ class Alunos_model extends My_Model{
 
     public function login($login, $senha) 
     {
+
         $where['login'] = $login;
         $cadastro = $this->get_where($where)->row();
 
@@ -187,16 +188,42 @@ class Alunos_model extends My_Model{
             $this->load->library('encrypt');
 
             if ($cadastro->senha == md5($senha)) {
-            //if(password_verify($senha,$cadastro->senha)){
-                unset($cadastro->senha);
-                $cadastro->tipo = 'aluno';
-                $this->session->set_userdata('admin', $cadastro);
-                $this->session->unset_userdata('cliente');
-                $this->update(array('last_login' => date('Y-m-d H:i:s')), $cadastro->alunos_id);
-                return true;
+                if($cadastro->status=='ativo' && $cadastro->situacao=='adimplente'){
+                    unset($cadastro->senha);
+                    $cadastro->tipo = 'aluno';
+                    $this->session->set_userdata('admin', $cadastro);
+                    $this->session->unset_userdata('cliente');
+                    $this->update(array('last_login' => date('Y-m-d H:i:s')), $cadastro->alunos_id);
+                    return 'ok';
+                }else{
+                    return 'Seus acesso está bloqueado!';
+                }
+            }else{
+                return 'Login incorreto';
             }
         }
-        return false;
+        return 'Dados não encontrados';
+    }
+
+
+    public function geraSenha($tamanho = 8, $maiusculas = true, $numeros = true, $simbolos = false)
+    {
+        $lmin = 'abcdefghijklmnopqrstuvwxyz';
+        $lmai = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $num = '1234567890';
+        $simb = '!@#$%*-';
+        $retorno = '';
+        $caracteres = '';
+        $caracteres .= $lmin;
+        if ($maiusculas) $caracteres .= $lmai;
+        if ($numeros) $caracteres .= $num;
+        if ($simbolos) $caracteres .= $simb;
+        $len = strlen($caracteres);
+        for ($n = 1; $n <= $tamanho; $n++) {
+            $rand = mt_rand(1, $len);
+            $retorno .= $caracteres[$rand-1];
+        }
+        return $retorno;
     }
 }
 

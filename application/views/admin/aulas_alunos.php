@@ -13,7 +13,7 @@
                     <div class="table-responsive">
                         <?php if(isset($show_msg)):?>
                         <div class="alert alert-danger text-center" role="alert">
-                            Será cobrado uma taxa de R$ 50,00 a ser pago no dia da reposição.<br/>
+                            Será cobrado uma taxa de R$ 50,00 a ser pago no dia da revisão.<br/>
                             Obrigado!<br />
                             A Coordenação.
                         </div>

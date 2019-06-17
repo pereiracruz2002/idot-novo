@@ -10,14 +10,34 @@
 
                         <th>Curso</th>
                         <th>Módulo</th>
-                        <th>Presente</th>
+                       <!--  <th>Dia Presença</th>
+                        <th>Presente</th> -->
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php 
+
+                    
                     if(isset($itens)):
-                      foreach ($itens as $row): ?>
+                      $i = 0;
+                      $j = 0;
+                      $agendamentos_array = array();
+                      foreach ($itens as $row){
+                        if(!is_null($row->dia_semana)){
+                          $agendamentos_array[$j] = $row;
+                        }
+                        $j++;
+                      }
+
+                      if(count($agendamentos_array) == 0){
+                        $agendamentos_array = $itens;
+                      }
+
+                      $x =0;
+                      foreach ($agendamentos_array as $row):
+                        if($x==0):
+                       ?>
                            <?php if($row->tipo=='revisao'):?>
                           <tr style="background-color:#d9534f"; class="danger">
                           <?php elseif($row->tipo=='reposicao'):?>
@@ -28,31 +48,42 @@
 
                               <td><?= $row->curso ?></td>
                               <td><?= abreviaString(strip_tags($row->modulo),100) ?></td>
+                              <?php /*?><td><?php 
+                                if($row->presenca == 'sim' ){
+                                  echo formata_data($row->data_dia);}
 
+                              ?>
 
                               <td><?php if($row->presenca !='confirmado'){
 
                                   if($row->presenca == 'sim' ){
                                     echo "Sim";
-                                  }else{
+                                  }elseif($row->presenca == 'nao'){
                                     echo "Não";
                                   }
                                   //echo $row->presenca;
                               }?></td>
-                              
-                              <?php if($row->presenca =='sim'){?>
-                              <td class="acoes_alunos">
-                                  <a data-id="<?php echo $row->linha;?>" data-presenca="1" class="add_presenca btn btn-xs btn-info btn btn-warning" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Revisão</a>
-                              </td>
-                              <?php }elseif($row->presenca =='nao'){?>
-                               <td class="acoes_alunos">  
-                                  <a data-id="<?php echo $row->linha;?>" data-presenca="2" class="add_presenca btn btn-xs btn-info btn btn-warning" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Reposição</a>
-
-                              </td>
-                          <?php }else{?>
-                              <td class="acoes_alunos"></td>
-                          <?php } ?>
+                              <?php */?>
+                                <?php if(array_key_exists($i,$agendamentos_extra )){?>
+                                    <td class="acoes_alunos">Já existe um agendamento para a <?php echo $agendamentos_extra[$i];?></td>
+                                    
+                                  <?php }else{?>
+                                      <?php if($row->presenca =='sim'){?>
+                                        <td class="acoes_alunos">
+                                            <a data-id="<?php echo $row->linha;?>" data-presenca="1" class="add_presenca btn btn-xs btn-info btn btn-warning" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Revisão</a>
+                                        </td>
+                                      <?php }elseif($row->presenca =='nao'){?>
+                                         <td class="acoes_alunos">  
+                                            <a data-id="<?php echo $row->linha;?>" data-presenca="2" class="add_presenca btn btn-xs btn-info btn btn-warning" data-toggle="modal" data-target="#myModalAgendamento2"><i class="fa fa-eye"></i>Marcar Reposição</a>
+                                        </td>
+                                    <?php }else{?>
+                                        <td class="acoes_alunos"></td>
+                                    <?php } ?>
+                                <?php } ?>
                           </tr>
+                          <?php $i++;?>
+                          <?php $x++;?>
+                           <?php endif;?>
                       <?php endforeach; ?>
                     <?php endif;?>
                 </tbody>
@@ -128,8 +159,8 @@
 
                <div class="alert alert-danger text-center" role="alert">
 
-                  No momento a sala para o curso <?php echo $agendamentos->curso;?> -<?php echo $agendamentos->modulo;?> para <?php echo $dias;?> está completa. Se desejar ficar aguardando a desistência de alguém clique no fila de espera.<br />
-                  Caso haja alguma desistênica você será avisado por email em até 2 dias antes da data.
+                  No momento a sala para o curso <?php echo $agendamentos->curso;?> -<?php echo $agendamentos->modulo;?> está completa. Se desejar ficar aguardando a desistência de alguém clique no fila de espera.<br />
+                  Caso haja alguma desistênica você será avisado por email.
               </div>
               <?php }
 
@@ -171,7 +202,7 @@
                 <?php */ ?>
               <?php if($prosegue){?>
               <div class="alert alert-success" role="alert">
-                  Há um agendamento disponível do curso <?php echo $agendamentos->curso;?> - <?php echo $agendamentos->modulo;?> para <?php echo $dias;?>.<br />
+                  Há um agendamento disponível do curso <?php echo $agendamentos->curso;?> - <?php echo $agendamentos->modulo;?>.<br />
                   Deseja realmente marcar esse agendamento?
               </div>
             <?php } ?>

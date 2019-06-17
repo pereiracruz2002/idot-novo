@@ -7,6 +7,7 @@
 	        <table class="table table-striped small">
 	            <thead>
 	                <tr>
+	                	<th>#</th>
 	                    <th>Nome</th>
 	                    <th>Curso</th>
 	                    <th>Módulo</th>
@@ -18,13 +19,20 @@
 	            </thead>
 	            <tbody>
 	                <?php 
-	                
+	                $i = 1;
 	                foreach ($itens as $row): ?>
-	                    <tr>
+	                	<?php if($row->tipo=='revisao'):?>
+                          <tr style="background-color:#d9534f"; class="danger">
+                          <?php elseif($row->tipo=='reposicao'):?>
+                            <tr style="background-color:#5cb85c"; class="success">
+                          <?php else:?>
+                          <tr style="background-color:#CEECF5"; class="primary">
+                          <?php endif;?>
+							<td><?= $i;?></td>
 	                        <td><?= $row->nome ?></td>
 	                        <td><?= $row->curso ?></td>
 	                        <td><?= $row->modulo ?></td>
-	                        <td><?= $row->tipo ?></td>
+	                        <td><?php if($row->tipo=="revisao"){echo "Revisão";}elseif($row->tipo=="reposicao"){echo "Reposição";}elseif($row->tipo=="normal"){echo "Normal";}elseif($row->tipo=="espera"){echo "Aguardando vagas";} ?></td>
 	                        <td><?= $row->mesa ?></td>
 	                        <td><?= $row->mesa2 ?></td>
 							<td class="acoes_alunos">
@@ -32,6 +40,7 @@
                     			<a class="btn btn-xs btn btn-danger delete" href="#" data-remove="/index.php/admin/alunos/deletar/<?= $row->aluno_id ?>" title="Deletar este registro"><i class="fa fa-times-circle"></i> Deletar</a>
                             </td>
 	                    </tr>
+	                    <?php $i++;?>
 	                <?php endforeach; ?>
 	            </tbody>
 	        </table>
