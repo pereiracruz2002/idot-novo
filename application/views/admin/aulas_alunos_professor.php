@@ -104,7 +104,7 @@
 		                        foreach($periodos as $periodo){
 		                        	$total++;
 		                        	if(!in_array($periodo,$aulas_assistidas_formatada)){
-		                        		$dias_semana.= '<p style="font-size:12px; margin-top:45px; line-height:3; display:inline;margin:0 5px;">'. $periodo.' <a  class="btn btn-xs btn-success  confirmar_chamada" href="'. $row->presenca_id.'" title="Visulizar este registro" data-confirm="'.site_url().'/admin/agendamento/chamada/'.$row->aluno_id.'/'.$row->presenca_id.'/1/'.$periodo.'" class="btn btn-mini btn-primary confirmar_presenca">Presença</a>
+		                        		$dias_semana.= '<p style="font-size:10px; margin-top:45px; line-height:3; display:inline;margin:0 5px;">'. $periodo.' <a  class="btn btn-xs btn-success  confirmar_chamada" href="'. $row->presenca_id.'" title="Visulizar este registro" data-confirm="'.site_url().'/admin/agendamento/chamada/'.$row->aluno_id.'/'.$row->presenca_id.'/1/'.$periodo.'" class="btn btn-mini btn-primary confirmar_presenca">Presença</a>
 										<a  class="btn btn-xs btn-danger  btn-info confirmar_chamada" href="'. $row->presenca_id.'" title="Visulizar este registro" data-confirm="'.site_url().'/admin/agendamento/chamada/'.$row->aluno_id.'/'.$row->presenca_id.'/2/'.$periodo.'" class="btn btn-mini btn-primary confirmar_presenca">Ausência</a>
 										
 		                        		</p>';
@@ -114,7 +114,7 @@
 		                        		}else{
 		                        			$tipo_marcacao = 'Ausência';
 		                        		}
-		                        		$dias_semana.= '<p style="font-size:12px; line-height:3; margin-top:45px; display:inline; margin:0 5px;">'. $periodo.' - '.$tipo_marcacao.'</p>';
+		                        		$dias_semana.= '<p style="font-size:10px; line-height:3; margin-top:45px; display:inline; margin:0 5px;">'. $periodo.' - '.$tipo_marcacao.'</p>';
 		                        	}
 
 
