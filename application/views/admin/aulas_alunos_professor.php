@@ -104,7 +104,7 @@
 		                        foreach($periodos as $periodo){
 		                        	$total++;
 		                        	if(!in_array($periodo,$aulas_assistidas_formatada)){
-		                        		$dias_semana.= '<p style="font-size:12px;">'. $periodo.' <a  class="btn btn-xs btn-success  confirmar_chamada" href="'. $row->presenca_id.'" title="Visulizar este registro" data-confirm="'.site_url().'/admin/agendamento/chamada/'.$row->aluno_id.'/'.$row->presenca_id.'/1/'.$periodo.'" class="btn btn-mini btn-primary confirmar_presenca">Presença</a>
+		                        		$dias_semana.= '<p style="font-size:12px; margin-top:45px; line-height:3; display:inline;margin:0 5px;">'. $periodo.' <a  class="btn btn-xs btn-success  confirmar_chamada" href="'. $row->presenca_id.'" title="Visulizar este registro" data-confirm="'.site_url().'/admin/agendamento/chamada/'.$row->aluno_id.'/'.$row->presenca_id.'/1/'.$periodo.'" class="btn btn-mini btn-primary confirmar_presenca">Presença</a>
 										<a  class="btn btn-xs btn-danger  btn-info confirmar_chamada" href="'. $row->presenca_id.'" title="Visulizar este registro" data-confirm="'.site_url().'/admin/agendamento/chamada/'.$row->aluno_id.'/'.$row->presenca_id.'/2/'.$periodo.'" class="btn btn-mini btn-primary confirmar_presenca">Ausência</a>
 										
 		                        		</p>';
@@ -114,21 +114,21 @@
 		                        		}else{
 		                        			$tipo_marcacao = 'Ausência';
 		                        		}
-		                        		$dias_semana.= '<p style="font-size:12px;">'. $periodo.' - '.$tipo_marcacao.'</p>';
+		                        		$dias_semana.= '<p style="font-size:12px; line-height:3; margin-top:45px; display:inline; margin:0 5px;">'. $periodo.' - '.$tipo_marcacao.'</p>';
 		                        	}
 
 
 		                        	if(!array_key_exists($periodo, $notas_formatada)){
-		                        		$dias_semana.= '<p><a href="#" data-nota="'.$periodo.'"  data-presenca="'.$row->presenca_id.'"  class="add_nota_aluno btn btn-xs btn-info btn btn-warning btn-block" data-toggle="modal" data-target="#myModalNota">Adicionar Nota</a>';
+		                        		$dias_semana.= '<p style="display:inline; margin:0 5px;"><a href="#" data-nota="'.$periodo.'"  data-presenca="'.$row->presenca_id.'"  class="add_nota_aluno btn btn-xs btn-info btn btn-warning" data-toggle="modal" data-target="#myModalNota">Adicionar Nota</a></p>';
 		                        	}else{
-		                        		$dias_semana.= "<p class='badge badge-success' style='display:block; background-color:orange;'>Nota".str_replace("-",": ",$notas_formatada[$periodo])."</p>";
+		                        		$dias_semana.= "<p style='display:inline; margin:0 5px;' class='badge badge-success' style='background-color:orange;'>Nota".str_replace("-",": ",$notas_formatada[$periodo])."</p>";
 		                        	}
 
 		                        	if(!array_key_exists($periodo, $obs_formatada)){
 
-		                        		$dias_semana.= '<p><a data-linha="'.$row->linha.'"data-presenca="'.$row->presenca_id.'"  data-obs="'.$periodo.'"class="add_obs btn btn-xs btn-info btn btn-info btn-block" data-toggle="modal" data-target="#myModal">Observação</a> ';
+		                        		$dias_semana.= '<p style="display:inline;margin:0 5px;"><a data-linha="'.$row->linha.'"data-presenca="'.$row->presenca_id.'"  data-obs="'.$periodo.'"class="add_obs btn btn-xs btn-info btn btn-info " data-toggle="modal" data-target="#myModal">Observação</a></p><br />';
 		                        	}else{
-		                        		$dias_semana.= '<p><span class="badge" style="display:block; background-color:green;" data-toggle="tooltip" title="'.$obs_formatada[$periodo].'">'.abreviaString($obs_formatada[$periodo],30).'</span></p>';
+		                        		$dias_semana.= '<p style="display:inline; margin:0 5px;"><span class="badge" style="background-color:green;" data-toggle="tooltip" title="'.$obs_formatada[$periodo].'">'.abreviaString($obs_formatada[$periodo],30).'</span></p><br />';
 		                        	}
 		                        	
 
